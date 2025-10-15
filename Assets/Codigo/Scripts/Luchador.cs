@@ -11,8 +11,9 @@ public class Luchador : MonoBehaviour
     public int ataque;
     public int defensa;
     public int ataqueEspecial;
+    public int defensaEspecial;
     public string combatName;
-    public int listOrder = -1; //Empieza en 0
+    public int listOrder = -1; //Empieza en 0, -1 para seleccion aleatoria
     public Action<List<Luchador>> luchadorAI;
     public Animator animator;
     public Luchador objetivo;
