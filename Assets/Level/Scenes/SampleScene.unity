@@ -329,7 +329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -376,6 +376,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1072343372}
+  - {fileID: 1170174787}
+  - {fileID: 1096261673}
   - {fileID: 1165246619}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1442,11 +1444,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2012052846}
-  m_Father: {fileID: 1165246619}
+  m_Father: {fileID: 235798678}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -82, y: 227}
+  m_AnchoredPosition: {x: -84, y: -56}
   m_SizeDelta: {x: 150, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1096261674
@@ -1629,14 +1631,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1820065130}
-  - {fileID: 1170174787}
-  - {fileID: 1096261673}
   m_Father: {fileID: 235798678}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 71}
-  m_SizeDelta: {x: 0, y: 120}
+  m_AnchoredPosition: {x: 0, y: 73}
+  m_SizeDelta: {x: -10, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1165246620
 MonoBehaviour:
@@ -1707,11 +1707,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1364587930}
-  m_Father: {fileID: 1165246619}
+  m_Father: {fileID: 235798678}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 81.2, y: 227}
+  m_AnchoredPosition: {x: 83.2, y: -56}
   m_SizeDelta: {x: 150, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1170174788
@@ -1908,7 +1908,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!95 &1463805729
 Animator:
   serializedVersion: 7
@@ -2273,7 +2273,7 @@ GameObject:
   - component: {fileID: 1820065130}
   m_Layer: 5
   m_Name: UI Jugador
-  m_TagString: Untagged
+  m_TagString: UI Combate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2285,7 +2285,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1820065129}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2296,7 +2296,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 341, y: 0}
+  m_AnchoredPosition: {x: 341, y: -2}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2012052845
@@ -2451,6 +2451,10 @@ PrefabInstance:
       propertyPath: jugador
       value: 
       objectReference: {fileID: 547832419}
+    - target: {fileID: 4984955215407555313, guid: 53d5f2f8509ad344ab633052bfe4f01a, type: 3}
+      propertyPath: uiCombate
+      value: 
+      objectReference: {fileID: 1165246618}
     - target: {fileID: 4984955215407555313, guid: 53d5f2f8509ad344ab633052bfe4f01a, type: 3}
       propertyPath: uiJugador
       value: 

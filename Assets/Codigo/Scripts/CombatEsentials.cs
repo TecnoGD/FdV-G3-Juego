@@ -13,6 +13,7 @@ namespace Codigo.Scripts
         public Jugador jugador;
         private List<Luchador> _listaLuchadores = new List<Luchador>();
         public GameObject uiJugador;
+        public GameObject uiCombate;
         private int _turno;
     
     
@@ -53,13 +54,13 @@ namespace Codigo.Scripts
             switch (test)
             {
                 case 0:
-                    uiJugador.SetActive(false);
+                    DesactivaUIJugador();
                     jugador.JugadorAtacaObjetivo(_listaLuchadores[1]);
                     jugador.animator.Play("Ataque");
                     //StartCoroutine(EsperarAnimación(jugador.animator));
                     break;
                 case 1:
-                    uiJugador.SetActive(false);
+                    DesactivaUIJugador();
                     jugador.JugadorDefiende();
                     break;
                 default:
@@ -86,7 +87,7 @@ namespace Codigo.Scripts
             if (_turno == 0)
             {
                 jugador.JugadorResetAtributos();
-                uiJugador.SetActive(true);
+                ActivaUIJugador();
             }
             else
             {
@@ -122,6 +123,18 @@ namespace Codigo.Scripts
         {
             _listaLuchadores[turno].LuchadorAI(_listaLuchadores);
             //StartCoroutine(EsperarAnimación(enemigo.animator));
+        }
+
+        private void DesactivaUIJugador()
+        {
+            uiJugador.SetActive(false);
+            //uiCombate.SetActive(false);
+        }
+        
+        private void ActivaUIJugador()
+        {
+            uiJugador.SetActive(true);
+            //uiCombate.SetActive(true);
         }
 
         public IEnumerator EsperarAnimación(Animator animator)
