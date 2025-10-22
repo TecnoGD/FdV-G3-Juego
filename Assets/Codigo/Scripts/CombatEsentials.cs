@@ -63,6 +63,10 @@ namespace Codigo.Scripts
                     DesactivaUIJugador();
                     jugador.JugadorDefiende();
                     break;
+                case 2:
+                    DesactivaUIJugador();
+                    SiguienteTurno();
+                    break;
                 default:
                     break;
             }
