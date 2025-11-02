@@ -1,18 +1,18 @@
-using System.Collections.Generic;
+/*using System.Collections.Generic;
 using UnityEngine;
+using static Codigo.Scripts.DatosCombate;
 
 namespace Codigo.Scripts
 {
-    public class Enemigo : Luchador
+    public class Enemigo : LuchadorWIP
     {
     
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-            vidaMax = 20;
-            vida = vidaMax;
-            ataque = 2;
+            LuchadorEstadisticas = new Estadisticas(20,1,1,1,1);
             //combatName = "Enemigo";
+            vida = LuchadorEstadisticas.vidaMax;
             LuchadorAI = TurnAI;
             animator = GetComponent<Animator>();
         }
@@ -23,7 +23,7 @@ namespace Codigo.Scripts
         
         }
 
-        private void TurnAI(List<Luchador> listaLuchadores)
+        private void TurnAI(List<LuchadorWIP> listaLuchadores)
         {
             objetivo = listaLuchadores[0]; 
             animator.Play("AtaqueEnemigo");
@@ -31,7 +31,7 @@ namespace Codigo.Scripts
 
         private void AtaqueBasico()
         {
-            objetivo.RecibeDaño(ataque);
+            objetivo.RecibeDaño(LuchadorEstadisticas.ataque);
         }
     }
-}
+}*/
