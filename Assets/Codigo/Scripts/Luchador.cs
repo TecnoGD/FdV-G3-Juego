@@ -61,9 +61,33 @@ namespace Codigo.Scripts
          calcula el daño final y lo aplica al objetivo seleccionado y tras terminar limpia la lista de objetivos*/
         public void ProducirDaño()
         {
+            var acc = GLOBAL.acciones[listaAcciones[accion]];
+            var tipo = acc.ObtenerTipo();
+            
+            var estadisticaAtaque = 0;
+            switch (tipo)
+            {
+                case Ataque.FISICO:
+                    estadisticaAtaque = estadisticas.ataque;
+                    break;
+                case Ataque.ESPECIAL:
+                    estadisticaAtaque = estadisticas.ataqueEspecial;
+                    break;
+            }
             for (int i = 0; i < objetivosSeleccionados.Count; i++)
             {
-                objetivosSeleccionados[i].RecibeDaño(GLOBAL.acciones[listaAcciones[accion]].ObtenerPotencia(i));
+                var defensaObjetivo = 0;
+                switch (tipo)
+                {
+                    case Ataque.FISICO:
+                        defensaObjetivo = objetivosSeleccionados[i].estadisticas.defensa;
+                        break;
+                    case Ataque.ESPECIAL:
+                        defensaObjetivo = objetivosSeleccionados[i].estadisticas.defensaEspecial;
+                        break;
+                }
+                objetivosSeleccionados[i].RecibeDaño((int)((acc.ObtenerPotencia(i)*estadisticaAtaque*0.5f)/(defensaObjetivo*10f)));
+                Debug.Log((int)((acc.ObtenerPotencia(i)*estadisticaAtaque*0.5f)/(defensaObjetivo*10f)));
             }
             objetivosSeleccionados.Clear();
             objetivosSeleccionados.TrimExcess();
