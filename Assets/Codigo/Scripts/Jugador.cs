@@ -35,7 +35,7 @@ namespace Codigo.Scripts
             
             Mover(movimiento);
         }
-        private void Mover(Vector3 movimiento)
+        public void Mover(Vector3 movimiento)
         {
             transform.position += movimiento.normalized * (velocidad * Time.deltaTime);
         }
