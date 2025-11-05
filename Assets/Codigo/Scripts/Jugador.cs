@@ -40,19 +40,12 @@ public class Jugador : MonoBehaviour
     private void ControlMovimiento()
     {
         movimiento = Vector3.zero;
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
-        {
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) //mover hacia izq con A o <-
             movimiento.x = -1;
-        }
             
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) //mover hacia der con D o ->
             movimiento.x = 1;
             
-        Mover(movimiento);
+        transform.position += movimiento.normalized * (velocidad * Time.deltaTime); //calcular la pos
     }
-        
-    private void Mover(Vector3 movimiento)
-    {
-        transform.position += movimiento.normalized * (velocidad * Time.deltaTime);
-    }    
 }
