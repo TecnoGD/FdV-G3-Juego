@@ -24,6 +24,8 @@ namespace Codigo.Scripts
            accion, dependiendo del diseño del ataque, dependiendo de cuantas veces se haya pedido el valor, la potencia
            devuelta puede cambiar */
         public virtual int ObtenerPotencia(int iteracion) { return 0; }
+        
+        public virtual int ObtenerTipo() { return -1; }
             
     }
 }

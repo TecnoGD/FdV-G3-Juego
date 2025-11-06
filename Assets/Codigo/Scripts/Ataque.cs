@@ -8,6 +8,8 @@ namespace Codigo.Scripts
     {
         public string Animacion;    // Animación del ataque
         public int DañoBase;        // Potencia base del atauqe
+        public int tipo;
+        public const int FISICO = 0, ESPECIAL = 1;
 
         public override void Ejecuta(Luchador self, Animator animator)
         {
@@ -17,6 +19,11 @@ namespace Codigo.Scripts
         public override int ObtenerPotencia(int iteracion)
         {
             return DañoBase;            // Devuelve el daño base del ataque
+        }
+
+        public override int ObtenerTipo()
+        {
+            return tipo;
         }
     }
 }

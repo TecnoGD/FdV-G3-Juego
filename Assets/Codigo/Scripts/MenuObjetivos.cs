@@ -25,6 +25,7 @@ namespace Codigo.Scripts
         {
             if (GLOBAL.enCombate)
             {
+                objetivosSeleccionados = 0;
                 for (int i = 1; i < SistemaCombate.luchadores.Count; i++)
                 {
                     // Inicializa el toggle del objetivo y obtiene su componente
@@ -35,6 +36,7 @@ namespace Codigo.Scripts
                     // Cambia el nombre del toggle por el del luchador asignado
                     toggleObjetivo.GetComponentInChildren<Text>().text = SistemaCombate.luchadores[i].nombre;
                 }
+                Instantiate(prefabBotonAtras, gameObject.transform);
                 
             }
         }
@@ -62,7 +64,8 @@ namespace Codigo.Scripts
                 Debug.Log("Maximos Objetivos seleccionados");
                 // Obtiene a los hijos del objeto asociado y analiza los valores de los toggle para saber
                 // si se ha seleccionado a ese objetivo
-                for (int i = 0; i < gameObject.transform.childCount; i++)
+                // se resta -1 a la cantidad de hijos para evitar el boton de ir al anterior menu
+                for (int i = 0; i < gameObject.transform.childCount-1; i++)
                 {
                     if (gameObject.transform.GetChild(i).GetComponent<Toggle>().isOn) // Se comprueba el valor del toggle
                     {

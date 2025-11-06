@@ -1,6 +1,8 @@
+using System.Collections;
 using System.Collections.Generic;
 using Codigo.Scripts;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GLOBAL : MonoBehaviour
 {
@@ -11,13 +13,35 @@ public class GLOBAL : MonoBehaviour
     public static bool enCombate;                       // Indica si se esta dentro de combate o no
     public List<Accion> ListaAccionesTotales = new List<Accion>();
     public List<DatosLuchador> ListaDatosCombatiente = new List<DatosLuchador>();
+    public GameObject Jugador;
     
     void Awake()
     {
+        Object.DontDestroyOnLoad(gameObject);
         enCombate = false;
         instance = this;
         acciones = ListaAccionesTotales;
         combatientes = ListaDatosCombatiente;
         guardado = SistemaGuardado.Cargar();    // Carga los datos de guardado
+    }
+
+    void Start()
+    {
+        SceneManager.LoadScene("SalaDescanso");
+    }
+
+    public void CambiarEscena(string escena, Vector3 posicion)
+    {
+        StartCoroutine(TestEspera(SceneManager.LoadSceneAsync(escena), posicion));
+    }
+    
+    private IEnumerator TestEspera(AsyncOperation async, Vector3 posicion)
+    {
+        async.allowSceneActivation = false;
+        //yield return null;
+        yield return new WaitUntil(() => async.progress >= 0.9f);
+        GameObject.FindGameObjectWithTag("Luchador Jugador").transform.position = posicion;
+        async.allowSceneActivation = true;
+        //yield return new WaitUntil(() => async.isDone);
     }
 }

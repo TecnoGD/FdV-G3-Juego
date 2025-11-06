@@ -8,18 +8,24 @@ namespace Codigo.Scripts
     public class SistemaCombate : MonoBehaviour , IMensajesCombate
     {
         public static SistemaCombate instance;
-        public int turno = -1;                                          //-1 jugador esta decidiendo e IAs ejecutan
+        public int turno = -1;                                          // -1 jugador esta decidiendo e IAs ejecutan
         public static List<Luchador> luchadores = new List<Luchador>(); // Lista de los luchadores activos en combate
         public Luchador jugador;                                        // Variable que contiene al GameObject del jugador
         public List<GameObject> UIGeneral;                              // Lista de elementos generales de la UI de combate (vida jugador, vida enemigos, texto de turno)
         public List<TMP_Text> TextoUI;                                  // Lista que contiene los textos de vida de los luchadores en combate
+        public List<TMP_Text> TextoVidas = new List<TMP_Text>();
         public List<GameObject> ElementosUI;                            // Lista que contiene los elementos de UI de decision del jugador (Accion, ataque, objetivos...)
-        public const int UICajaCombate = 0 ,UIJugadorCombate = 1, UIAccionesCombate = 2, UIObjetivoCombate = 3; // Utilizar estas constantes para mejor lectura del codigo a la hora de usar la variable "ElementosUI"
+        public const int UICajaCombate = 0 ,UIJugadorCombate = 1, UIAccionesCombate = 2, UIObjetivoCombate = 3, UIVidaEnemigos = 4; // Utilizar estas constantes para mejor lectura del codigo a la hora de usar la variable "ElementosUI"
+        public GameObject prefabVidaEnemigos;                           // Prefab de la UI de la vida de los enemigos
 
         // Inicializa lo necesario para el combate
         void Start()
         {
             instance = this;
+            gameObject.SetActive(false);
+        }
+        public void IniciarCombate()
+        {
             luchadores.Add(GameObject.FindGameObjectWithTag("Luchador Jugador").GetComponent<Luchador>());      // Busca al GameObject del jugador y lo añade a lista de luchadores
             GameObject[] e = GameObject.FindGameObjectsWithTag("Luchador Enemigo");                             // Busca los GameObjects de los enemigos y los añaden a lista de luchadores
                                                                                                                 //
@@ -28,9 +34,13 @@ namespace Codigo.Scripts
                 Luchador h = g.GetComponent<Luchador>();                                                        //
                 luchadores.Add(h);                                                                              //
                 h.InicioCombate();                                                                              // Inicializa al luchador
+                // Temporal posible cambio (Instancia los paneles de vida de los enemigos)
+                TextoVidas.Add(Instantiate(prefabVidaEnemigos, ElementosUI[UIVidaEnemigos].transform).transform.GetChild(0).GetComponent<TMP_Text>());
             }                                                                                                   //
             jugador = luchadores[0];                                                                            // Define la variable luchador al GameObject del jugador
             jugador.InicioCombate();                                                                            // Inicializa al jugador para el combate
+            var pos = jugador.gameObject.transform.position;
+            jugador.gameObject.transform.position =  new Vector3(-3.99f, pos.y, pos.z);              
                                                                                                                 //
             gameObject.transform.BroadcastMessage("InicioCombate");                                  // El sistema de combate envia un mensaje de inicio de combate a todos sus hijos
             ElementosUI[UIAccionesCombate].gameObject.SetActive(false);                                         // Desactiva el menu de acciones de combate
@@ -101,7 +111,9 @@ namespace Codigo.Scripts
         void Update()
         {
             TextoUI[0].text = "Vida: " + luchadores[0].vida;
-            TextoUI[1].text = "Vida E: " + luchadores[1].vida;
+            // Temporal, posible cambio
+            for(int i = 1; i < luchadores.Count; i++)
+                TextoVidas[i-1].text = "Vida E: " + luchadores[i].vida;
         }
         
         /* Metodo que ejecuta la accion del luchador al que le corresponde el turno actual
@@ -153,6 +165,11 @@ namespace Codigo.Scripts
                 {
                     luchadores[i].LuchadorDerrotado();
                     luchadores.RemoveAt(i);
+                    if (i > 0)
+                    {
+                        Destroy(TextoVidas[i-1].transform.parent.gameObject);   //Destruye los paneles de vida de los enemigos
+                        TextoVidas.RemoveAt(i-1);
+                    }
                     i--;
                 }
             }
@@ -202,6 +219,8 @@ namespace Codigo.Scripts
         {
             Debug.Log(victorioso ? "Has Ganado" : "Has Perdido");
             HabilitarUICombate(false);
+            luchadores.Clear();
+            TextoVidas.Clear();
             gameObject.SetActive(false);
             GLOBAL.enCombate = false;
         }

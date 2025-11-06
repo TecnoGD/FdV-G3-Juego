@@ -1,0 +1,15 @@
+{
+    "id": 5,
+    "nombre": "Jugador",
+    "estadisticasJugador": {
+        "vidaMax": 50,
+        "ataque": 5,
+        "defensa": 1,
+        "ataqueEspecial": 10,
+        "defensaEspecial": 1
+    },
+    "accionesJugador": [
+        0,
+        1
+    ]
+}
