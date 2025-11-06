@@ -4,6 +4,7 @@ using Codigo.Scripts;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 using Object = UnityEngine.Object;
 
 public class Jugador : MonoBehaviour
@@ -40,12 +41,12 @@ public class Jugador : MonoBehaviour
     private void ControlMovimiento()
     {
         movimiento = Vector3.zero;
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+        if (Keyboard.current.aKey.isPressed || Keyboard.current.leftArrowKey.isPressed)
         {
             movimiento.x = -1;
         }
             
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        if (Keyboard.current.dKey.isPressed || Keyboard.current.rightArrowKey.isPressed)
             movimiento.x = 1;
             
         Mover(movimiento);
