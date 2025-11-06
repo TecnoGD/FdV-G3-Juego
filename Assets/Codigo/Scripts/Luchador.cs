@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using static Codigo.Scripts.DatosCombate;
+using Random = UnityEngine.Random;
 
 namespace Codigo.Scripts
 {
@@ -86,8 +87,11 @@ namespace Codigo.Scripts
                         defensaObjetivo = objetivosSeleccionados[i].estadisticas.defensaEspecial;
                         break;
                 }
-                objetivosSeleccionados[i].RecibeDaño((int)((acc.ObtenerPotencia(i)*estadisticaAtaque*0.5f)/(defensaObjetivo*10f)));
-                Debug.Log((int)((acc.ObtenerPotencia(i)*estadisticaAtaque*0.5f)/(defensaObjetivo*10f)));
+                //objetivosSeleccionados[i].RecibeDaño((int)((acc.ObtenerPotencia(i)*estadisticaAtaque*0.5f)/(defensaObjetivo*10f)));
+                //Debug.Log((int)((acc.ObtenerPotencia(i)*estadisticaAtaque*0.5f)/(defensaObjetivo*10f)));
+                float danio = Random.Range(0.9f, 1.1f) * (estadisticaAtaque * (100f / (100f + defensaObjetivo)));
+                Debug.Log((int)danio);
+                objetivosSeleccionados[i].RecibeDaño((int)danio);
             }
             objetivosSeleccionados.Clear();
             objetivosSeleccionados.TrimExcess();
