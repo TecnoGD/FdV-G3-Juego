@@ -44,16 +44,10 @@ public class Jugador : MonoBehaviour
         if (Keyboard.current.aKey.isPressed || Keyboard.current.leftArrowKey.isPressed)
         {
             movimiento.x = -1;
-        }
-            
+        }    
         if (Keyboard.current.dKey.isPressed || Keyboard.current.rightArrowKey.isPressed)
             movimiento.x = 1;
             
-        Mover(movimiento);
+        transform.position += movimiento.normalized * (velocidad * Time.deltaTime); //calcular la pos
     }
-        
-    private void Mover(Vector3 movimiento)
-    {
-        transform.position += movimiento.normalized * (velocidad * Time.deltaTime);
-    }    
 }

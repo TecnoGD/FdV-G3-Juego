@@ -40,8 +40,9 @@ public class GLOBAL : MonoBehaviour
         async.allowSceneActivation = false;
         //yield return null;
         yield return new WaitUntil(() => async.progress >= 0.9f);
-        GameObject.FindGameObjectWithTag("Luchador Jugador").transform.position = posicion;
         async.allowSceneActivation = true;
+        yield return null;
+        GameObject.FindGameObjectWithTag("Luchador Jugador").transform.position = posicion;
         //yield return new WaitUntil(() => async.isDone);
     }
 }
