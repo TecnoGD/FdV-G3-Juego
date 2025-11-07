@@ -14,9 +14,9 @@ namespace Codigo.Scripts
 
         public DatosGuardado()
         {
-            estadisticasJugador = new DatosCombate.Estadisticas(50, 1, 1, 1, 1);
+            estadisticasJugador = new DatosCombate.Estadisticas(50, 5, 1, 10, 1);
             id = 5;
-            accionesJugador = new int[] {0,1,2,3};
+            accionesJugador = new int[] {0,1};
             nombre = "Jugador"; 
         }
     }
