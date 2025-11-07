@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -18,6 +19,9 @@ namespace Codigo.Scripts
         public GameObject prefabBotonAtras;     // Prefab del boton para volver al menu anterior
         public int objetivosSeleccionados = 0;  // Número de objetivos seleccionados por el jugador
         public int objetivosMaximos = 0;        // Número máximo de objetivos que se pueden seleccionar
+        
+        // Lista para guardar los elementos navegables (Toggles y Botones)
+        private List<GameObject> listaNavegacion = new List<GameObject>();
 
         /* Metodo que se ejecuta cada vez que se habilita el menu de objetivos, el cual generara los toggle para
            seleccionar ls objetivos*/
@@ -25,19 +29,33 @@ namespace Codigo.Scripts
         {
             if (GLOBAL.enCombate)
             {
+                // limpiar por si acaso
+                listaNavegacion.Clear();
+                
                 objetivosSeleccionados = 0;
                 for (int i = 1; i < SistemaCombate.luchadores.Count; i++)
                 {
                     // Inicializa el toggle del objetivo y obtiene su componente
-                    Toggle toggleObjetivo = Instantiate(prefabBotonObjetivo, gameObject.transform).GetComponent<Toggle>();
+                    GameObject toggle = Instantiate(prefabBotonObjetivo, gameObject.transform);
+                    Toggle toggleObjetivo = toggle.GetComponent<Toggle>();
                     // Vincula el evento de onValueChanged del toggle a un metodo delegado que llama a otro metodo 
                     // que maneja la seleccion de objetivos
                     toggleObjetivo.onValueChanged.AddListener(delegate { SeleccionaObjetivo(toggleObjetivo); });
                     // Cambia el nombre del toggle por el del luchador asignado
                     toggleObjetivo.GetComponentInChildren<Text>().text = SistemaCombate.luchadores[i].nombre;
+                    
+                    // Añadimos el toggle a la lista de navegación
+                    listaNavegacion.Add(toggle);
                 }
-                Instantiate(prefabBotonAtras, gameObject.transform);
+                // añadimos el botón atrás a la lista de navegación tmb
+                GameObject botonAtras = Instantiate(prefabBotonAtras, gameObject.transform);
+                listaNavegacion.Add(botonAtras);
                 
+                // Llamamos a nuestro script que configura la navegación explícita
+                MenuNavegacionE.ConfigurarNavegacionVertical(listaNavegacion);
+                
+                // PONER EL FOCO (igual que en MenuAtaques)
+                MenuNavegacionE.PonerFoco(listaNavegacion);
             }
         }
 
