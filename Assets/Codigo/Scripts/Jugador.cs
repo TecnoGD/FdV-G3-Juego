@@ -4,6 +4,7 @@ using Codigo.Scripts;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 using Object = UnityEngine.Object;
 
 public class Jugador : MonoBehaviour
@@ -40,10 +41,11 @@ public class Jugador : MonoBehaviour
     private void ControlMovimiento()
     {
         movimiento = Vector3.zero;
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) //mover hacia izq con A o <-
+        if (Keyboard.current.aKey.isPressed || Keyboard.current.leftArrowKey.isPressed)
+        {
             movimiento.x = -1;
-            
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) //mover hacia der con D o ->
+        }    
+        if (Keyboard.current.dKey.isPressed || Keyboard.current.rightArrowKey.isPressed)
             movimiento.x = 1;
             
         transform.position += movimiento.normalized * (velocidad * Time.deltaTime); //calcular la pos
