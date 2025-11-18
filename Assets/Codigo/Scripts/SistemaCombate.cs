@@ -17,6 +17,7 @@ namespace Codigo.Scripts
         public List<GameObject> ElementosUI;                            // Lista que contiene los elementos de UI de decision del jugador (Accion, ataque, objetivos...)
         public const int UICajaCombate = 0 ,UIJugadorCombate = 1, UIAccionesCombate = 2, UIObjetivoCombate = 3, UIVidaEnemigos = 4; // Utilizar estas constantes para mejor lectura del codigo a la hora de usar la variable "ElementosUI"
         public GameObject prefabVidaEnemigos;                           // Prefab de la UI de la vida de los enemigos
+        public UnityEngine.UI.Button botonAnalizar;                     // Botón de Analizar enemigos
 
         // Inicializa lo necesario para el combate
         void Start()
@@ -194,10 +195,25 @@ namespace Codigo.Scripts
            POST: - Establece la accion elegida por el jugador al gameObject del jugador
                  - Envia un mensaje a la UI de objetivos y a todos sus hijos indicando que el ataque ya se escogió
                    para habilitar la UI de objetivos*/
-        public void AtaqueElegido(int accion)
+        public void AtaqueElegido(int accion)  //Código cambiado para Analizar
         {
+            // 1. Guardamos qué ataque queremos hacer
             luchadores[0].DecidirAccion(accion);
-            ElementosUI[UIObjetivoCombate].BroadcastMessage("AtaqueElegido");
+            // 2. Ocultamos los botones del jugador
+            ElementosUI[UIJugadorCombate].SetActive(false);
+            // 3. Obtenemos el objeto padre del menú de objetivos
+            GameObject menuObjetivosGO = ElementosUI[UIObjetivoCombate];
+            // 4. Lo activamos visualmente
+            menuObjetivosGO.SetActive(true);
+            MenuObjetivos script = menuObjetivosGO.GetComponentInChildren<MenuObjetivos>(true);
+            if (script != null)
+            {
+                script.AtaqueElegido();
+            }
+            else
+            {
+                Debug.LogError("ERROR: No encuentro MenuObjetivos en los hijos de " + menuObjetivosGO.name);
+            }
         }
 
         /* Evento de la interfaz de IMensajesCombate, llamada por la UI de Objetivos una vez seleccionado
@@ -225,5 +241,28 @@ namespace Codigo.Scripts
             GLOBAL.enCombate = false;
         }
         
+        /* Metodo que abre el menu de seleccion de objetivos para analizar enemigos
+         POST: Se activa la UI de objetivos para que el jugador seleccione un enemigo a analizar */
+        public void Analizar()
+        {
+            // 1. Ocultamos botones principales
+            ElementosUI[UIJugadorCombate].SetActive(false);
+
+            // 2. Activamos el objeto PADRE (UI Objetivos) para que se vea la ventana
+            GameObject menuObjetivosGO = ElementosUI[UIObjetivoCombate];
+            menuObjetivosGO.SetActive(true);
+        
+            // 3. Usamos GetComponentInChildren
+            MenuObjetivos script = menuObjetivosGO.GetComponentInChildren<MenuObjetivos>(true);
+        
+            if (script != null)
+            {
+                script.AnalizarElegido();
+            }
+            else
+            {
+                Debug.LogError("¡ERROR CRÍTICO! No encuentro el script MenuObjetivos ni en el padre ni en sus hijos.");
+            }
+        }
     }
 }
