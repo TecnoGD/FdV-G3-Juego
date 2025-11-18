@@ -218,6 +218,14 @@ namespace Codigo.Scripts
         private void FinDeCombate(bool victorioso)
         {
             Debug.Log(victorioso ? "Has Ganado" : "Has Perdido");
+            
+            // para que avanzar la historia (cambiar el diálogo del NPC)
+            if (victorioso)
+            {
+                // Aumentamos el progreso de la historia (por ahora solo tenemos hasta 1)
+                GLOBAL.guardado.progresoHistoria++;
+            }
+            
             HabilitarUICombate(false);
             luchadores.Clear();
             TextoVidas.Clear();
