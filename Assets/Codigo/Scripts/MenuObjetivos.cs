@@ -25,6 +25,8 @@ namespace Codigo.Scripts
         public TMP_Text textoVidaAnalisis;      // Texto que muestra la vida del enemigo
         public TMP_Text textoAtaqueAnalisis;    // Texto que muestra el ataque del enemigo
         public TMP_Text textoDefensaAnalisis;   // Texto que muestra la defensa del enemigo
+        public TMP_Text textoAtaqueEspecialAnalisis;   // Nuevo hueco para Ataque Especial
+        public TMP_Text textoDefensaEspecialAnalisis;  // Nuevo hueco para Defensa Especial
         public UnityEngine.UI.Button botonVolverAnalisis;  // Botón para volver atrás desde el análisis
 
         // Lista para guardar los elementos navegables (Toggles y Botones)
@@ -167,6 +169,8 @@ namespace Codigo.Scripts
             textoVidaAnalisis.text = "Vida: " + enemigo.vida;
             textoAtaqueAnalisis.text = "Ataque: " + enemigo.estadisticas.ataque;
             textoDefensaAnalisis.text = "Defensa: " + enemigo.estadisticas.defensa;
+            textoAtaqueEspecialAnalisis.text = "Atq. Esp: " + enemigo.estadisticas.ataqueEspecial;
+            textoDefensaEspecialAnalisis.text = "Def. Esp: " + enemigo.estadisticas.defensaEspecial;
         
             // Mostrar el panel
             panelAnalisis.SetActive(true);
