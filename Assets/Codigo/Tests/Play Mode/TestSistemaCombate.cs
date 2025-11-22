@@ -4,6 +4,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 using Codigo.Scripts;
+using System.Linq;
 
 public class TestSistemaCombate
 {
@@ -382,4 +383,97 @@ public class TestSistemaCombate
         yield return null;        
     }
 
+    
+
+    [UnityTest]
+    public IEnumerator TestAnalizarEnemigo()
+    {
+        // Configurar EventSystem para la interacción con la UI (necesario para SetSelectedGameObject)
+        GameObject eventSystemGO = new GameObject("EventSystem");
+        eventSystemGO.AddComponent<UnityEngine.EventSystems.EventSystem>();
+
+        // Configurar MenuObjetivos con los mocks necesarios
+        GameObject objetivoUI = sistemaCombate.ElementosUI[SistemaCombate.UIObjetivoCombate];
+        MenuObjetivos menuObjetivos = objetivoUI.GetComponent<MenuObjetivos>();
+
+        // Mock de Prefabs (Simulamos los elementos visuales que se instancian)
+        GameObject prefabToggle = new GameObject("PrefabToggle");
+        prefabToggle.AddComponent<UnityEngine.UI.Toggle>();
+        GameObject textGO = new GameObject("Text");
+        textGO.transform.SetParent(prefabToggle.transform);
+        textGO.AddComponent<UnityEngine.UI.Text>();
+        menuObjetivos.prefabBotonObjetivo = prefabToggle;
+
+        GameObject prefabAtras = new GameObject("PrefabAtras");
+        prefabAtras.AddComponent<UnityEngine.UI.Button>();
+        menuObjetivos.prefabBotonAtras = prefabAtras;
+
+        // Mock del Panel de Análisis (El panel que muestra los datos)
+        GameObject panelAnalisis = new GameObject("PanelAnalisis");
+        panelAnalisis.SetActive(false);
+        menuObjetivos.panelAnalisis = panelAnalisis;
+
+        // Mock de los Textos de Análisis (Donde se escribirá la info)
+        menuObjetivos.textoNombreAnalisis = new GameObject("TxtNombre").AddComponent<TMPro.TextMeshProUGUI>();
+        menuObjetivos.textoVidaAnalisis = new GameObject("TxtVida").AddComponent<TMPro.TextMeshProUGUI>();
+        menuObjetivos.textoAtaqueAnalisis = new GameObject("TxtAtaque").AddComponent<TMPro.TextMeshProUGUI>();
+        menuObjetivos.textoDefensaAnalisis = new GameObject("TxtDefensa").AddComponent<TMPro.TextMeshProUGUI>();
+        menuObjetivos.textoAtaqueEspecialAnalisis = new GameObject("TxtAtqEsp").AddComponent<TMPro.TextMeshProUGUI>();
+        menuObjetivos.textoDefensaEspecialAnalisis = new GameObject("TxtDefEsp").AddComponent<TMPro.TextMeshProUGUI>();
+
+        // Mock del Botón Volver
+        GameObject btnVolver = new GameObject("BtnVolver");
+        menuObjetivos.botonVolverAnalisis = btnVolver.AddComponent<UnityEngine.UI.Button>();
+
+        // Preparar el estado del combate
+        SistemaCombate.luchadores.Clear();
+        SistemaCombate.luchadores.Add(jugador);
+        SistemaCombate.luchadores.Add(enemigo);
+        sistemaCombate.jugador = jugador;
+        GLOBAL.enCombate = true;
+        
+        // Establecer nombre del enemigo para verificación
+        enemigo.nombre = "EnemigoTest";
+
+        // Desactivar UI antes de Analizar para forzar que OnEnable se ejecute de nuevo al activarse
+        objetivoUI.SetActive(false);
+
+        // Ejecutar la acción de Analizar
+        sistemaCombate.Analizar();
+        yield return null;
+
+        // Simular la selección del enemigo
+        Assert.IsTrue(objetivoUI.activeSelf, "MenuObjetivos debería estar activo");
+
+        // Buscar el toggle. Como solo tenemos 1 enemigo, debería ser el primer toggle instanciado.
+        UnityEngine.UI.Toggle enemyToggle = objetivoUI.GetComponentInChildren<UnityEngine.UI.Toggle>();
+        Assert.IsNotNull(enemyToggle, "El toggle del enemigo debería haber sido creado");
+
+        // Simular click (activar el toggle)
+        enemyToggle.isOn = true;
+
+        // Verificar el Panel de Análisis
+        Assert.IsTrue(panelAnalisis.activeSelf, "El panel de análisis debería estar activo");
+        Assert.AreEqual("EnemigoTest", menuObjetivos.textoNombreAnalisis.text);
+        Assert.AreEqual("Vida: " + enemigo.vida, menuObjetivos.textoVidaAnalisis.text);
+        Assert.AreEqual("Ataque: " + enemigo.estadisticas.ataque, menuObjetivos.textoAtaqueAnalisis.text);
+        Assert.AreEqual("Defensa: " + enemigo.estadisticas.defensa, menuObjetivos.textoDefensaAnalisis.text);
+        Assert.AreEqual("Atq. Esp: " + enemigo.estadisticas.ataqueEspecial, menuObjetivos.textoAtaqueEspecialAnalisis.text);
+        Assert.AreEqual("Def. Esp: " + enemigo.estadisticas.defensaEspecial, menuObjetivos.textoDefensaEspecialAnalisis.text);
+
+        // Limpieza de objetos creados para el test
+        Object.Destroy(eventSystemGO);
+        Object.Destroy(prefabToggle);
+        Object.Destroy(prefabAtras);
+        Object.Destroy(panelAnalisis);
+        Object.Destroy(menuObjetivos.textoNombreAnalisis.gameObject);
+        Object.Destroy(menuObjetivos.textoVidaAnalisis.gameObject);
+        Object.Destroy(menuObjetivos.textoAtaqueAnalisis.gameObject);
+        Object.Destroy(menuObjetivos.textoDefensaAnalisis.gameObject);
+        Object.Destroy(menuObjetivos.textoAtaqueEspecialAnalisis.gameObject);
+        Object.Destroy(menuObjetivos.textoDefensaEspecialAnalisis.gameObject);
+        Object.Destroy(btnVolver.gameObject);
+        
+        yield return null;
+    }
 }
