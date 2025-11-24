@@ -14,7 +14,7 @@ public class Jugador : MonoBehaviour
     public Vector3 movimiento;
     public DatosCombate.Estadisticas estadisticasBase; // Estadisticas base del jugador, nunca negativos ni 0 (no se modifican)
     public List<int> accionesJugador;                  // Lista de acciones que el jugador puede hacer si estuviera en combate
-
+    private IInteractuable objetoInteractuableActual;  // Guarda el objeto con el que podemos interactuar actualmente
 
     private void Awake()
     {
@@ -34,8 +34,16 @@ public class Jugador : MonoBehaviour
     void Update()
     {
         //string escena = SceneManager.GetActiveScene().name;
-        if (!GLOBAL.enCombate)
+        if (!GLOBAL.enCombate && !SistemaDialogo.instance.enDialogo) // si no estamos ni en combate ni en dialogo
+        {
             ControlMovimiento();
+            DetectarInteraccion();
+        } 
+        else if (SistemaDialogo.instance.enDialogo && Input.GetKeyDown(KeyCode.F))
+        {
+            SistemaDialogo.instance.SiguienteFrase();
+        }
+
     }
         
     private void ControlMovimiento()
@@ -49,5 +57,38 @@ public class Jugador : MonoBehaviour
             movimiento.x = 1;
             
         transform.position += movimiento.normalized * (velocidad * Time.deltaTime); //calcular la pos
+    }
+    
+    // detectar la tecla F
+    private void DetectarInteraccion()
+    {
+        if (Input.GetKeyDown(KeyCode.F) && objetoInteractuableActual != null)
+        {
+            objetoInteractuableActual.Interactuar();
+        }
+    }
+    
+    // detección de trigger
+    private void OnTriggerEnter(Collider other) // 3D physics (usa OnTriggerEnter2D si es 2D)
+    {
+        // Intentamos obtener el componente que cumple la interfaz IInteractuable
+        IInteractuable interactuable = other.GetComponent<IInteractuable>();
+        
+        if (interactuable != null)
+        {
+            objetoInteractuableActual = interactuable;
+            Debug.Log("Objeto interactuable detectado: Pulsa F");
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        IInteractuable interactuable = other.GetComponent<IInteractuable>();
+        
+        if (interactuable != null && interactuable == objetoInteractuableActual)
+        {
+            objetoInteractuableActual = null;
+            Debug.Log("Te has alejado del objeto");
+        }
     }
 }
