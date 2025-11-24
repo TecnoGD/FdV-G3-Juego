@@ -33,13 +33,14 @@ public class Jugador : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        bool hablando = SistemaDialogo.instance != null && SistemaDialogo.instance.enDialogo;
         //string escena = SceneManager.GetActiveScene().name;
-        if (!GLOBAL.enCombate && !SistemaDialogo.instance.enDialogo) // si no estamos ni en combate ni en dialogo
+        if (!GLOBAL.enCombate && !hablando) // si no estamos ni en combate ni en dialogo
         {
             ControlMovimiento();
             DetectarInteraccion();
         } 
-        else if (SistemaDialogo.instance.enDialogo && Input.GetKeyDown(KeyCode.F))
+        else if (hablando && Input.GetKeyDown(KeyCode.F))
         {
             SistemaDialogo.instance.SiguienteFrase();
         }
