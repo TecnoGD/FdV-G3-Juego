@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Codigo.Scripts;
 using Unity.VisualScripting;
@@ -14,7 +15,11 @@ public class Jugador : MonoBehaviour
     public Vector3 movimiento;
     public DatosCombate.Estadisticas estadisticasBase; // Estadisticas base del jugador, nunca negativos ni 0 (no se modifican)
     public List<int> accionesJugador;                  // Lista de acciones que el jugador puede hacer si estuviera en combate
-    private IInteractuable objetoInteractuableActual;  // Guarda el objeto con el que podemos interactuar actualmente
+    public List<ObjectSlot> listaObjetos;
+    public ObjectSlot[] objetosSeleccionadosCombate;
+    public SistemaInteraccion sistemaInteraccion;
+    
+    
 
     private void Awake()
     {
@@ -23,11 +28,31 @@ public class Jugador : MonoBehaviour
 
     void Start()
     {
+        sistemaInteraccion = gameObject.transform.GetChild(1).gameObject.GetComponent<SistemaInteraccion>();
         estadisticasBase = GLOBAL.guardado.estadisticasJugador;             // Carga las estadisticas base del jugador desde
                                                                             // el archivo de guardado
                                                                             
         accionesJugador = new List<int>(GLOBAL.guardado.accionesJugador);   // Carga las acciones del jugador desde
                                                                             // el archivo de guardado
+        listaObjetos = new List<ObjectSlot>();
+        foreach (var objeto in GLOBAL.guardado.objetosConsumibles)
+        {
+                
+            var test = new ObjectSlot(GLOBAL.instance.objetosConsumibles[objeto.id], objeto.cantidad);
+            listaObjetos.Add(test);
+                
+        }
+        objetosSeleccionadosCombate = new ObjectSlot[4];
+        for (int i = 0; i< GLOBAL.guardado.objetosSeleccionadosCombate.Length; i++)
+        {
+            var item = GLOBAL.guardado.objetosSeleccionadosCombate[i];
+            if(item == -1)
+                objetosSeleccionadosCombate[i] = new ObjectSlot(null, -1);
+            else
+                objetosSeleccionadosCombate[i] = listaObjetos[GLOBAL.guardado.objetosSeleccionadosCombate[i]];
+        }
+        
+                                                                            
     }
 
     // Update is called once per frame
@@ -37,7 +62,8 @@ public class Jugador : MonoBehaviour
         if (!GLOBAL.enCombate && !SistemaDialogo.instance.enDialogo) // si no estamos ni en combate ni en dialogo
         {
             ControlMovimiento();
-            DetectarInteraccion();
+            sistemaInteraccion.DetectarInteraccion();
+            
         } 
         else if (SistemaDialogo.instance.enDialogo && Input.GetKeyDown(KeyCode.F))
         {
@@ -57,38 +83,5 @@ public class Jugador : MonoBehaviour
             movimiento.x = 1;
             
         transform.position += movimiento.normalized * (velocidad * Time.deltaTime); //calcular la pos
-    }
-    
-    // detectar la tecla F
-    private void DetectarInteraccion()
-    {
-        if (Input.GetKeyDown(KeyCode.F) && objetoInteractuableActual != null)
-        {
-            objetoInteractuableActual.Interactuar();
-        }
-    }
-    
-    // detección de trigger
-    private void OnTriggerEnter(Collider other) // 3D physics (usa OnTriggerEnter2D si es 2D)
-    {
-        // Intentamos obtener el componente que cumple la interfaz IInteractuable
-        IInteractuable interactuable = other.GetComponent<IInteractuable>();
-        
-        if (interactuable != null)
-        {
-            objetoInteractuableActual = interactuable;
-            Debug.Log("Objeto interactuable detectado: Pulsa F");
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        IInteractuable interactuable = other.GetComponent<IInteractuable>();
-        
-        if (interactuable != null && interactuable == objetoInteractuableActual)
-        {
-            objetoInteractuableActual = null;
-            Debug.Log("Te has alejado del objeto");
-        }
     }
 }

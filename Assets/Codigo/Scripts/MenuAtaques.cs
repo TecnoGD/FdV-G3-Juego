@@ -40,8 +40,14 @@ public class MenuAtaques : MonoBehaviour
         // Añade también el botón "Atrás" a la lista de navegación
         botones.Add(botonAtras);
         
-        // Llamamos a nuestro script que configura la navegación explícita
-        MenuNavegacionE.ConfigurarNavegacionVertical(botones);
+        // Llamamos a nuestro script que configura la navegación Automática
+        foreach (GameObject button in botones)
+        {
+            var navigation = button.gameObject.GetComponent<Button>().navigation;
+            navigation.mode = Navigation.Mode.Automatic;
+            button.gameObject.GetComponent<Button>().navigation = navigation;
+        }
+        //MenuNavegacionE.ConfigurarNavegacionVertical(botones);
     }
 
     /*

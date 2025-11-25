@@ -12,6 +12,8 @@ TagManager:
   - UI Acciones
   - Contenido Acciones
   - UI Objetivos
+  - Jugador
+  - Rig Jugador
   layers:
   - Default
   - TransparentFX

@@ -24,9 +24,12 @@ namespace Codigo.Scripts
         
         // cola para guardar las frases y sacarlas una a una en orden
         private Queue<string> colaFrases; 
+        
 
         void Awake()
         {
+            Object.DontDestroyOnLoad(gameObject);
+            
             // configuracion del singleton
             if (instance == null) instance = this;
             

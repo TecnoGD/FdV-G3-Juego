@@ -1,4 +1,5 @@
-﻿using UnityEngine.EventSystems;
+﻿using System.Collections.Generic;
+using UnityEngine.EventSystems;
 
 namespace Codigo.Scripts
 {
@@ -12,6 +13,6 @@ namespace Codigo.Scripts
         void AtaqueElegido(int accion);
         
         /* Evento que se llama cuando el jugador termina todas las decisiones que tiene que hacer*/
-        void FinDecision();
+        void FinDecision(List<Luchador> listaObjetivos);
     }
 }

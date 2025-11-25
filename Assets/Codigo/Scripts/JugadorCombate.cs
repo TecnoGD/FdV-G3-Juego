@@ -7,7 +7,7 @@ namespace Codigo.Scripts
     {
         public override void InicioCombate()
         {
-            Jugador jugador = gameObject.GetComponent<Jugador>();   // Obtiene los datos de combate de su componente jugador
+            Jugador jugador = gameObject.transform.parent.gameObject.GetComponent<Jugador>();   // Obtiene los datos de combate de su componente jugador
             nombre = GLOBAL.guardado.nombre;
             estadisticas = jugador.estadisticasBase;
             listaAcciones  = jugador.accionesJugador;
@@ -15,7 +15,8 @@ namespace Codigo.Scripts
             animator = GetComponent<Animator>();
             objetivosSeleccionados.Clear();
             objetivosSeleccionados.TrimExcess();
-            
+            objetosConsumibles = jugador.objetosSeleccionadosCombate;
+
         }
     }
 }
