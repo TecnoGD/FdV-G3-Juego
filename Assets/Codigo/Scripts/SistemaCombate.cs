@@ -199,10 +199,42 @@ namespace Codigo.Scripts
            POST: - Establece la accion elegida por el jugador al gameObject del jugador
                  - Envia un mensaje a la UI de objetivos y a todos sus hijos indicando que el ataque ya se escogió
                    para habilitar la UI de objetivos*/
-        public void AtaqueElegido(int accion)  //Código cambiado para Analizar
+        public void AtaqueElegido(int accion)
         {
+            // 1. Guardamos la decisión
             luchadores[0].DecidirAccion(accion);
-            ElementosUI[UIObjetivoCombate].BroadcastMessage("AtaqueElegido");
+            
+            // 2. Ocultamos los botones principales
+            ElementosUI[UIJugadorCombate].SetActive(false);
+
+            // 3. Comprobamos qué tipo de selección requiere este ataque
+            int estilo = GLOBAL.acciones[accion].EstiloSeleccionObjetivo;
+
+            // CASO A: Ataque a TODOS -> No abrimos menú
+            if (estilo == Accion.TODOSENEMIGOS) 
+            {
+                // Creamos la lista de objetivos automáticamente (Todos menos el jugador)
+                List<Luchador> todosLosEnemigos = new List<Luchador>();
+                for (int i = 1; i < luchadores.Count; i++)
+                {
+                    todosLosEnemigos.Add(luchadores[i]);
+                }
+
+                // Finalizamos la decisión directamente sin pasar por la UI visual
+                FinDecision(todosLosEnemigos);
+            }
+            // CASO B: Ataque normal (MonoObjetivo) -> Abrimos menú para elegir
+            else 
+            {
+                GameObject menuObjetivosGO = ElementosUI[UIObjetivoCombate];
+                menuObjetivosGO.SetActive(true); // Solo activamos la UI si hay que elegir
+
+                MenuObjetivos script = menuObjetivosGO.GetComponentInChildren<MenuObjetivos>(true);
+                if (script != null)
+                {
+                    script.AtaqueElegido();
+                }
+            }
         }
 
         /* Evento de la interfaz de IMensajesCombate, llamada por la UI de Objetivos una vez seleccionado

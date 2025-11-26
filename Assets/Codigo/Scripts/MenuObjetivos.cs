@@ -69,6 +69,7 @@ namespace Codigo.Scripts
         /* Evento que es llamado desde el Sistema de combate que avisa que el ataque ya ha sido seleccionado */
         public void AtaqueElegido()
         {
+            gameObject.SetActive(true);
             var luchCount = SistemaCombate.luchadores.Count - 1;
             var accion = GLOBAL.acciones[SistemaCombate.instance.jugador.accion];
 
@@ -106,6 +107,7 @@ namespace Codigo.Scripts
         
         public void UsoObjeto(int tipoSeleccion)
         {
+            listaObjetivos.Clear();
             switch (tipoSeleccion)
             {
                 case ObjetoConsumible.SOLOENEMIGO:
