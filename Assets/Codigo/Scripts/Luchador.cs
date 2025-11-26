@@ -20,6 +20,8 @@ namespace Codigo.Scripts
         public DatosLuchador datos;                                             // Datos guardados del enemigo necesarios a cargar para iniciar el combate
         public List<int> listaAcciones;                                         // Lista de acciones que puede realizar el luchador
         public List<Luchador> objetivosSeleccionados =  new List<Luchador>();   // Objetivos seleccionados al que el luchador va a realizar la accion
+        public ObjectSlot[] objetosConsumibles;
+        public int objetoSeleccionado = 0;
         
         
         /* Metodo encargado de iniciar la ejecución de la accion seleccionada
@@ -44,6 +46,20 @@ namespace Codigo.Scripts
             if (fallo)
             {
                 FinAccionLuchador();
+                return;
+            }
+
+            if (accion < -1)
+            {
+                objetosConsumibles[objetoSeleccionado].objeto.Ejecutar(objetivosSeleccionados);
+                objetosConsumibles[objetoSeleccionado].cantidad--;
+                if (objetosConsumibles[objetoSeleccionado].cantidad <= 0)
+                {
+                    objetosConsumibles[objetoSeleccionado].objeto = null;
+                    objetosConsumibles[objetoSeleccionado].cantidad = -1;
+                }
+
+                FinAccionLuchador();    //SOLO SI EL OBJETO NO TIENE ANIMACION
                 return;
             }
                

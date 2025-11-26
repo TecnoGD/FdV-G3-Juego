@@ -13,6 +13,8 @@ public class GLOBAL : MonoBehaviour
     public static bool enCombate;                       // Indica si se esta dentro de combate o no
     public List<Accion> ListaAccionesTotales = new List<Accion>();
     public List<DatosLuchador> ListaDatosCombatiente = new List<DatosLuchador>();
+    public List<ObjetoConsumible> objetosConsumibles = new List<ObjetoConsumible>();
+    public ObjetoConsumible objetivoPrueba;
     public GameObject Jugador;
     
     void Awake()
@@ -32,17 +34,23 @@ public class GLOBAL : MonoBehaviour
 
     public void CambiarEscena(string escena, Vector3 posicion)
     {
+        Debug.Log("Cambio a " +  escena);
         StartCoroutine(TestEspera(SceneManager.LoadSceneAsync(escena), posicion));
     }
     
     private IEnumerator TestEspera(AsyncOperation async, Vector3 posicion)
     {
         async.allowSceneActivation = false;
+        var rig = GameObject.FindGameObjectWithTag("Rig Jugador").gameObject;
+        rig.SetActive(false);
         //yield return null;
         yield return new WaitUntil(() => async.progress >= 0.9f);
         async.allowSceneActivation = true;
         yield return null;
-        GameObject.FindGameObjectWithTag("Luchador Jugador").transform.position = posicion;
+        GameObject.FindGameObjectWithTag("Jugador").transform.position = posicion;
+        yield return null;
+        rig.SetActive(true);
         //yield return new WaitUntil(() => async.isDone);
+        yield break;
     }
 }
