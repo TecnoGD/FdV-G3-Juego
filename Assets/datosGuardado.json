@@ -10,6 +10,22 @@
     },
     "accionesJugador": [
         0,
+        1,
+        1,
+        1,
         1
-    ]
+    ],
+    "objetosConsumibles": [
+        {
+            "id": 0,
+            "cantidad": 1
+        }
+    ],
+    "objetosSeleccionadosCombate": [
+        0,
+        -1,
+        -1,
+        -1
+    ],
+    "progresoHistoria": 0
 }

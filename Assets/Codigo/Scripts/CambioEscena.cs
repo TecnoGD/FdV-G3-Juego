@@ -10,6 +10,7 @@ public class CambioEscena : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        GLOBAL.instance.CambiarEscena(escena, posicion);
+        if (other.gameObject.CompareTag("Rig Jugador"))
+            GLOBAL.instance.CambiarEscena(escena, posicion);
     }
 }

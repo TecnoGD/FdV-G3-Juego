@@ -13,6 +13,7 @@ namespace Codigo.Scripts
         {
             throw new NotImplementedException();
         }
+        
 
         /* Funcion que carga y devuelve los datos de guardado del juego, en caso de que el archivo no exista o este
            corrupto se genera un nuevo archivo (si esta corrupto se borra el anterior archivo y se sustituye) */
@@ -37,6 +38,7 @@ namespace Codigo.Scripts
                 guardado = NuevoArchivoGuardado();                                    // Se genera nuevo archivo de guardado
                 Debug.Log("No existe archivo de guardado, se crea uno");
             }
+            guardado.CargarObjetos();
 
             return guardado;
         }
@@ -55,7 +57,7 @@ namespace Codigo.Scripts
         /* Función que genera y devuelve un nuevo archivo de guardado*/
         static DatosGuardado NuevoArchivoGuardado()
         {        
-            DatosGuardado guardado = new DatosGuardado();                   //Genera nuevos datos de guardado
+            DatosGuardado guardado = new DatosGuardado(GLOBAL.instance.objetivoPrueba);                   //Genera nuevos datos de guardado
             var json = JsonUtility.ToJson(guardado, true);   //Formatea los datos a un formato JSON
             File.WriteAllText(_path, json);                         // Escribe/Genera en el archivo de guardado 
             return guardado;                                                // Devuelve referencia a los datos de guardado 

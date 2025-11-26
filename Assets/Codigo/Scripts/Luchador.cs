@@ -20,6 +20,8 @@ namespace Codigo.Scripts
         public DatosLuchador datos;                                             // Datos guardados del enemigo necesarios a cargar para iniciar el combate
         public List<int> listaAcciones;                                         // Lista de acciones que puede realizar el luchador
         public List<Luchador> objetivosSeleccionados =  new List<Luchador>();   // Objetivos seleccionados al que el luchador va a realizar la accion
+        public ObjectSlot[] objetosConsumibles;
+        public int objetoSeleccionado = 0;
         
         
         /* Metodo encargado de iniciar la ejecución de la accion seleccionada
@@ -44,6 +46,20 @@ namespace Codigo.Scripts
             if (fallo)
             {
                 FinAccionLuchador();
+                return;
+            }
+
+            if (accion < -1)
+            {
+                objetosConsumibles[objetoSeleccionado].objeto.Ejecutar(objetivosSeleccionados);
+                objetosConsumibles[objetoSeleccionado].cantidad--;
+                if (objetosConsumibles[objetoSeleccionado].cantidad <= 0)
+                {
+                    objetosConsumibles[objetoSeleccionado].objeto = null;
+                    objetosConsumibles[objetoSeleccionado].cantidad = -1;
+                }
+
+                FinAccionLuchador();    //SOLO SI EL OBJETO NO TIENE ANIMACION
                 return;
             }
                
@@ -93,8 +109,6 @@ namespace Codigo.Scripts
                 Debug.Log((int)danio);
                 objetivosSeleccionados[i].RecibeDaño((int)danio);
             }
-            objetivosSeleccionados.Clear();
-            objetivosSeleccionados.TrimExcess();
         }
         
         /* Funcion que aplica el daño recibido aplicando distintos modificadores si fuera necesario y devuelve el daño
@@ -127,6 +141,7 @@ namespace Codigo.Scripts
            sistema de combate que indica que el luchador a terminado su accion y, por lo tanto, su turno*/
         private void FinAccionLuchador()
         {
+            
             ExecuteEvents.Execute<IMensajesCombate>(SistemaCombate.instance.gameObject, null,
                 (x, y) => { x.FinAccion(); });
         }
@@ -138,6 +153,11 @@ namespace Codigo.Scripts
         public void ResetTurno()
         {
             defiende = false;
+            if (accion != -1)
+            {
+                objetivosSeleccionados.Clear();
+                objetivosSeleccionados.TrimExcess();
+            }
             accion = -1;
         }
 

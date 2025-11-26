@@ -15,9 +15,10 @@ namespace Codigo.Scripts
         public List<TMP_Text> TextoUI;                                  // Lista que contiene los textos de vida de los luchadores en combate
         public List<TMP_Text> TextoVidas = new List<TMP_Text>();
         public List<GameObject> ElementosUI;                            // Lista que contiene los elementos de UI de decision del jugador (Accion, ataque, objetivos...)
-        public const int UICajaCombate = 0 ,UIJugadorCombate = 1, UIAccionesCombate = 2, UIObjetivoCombate = 3, UIVidaEnemigos = 4; // Utilizar estas constantes para mejor lectura del codigo a la hora de usar la variable "ElementosUI"
+        public const int UICajaCombate = 0 ,UIJugadorCombate = 1, UIAccionesCombate = 2, UIObjetivoCombate = 3, UIVidaEnemigos = 4, UIAnalizarEnemigos = 5; // Utilizar estas constantes para mejor lectura del codigo a la hora de usar la variable "ElementosUI"
         public GameObject prefabVidaEnemigos;                           // Prefab de la UI de la vida de los enemigos
         public UnityEngine.UI.Button botonAnalizar;                     // Botón de Analizar enemigos
+        public int accionSeleccionada = 0;
 
         // Inicializa lo necesario para el combate
         void Start()
@@ -41,7 +42,7 @@ namespace Codigo.Scripts
             jugador = luchadores[0];                                                                            // Define la variable luchador al GameObject del jugador
             jugador.InicioCombate();                                                                            // Inicializa al jugador para el combate
             var pos = jugador.gameObject.transform.position;
-            jugador.gameObject.transform.position =  new Vector3(-3.99f, pos.y, pos.z);              
+            jugador.gameObject.transform.parent.position =  new Vector3(-3.99f, pos.y, pos.z);              
                                                                                                                 //
             gameObject.transform.BroadcastMessage("InicioCombate");                                  // El sistema de combate envia un mensaje de inicio de combate a todos sus hijos
             ElementosUI[UIAccionesCombate].gameObject.SetActive(false);                                         // Desactiva el menu de acciones de combate
@@ -85,15 +86,18 @@ namespace Codigo.Scripts
         */
         public void AccionEscogida(int accion)
         {
+            accionSeleccionada = accion;
             switch (accion)
             {
                 case 1:
                     luchadores[0].defiende = true;
+                    FinDecision(null);
                     break;
-                case 2:
+                case -1:
+                    FinDecision(null);
                     break;
             }
-            FinDecision();                                      // Invoca el metodo que ejecuta las IAs del resto de lucahdores
+                                                  // Invoca el metodo que ejecuta las IAs del resto de lucahdores
         }
 
         /* Metodo que ejecuta las IAs de los luchadores que no son el jugador siendo invocadas desde su clase
@@ -197,32 +201,44 @@ namespace Codigo.Scripts
                    para habilitar la UI de objetivos*/
         public void AtaqueElegido(int accion)  //Código cambiado para Analizar
         {
-            // 1. Guardamos qué ataque queremos hacer
             luchadores[0].DecidirAccion(accion);
-            // 2. Ocultamos los botones del jugador
-            ElementosUI[UIJugadorCombate].SetActive(false);
-            // 3. Obtenemos el objeto padre del menú de objetivos
-            GameObject menuObjetivosGO = ElementosUI[UIObjetivoCombate];
-            // 4. Lo activamos visualmente
-            menuObjetivosGO.SetActive(true);
-            MenuObjetivos script = menuObjetivosGO.GetComponentInChildren<MenuObjetivos>(true);
-            if (script != null)
-            {
-                script.AtaqueElegido();
-            }
-            else
-            {
-                Debug.LogError("ERROR: No encuentro MenuObjetivos en los hijos de " + menuObjetivosGO.name);
-            }
+            ElementosUI[UIObjetivoCombate].BroadcastMessage("AtaqueElegido");
         }
 
         /* Evento de la interfaz de IMensajesCombate, llamada por la UI de Objetivos una vez seleccionado
            todos los objetivos deseados para realizar el ataque 
            POST: desactiva la UI de decision y llama al metodo que ejecuta las IAs del resto de luchadores*/
-        public void FinDecision()
+        public void FinDecision(List<Luchador> listaObjetivos)
         {
-            JugadorDecide(false);
-            EnemigosDeciden();
+            switch (accionSeleccionada)
+            {
+                case 0: 
+                    listaObjetivos.ForEach(delegate(Luchador objetivo)
+                    {
+                        jugador.objetivosSeleccionados.Add(objetivo);
+                    });
+                    JugadorDecide(false);
+                    EnemigosDeciden();
+                    break;
+                case 2:
+                    MenuSystem.SiguienteMenu(ElementosUI[UIAnalizarEnemigos], true);
+                    ElementosUI[UIAnalizarEnemigos].gameObject.GetComponent<MenuAnalizar>().MostrarAnalisisEnemigo(listaObjetivos[0]);
+                    break;
+                case 3:
+                    listaObjetivos.ForEach(delegate(Luchador objetivo)
+                    {
+                        jugador.objetivosSeleccionados.Add(objetivo);
+                    });
+                    JugadorDecide(false);
+                    EnemigosDeciden();
+                    break;
+                    
+                default:
+                    JugadorDecide(false);
+                    EnemigosDeciden();
+                    break;
+            }
+            
         }
 
         /* Metodo que finaliza el combate, cuyo unico parámetro de entrada decide si es una victorio o derrota
@@ -234,6 +250,14 @@ namespace Codigo.Scripts
         private void FinDeCombate(bool victorioso)
         {
             Debug.Log(victorioso ? "Has Ganado" : "Has Perdido");
+            
+            // para que avanzar la historia (cambiar el diálogo del NPC)
+            if (victorioso)
+            {
+                // Aumentamos el progreso de la historia (por ahora solo tenemos hasta 1)
+                GLOBAL.guardado.progresoHistoria++;
+            }
+            
             HabilitarUICombate(false);
             luchadores.Clear();
             TextoVidas.Clear();
@@ -245,24 +269,15 @@ namespace Codigo.Scripts
          POST: Se activa la UI de objetivos para que el jugador seleccione un enemigo a analizar */
         public void Analizar()
         {
-            // 1. Ocultamos botones principales
-            ElementosUI[UIJugadorCombate].SetActive(false);
+            ElementosUI[UIObjetivoCombate].BroadcastMessage("Analisis");
+        }
 
-            // 2. Activamos el objeto PADRE (UI Objetivos) para que se vea la ventana
-            GameObject menuObjetivosGO = ElementosUI[UIObjetivoCombate];
-            menuObjetivosGO.SetActive(true);
-        
-            // 3. Usamos GetComponentInChildren
-            MenuObjetivos script = menuObjetivosGO.GetComponentInChildren<MenuObjetivos>(true);
-        
-            if (script != null)
-            {
-                script.AnalizarElegido();
-            }
-            else
-            {
-                Debug.LogError("¡ERROR CRÍTICO! No encuentro el script MenuObjetivos ni en el padre ni en sus hijos.");
-            }
+        public void UsoObjeto(int consumible)
+        {
+            jugador.accion = -2;
+            jugador.objetoSeleccionado = consumible;
+            MenuSystem.SiguienteMenu(ElementosUI[UIObjetivoCombate], true);
+            ElementosUI[UIObjetivoCombate].BroadcastMessage("UsoObjeto", jugador.objetosConsumibles[consumible].objeto.estiloSeleccionObjetivo);
         }
     }
 }
