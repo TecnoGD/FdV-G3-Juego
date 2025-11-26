@@ -112,6 +112,7 @@ namespace Codigo.Scripts
                     objetivosMaximos = 1;
                     break;
                 case ObjetoConsumible.TODOSENEMIGOS:
+                    listaObjetivos.Clear();
                     for (int i = 1; i < SistemaCombate.luchadores.Count; i++)
                     {
                         listaObjetivos.Add(SistemaCombate.luchadores[i]);
@@ -121,6 +122,7 @@ namespace Codigo.Scripts
                     return;
                     
                 case ObjetoConsumible.SOLOJUGADOR:
+                    listaObjetivos.Clear();
                     listaObjetivos.Add(SistemaCombate.instance.jugador);
                     ExecuteEvents.Execute<IMensajesCombate>(SistemaCombate.instance.gameObject, null,
                         (x, y) => { x.FinDecision(listaObjetivos); });

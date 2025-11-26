@@ -109,8 +109,6 @@ namespace Codigo.Scripts
                 Debug.Log((int)danio);
                 objetivosSeleccionados[i].RecibeDaño((int)danio);
             }
-            objetivosSeleccionados.Clear();
-            objetivosSeleccionados.TrimExcess();
         }
         
         /* Funcion que aplica el daño recibido aplicando distintos modificadores si fuera necesario y devuelve el daño
@@ -143,6 +141,7 @@ namespace Codigo.Scripts
            sistema de combate que indica que el luchador a terminado su accion y, por lo tanto, su turno*/
         private void FinAccionLuchador()
         {
+            
             ExecuteEvents.Execute<IMensajesCombate>(SistemaCombate.instance.gameObject, null,
                 (x, y) => { x.FinAccion(); });
         }
@@ -154,6 +153,11 @@ namespace Codigo.Scripts
         public void ResetTurno()
         {
             defiende = false;
+            if (accion != -1)
+            {
+                objetivosSeleccionados.Clear();
+                objetivosSeleccionados.TrimExcess();
+            }
             accion = -1;
         }
 
