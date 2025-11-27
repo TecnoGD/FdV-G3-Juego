@@ -33,7 +33,8 @@ public class Jugador : MonoBehaviour
     void Update()
     {
         //string escena = SceneManager.GetActiveScene().name;
-        if (!GLOBAL.enCombate && !SistemaDialogo.instance.enDialogo) // si no estamos ni en combate ni en dialogo
+        // si no estamos ni en combate ni en dialogo ni en pausa
+        if (!GLOBAL.enCombate && !SistemaDialogo.instance.enDialogo && !MenuPausa.enPausa) 
         {
             ControlMovimiento();
             DetectarInteraccion();
