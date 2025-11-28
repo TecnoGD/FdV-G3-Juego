@@ -14,10 +14,18 @@ public class TestMovimientoJugador
     private Jugador jugador;
     private Keyboard teclado;
     private GameObject globalGO;
+    private GameObject menuSystemGO;
+
     // Setup de los tests
     [UnitySetUp]
     public IEnumerator SetUp()
     {
+        // Mock de MenuSystem necesario para GLOBAL.Start()
+        menuSystemGO = new GameObject("MenuSystem");
+        MenuSystem menuSystem = menuSystemGO.AddComponent<MenuSystem>();
+        MenuSystem.instance = menuSystem; // Asignamos instancia manualmente
+        menuSystem.menuJugador = new GameObject("MenuJugadorMock"); // Mock del menú de jugador
+
         // Creamos el GLOBAL para que Start() de jugador se ejecute sin problemas
         globalGO = new GameObject("GLOBAL");
         globalGO.AddComponent<GLOBAL>();
@@ -71,6 +79,7 @@ public class TestMovimientoJugador
         // Limpiamos las instancias
         Object.Destroy(jugadorGO);
         Object.Destroy(globalGO);
+        Object.Destroy(menuSystemGO);
         InputSystem.RemoveDevice(teclado);
         yield return null;
     }
