@@ -9,39 +9,26 @@ namespace Codigo.Scripts
 {
     public class Luchador : MonoBehaviour
     {
-        public int id;                                                          // id del luchador (actualmente sin uso)
-        public string nombre;                                                   // Nombre del luchador
-        //Texturas
-        public int vida;                                                        // Vida actual del luchador en combate
-        public int accion = -1;                                                 // Accion a ejecutar durante el turno del luchador (-1 indica que no hace nada)
-        public bool defiende = false;                                           // Indica si se aplica la reduccion de daño por defensa
-        public Estadisticas estadisticas;                                       // Estadisticas del luchador
-        public Animator animator;                                               // Componente animator del gameObject del luchador
-        public DatosLuchador datos;                                             // Datos guardados del enemigo necesarios a cargar para iniciar el combate
-        public List<int> listaAcciones;                                         // Lista de acciones que puede realizar el luchador
-        public List<Luchador> objetivosSeleccionados =  new List<Luchador>();   // Objetivos seleccionados al que el luchador va a realizar la accion
+        public int id;
+        public string nombre;
+        public int vida;
+        public int accion = -1; // -1: Nada, -2: Objeto, >=0: Ataque
+        public bool defiende = false;
+        public Estadisticas estadisticas;
+        public Animator animator;
+        public DatosLuchador datos;
+        public List<int> listaAcciones;
+        public List<Luchador> objetivosSeleccionados = new List<Luchador>();
         public ObjectSlot[] objetosConsumibles;
         public int objetoSeleccionado = 0;
         
-        
-        /* Metodo encargado de iniciar la ejecución de la accion seleccionada
-           PRE: - objetivos -> Una lista de luchadores Rango: [0,inf]
-           POST: accion = -1 -> El luchador no hace nada
-                 numero_Objetivos <= 0 -> El luchador falla y no hace nada (Aun temporal)
-                 Si nada de lo anterior -> Se inicia la ejecucion de la accion*/
+        /* Método encargado de iniciar la ejecución de la acción seleccionada */
         public void EjecutarAccion(List<Luchador> objetivos)
         {
             bool fallo = false;
             
-            if (accion == -1)  //Sin accion seleccionada pasa turno
-            {
-                fallo = true;
-            }
-            
-            if (!fallo && objetivosSeleccionados.Count <= 0)  //Sin objetivos en combate el ataque falla
-            {
-                fallo = true;
-            }
+            if (accion == -1) fallo = true;
+            if (!fallo && objetivosSeleccionados.Count <= 0) fallo = true;
             
             if (fallo)
             {
@@ -49,42 +36,57 @@ namespace Codigo.Scripts
                 return;
             }
 
+            // --- LÓGICA DE USO DE OBJETOS (Corrección del error de índice) ---
             if (accion < -1)
             {
-                objetosConsumibles[objetoSeleccionado].objeto.Ejecutar(objetivosSeleccionados);
-                objetosConsumibles[objetoSeleccionado].cantidad--;
-                if (objetosConsumibles[objetoSeleccionado].cantidad <= 0)
+                if (objetosConsumibles != null && objetoSeleccionado < objetosConsumibles.Length && objetosConsumibles[objetoSeleccionado].objeto != null)
                 {
-                    objetosConsumibles[objetoSeleccionado].objeto = null;
-                    objetosConsumibles[objetoSeleccionado].cantidad = -1;
+                    objetosConsumibles[objetoSeleccionado].objeto.Ejecutar(objetivosSeleccionados);
+                    objetosConsumibles[objetoSeleccionado].cantidad--;
+                    
+                    if (objetosConsumibles[objetoSeleccionado].cantidad <= 0)
+                    {
+                        objetosConsumibles[objetoSeleccionado].objeto = null;
+                        objetosConsumibles[objetoSeleccionado].cantidad = -1;
+                    }
                 }
+                
+                // IMPORTANTE: Limpiamos la lista para evitar bugs de curación doble
+                objetivosSeleccionados.Clear();
 
-                FinAccionLuchador();    //SOLO SI EL OBJETO NO TIENE ANIMACION
-                return;
+                FinAccionLuchador(); 
+                return; // Salimos aquí para no ejecutar GLOBAL.acciones con índice negativo
             }
+            // ------------------------------------------------------------------
                
-            GLOBAL.acciones[listaAcciones[accion]].Ejecuta(this, animator);  // Obtiene los datos de la accion a 
-                                                                                 // traves de la variable global "acciones"
+            // Ejecutar ataque normal (Solo llega aquí si accion >= 0)
+            if (listaAcciones != null && accion < listaAcciones.Count)
+            {
+                GLOBAL.acciones[listaAcciones[accion]].Ejecuta(this, animator);  
+            }
+            else
+            {
+                Debug.LogError("Error: Intento de ejecutar acción fuera de rango. Accion: " + accion);
+                FinAccionLuchador();
+            }
         }
         
-        /* Metodo que establece el atributo de este luchador a la accion pasada como parámetro
-           PRE: - seleccion -> int Rango: [-1, numero_elementos_lista_de_acciones]*/
         public void DecidirAccion(int seleccion)
         {
             accion = seleccion;
         }
 
-        /* Metodo llamado por los eventos de animacion del ataque que produce obtiene la potencia del ataque,
-         calcula el daño final y lo aplica al objetivo seleccionado y tras terminar limpia la lista de objetivos*/
+        /* Método llamado por la animación (o forzado) para calcular daño/curación */
         public void ProducirDaño()
         {
-            // 1. Obtenemos el ataque y su tipo
+            if (accion < 0 || accion >= listaAcciones.Count) return; // Seguridad extra
+
             var acc = GLOBAL.acciones[listaAcciones[accion]];
             var tipo = acc.ObtenerTipo();
             int potenciaAtaque = acc.ObtenerPotencia(0); 
 
-            // --- LÓGICA DE CURACIÓN ---
-            if (tipo == 2) // Asumiendo que 2 es Ataque.CURATIVO
+            // --- LÓGICA DE ATAQUE CURATIVO / HÍBRIDO ---
+            if (tipo == 2) // 2 = CURATIVO
             {
                 // 1. Curarse a sí mismo (5 puntos fijos)
                 this.RecibeCuracion(5); 
@@ -92,52 +94,15 @@ namespace Codigo.Scripts
                 // 2. Hacer daño a TODOS los objetivos seleccionados (2 puntos fijos)
                 for (int i = 0; i < objetivosSeleccionados.Count; i++)
                 {
-                    // Les hacemos 2 de daño directo (sin calculos de defensa)
                     objetivosSeleccionados[i].RecibeDaño(2);
-                    Debug.Log("Ataque curativo: Daño realizado a " + objetivosSeleccionados[i].nombre);
+                    Debug.Log("Ataque híbrido: Daño realizado a " + objetivosSeleccionados[i].nombre);
                 }
 
-                // Limpiamos y terminamos, para que no ejecute el código de abajo
                 objetivosSeleccionados.Clear();
                 return; 
             }
 
-            var estadisticaAtaque = 0;
-            switch (tipo)
-            {
-                case Ataque.FISICO:
-                    estadisticaAtaque = estadisticas.ataque;
-                    break;
-                case Ataque.ESPECIAL:
-                    estadisticaAtaque = estadisticas.ataqueEspecial;
-                    break;
-            }
-
-            for (int i = 0; i < objetivosSeleccionados.Count; i++)
-            {
-                var defensaObjetivo = 0;
-                switch (tipo)
-                {
-                    case Ataque.FISICO:
-                        defensaObjetivo = objetivosSeleccionados[i].estadisticas.defensa;
-                        break;
-                    case Ataque.ESPECIAL:
-                        defensaObjetivo = objetivosSeleccionados[i].estadisticas.defensaEspecial;
-                        break;
-                }
-                // Fórmula sumando potencia
-                float danioBase = estadisticaAtaque + potenciaAtaque; 
-                float factorDefensa = 100f / (100f + defensaObjetivo);
-                float danio = Random.Range(0.9f, 1.1f) * (danioBase * factorDefensa);
-                
-                if (danio < 1) danio = 1;
-
-                Debug.Log((int)danio);
-                objetivosSeleccionados[i].RecibeDaño((int)danio);
-            }
-        }
-
-            // --- LÓGICA DE DAÑO NORMAL (TU CÓDIGO EXISTENTE MEJORADO) ---
+            // --- LÓGICA DE ATAQUE FÍSICO / ESPECIAL ---
             var estadisticaAtaque = 0;
             switch (tipo)
             {
@@ -162,14 +127,14 @@ namespace Codigo.Scripts
                         break;
                 }
 
-                // Fórmula corregida sumando potencia
+                // Fórmula: (Tu Fuerza + Potencia del Arma) * Reducción Defensa
                 float danioBase = estadisticaAtaque + potenciaAtaque; 
                 float factorDefensa = 100f / (100f + defensaObjetivo);
                 float danio = Random.Range(0.9f, 1.1f) * (danioBase * factorDefensa);
                 
                 if (danio < 1) danio = 1;
 
-                Debug.Log((int)danio);
+                Debug.Log($"Daño calculado: {(int)danio}");
                 objetivosSeleccionados[i].RecibeDaño((int)danio);
             }
             
@@ -177,28 +142,15 @@ namespace Codigo.Scripts
             objetivosSeleccionados.TrimExcess();
         }
         
-        /* Funcion que aplica el daño recibido aplicando distintos modificadores si fuera necesario y devuelve el daño
-           final infligido
-           POST: - defiende = true -> dañoRecibido = daño_recibido/2 
-                 - dañoRecibido = 0 -> dañoRecibido = 1
-                 - vida < dañoRecibido -> vida = 0 (si el daño recibido es mayor a la vida actual, la vida pasa directamente
-                                                    a 0 para evitar valores negativos) */
         public int RecibeDaño(int dañoRecibido)
         {
-            if (defiende)
-                dañoRecibido /= 2;
-        
-            if (dañoRecibido == 0)
-                dañoRecibido = 1;
+            if (defiende) dañoRecibido /= 2;
+            if (dañoRecibido == 0) dañoRecibido = 1;
         
             int dañoReal = vida;
         
-            if (vida < dañoRecibido)
-            {
-                vida = 0;
-            }
-            else
-                vida -= dañoRecibido;
+            if (vida < dañoRecibido) vida = 0;
+            else vida -= dañoRecibido;
 
             return dañoReal - vida;
         }
@@ -206,7 +158,6 @@ namespace Codigo.Scripts
         public void RecibeCuracion(int cantidad)
         {
             vida += cantidad;
-            // Evitamos que la vida supere el máximo permitido
             if (vida > estadisticas.vidaMax)
             {
                 vida = estadisticas.vidaMax;
@@ -214,56 +165,41 @@ namespace Codigo.Scripts
             Debug.Log(nombre + " se ha curado " + cantidad + " puntos de vida.");
         }
 
-        /* Metodo llamado por la animacion del ataque que indica aue esta ha terminado, ejecutando otro evento para el
-           sistema de combate que indica que el luchador a terminado su accion y, por lo tanto, su turno*/
         private void FinAccionLuchador()
         {
-            
             ExecuteEvents.Execute<IMensajesCombate>(SistemaCombate.instance.gameObject, null,
                 (x, y) => { x.FinAccion(); });
         }
 
-        /* Metodo que reinicia los valores necesarios cuando acaba la ejecucion de turnos para una correcta ejecución de
-           turnos futuros
-           POST: - defiende = false (Se deja de defender)
-                 - accion = -1 (la accion vuelve a su valor de inicio)*/
         public void ResetTurno()
         {
             defiende = false;
             if (accion != -1)
             {
-                objetivosSeleccionados.Clear();
-                objetivosSeleccionados.TrimExcess();
+                objetivosSeleccionados.Clear(); 
             }
             accion = -1;
         }
 
-        /* Metodo llamado por el Sistema de combate cuando se derrota a un enemigo
-           POST: Se destruye el gameObject del enemigo*/
         public void LuchadorDerrotado()
         {
             Destroy(this.gameObject);
         }
         
-        /* Función virtual (se puede hacer override para cambiar su comportamiento) que determina la accion que el
-           luchador(no jugador) va a realizar durante su turno, devuelve un número que equivale a una entrada de la 
-           lista de acciones del luchador.
-           PRE: - objetivos -> Una lista de luchadores Rango: [0,inf]
-           POST: - valor de una entrada válida de la lista de acciones del luchador
-                 - lista de objetivos actualizada */
         public virtual int LuchadorIA(List<Luchador> luchadores) { return -1; }
         
-        /* Metodo virtual (se puede hacer override para cambiar su comportamiento) que inicializa todos los valores
-           necesarios del luchador para el combate*/
-        public virtual void InicioCombate() { 
-            listaAcciones  = datos.GetAcciones();
-            estadisticas = datos.GetEstadisticas();
-            nombre = datos.nombre;
-            vida = estadisticas.vidaMax;
+        public virtual void InicioCombate() 
+        { 
+            if (datos != null)
+            {
+                listaAcciones  = datos.GetAcciones();
+                estadisticas = datos.GetEstadisticas();
+                nombre = datos.nombre;
+                vida = estadisticas.vidaMax;
+            }
+            
             animator = GetComponent<Animator>();
             objetivosSeleccionados.Clear();
-            objetivosSeleccionados.TrimExcess();
-            
         }
     }
 }
