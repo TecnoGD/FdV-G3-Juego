@@ -86,6 +86,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "MenuJugador",
+                    "type": "Button",
+                    "id": "c3701084-a598-4574-b550-d08623e6608e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -473,6 +482,17 @@
                     "action": "Crouch",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "83979667-b19a-4cea-8117-584fd27a2f65",
+                    "path": "<Keyboard>/#(M)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MenuJugador",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -502,7 +522,7 @@
                     "name": "Cancel",
                     "type": "Button",
                     "id": "15cef263-9014-4fd5-94d9-4e4a6234a6ef",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -864,7 +884,7 @@
                     "path": "<Mouse>/position",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse",
+                    "groups": ";Keyboard&Mouse",
                     "action": "Point",
                     "isComposite": false,
                     "isPartOfComposite": false

@@ -42,6 +42,19 @@ namespace Codigo.Scripts
                 ataqueEspecial = es.ataqueEspecial;
                 defensaEspecial = es.defensaEspecial;
             }
+
+            public int GetStat(int stat)
+            {
+                return stat switch
+                {
+                    0 => vidaMax,
+                    1 => ataque,
+                    2 => defensa,
+                    3 => ataqueEspecial,
+                    4 => defensaEspecial,
+                    _ => -1
+                };
+            }
         }
     }
 }
