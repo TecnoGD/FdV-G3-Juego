@@ -78,9 +78,30 @@ namespace Codigo.Scripts
          calcula el daño final y lo aplica al objetivo seleccionado y tras terminar limpia la lista de objetivos*/
         public void ProducirDaño()
         {
+            // 1. Obtenemos el ataque y su tipo
             var acc = GLOBAL.acciones[listaAcciones[accion]];
             var tipo = acc.ObtenerTipo();
-            
+            int potenciaAtaque = acc.ObtenerPotencia(0); 
+
+            // --- LÓGICA DE CURACIÓN ---
+            if (tipo == 2) // Asumiendo que 2 es Ataque.CURATIVO
+            {
+                // 1. Curarse a sí mismo (5 puntos fijos)
+                this.RecibeCuracion(5); 
+
+                // 2. Hacer daño a TODOS los objetivos seleccionados (2 puntos fijos)
+                for (int i = 0; i < objetivosSeleccionados.Count; i++)
+                {
+                    // Les hacemos 2 de daño directo (sin calculos de defensa)
+                    objetivosSeleccionados[i].RecibeDaño(2);
+                    Debug.Log("Ataque curativo: Daño realizado a " + objetivosSeleccionados[i].nombre);
+                }
+
+                // Limpiamos y terminamos, para que no ejecute el código de abajo
+                objetivosSeleccionados.Clear();
+                return; 
+            }
+
             var estadisticaAtaque = 0;
             switch (tipo)
             {
@@ -91,6 +112,7 @@ namespace Codigo.Scripts
                     estadisticaAtaque = estadisticas.ataqueEspecial;
                     break;
             }
+
             for (int i = 0; i < objetivosSeleccionados.Count; i++)
             {
                 var defensaObjetivo = 0;
@@ -103,12 +125,58 @@ namespace Codigo.Scripts
                         defensaObjetivo = objetivosSeleccionados[i].estadisticas.defensaEspecial;
                         break;
                 }
-                //objetivosSeleccionados[i].RecibeDaño((int)((acc.ObtenerPotencia(i)*estadisticaAtaque*0.5f)/(defensaObjetivo*10f)));
-                //Debug.Log((int)((acc.ObtenerPotencia(i)*estadisticaAtaque*0.5f)/(defensaObjetivo*10f)));
-                float danio = Random.Range(0.9f, 1.1f) * (estadisticaAtaque * (100f / (100f + defensaObjetivo)));
+                // Fórmula sumando potencia
+                float danioBase = estadisticaAtaque + potenciaAtaque; 
+                float factorDefensa = 100f / (100f + defensaObjetivo);
+                float danio = Random.Range(0.9f, 1.1f) * (danioBase * factorDefensa);
+                
+                if (danio < 1) danio = 1;
+
                 Debug.Log((int)danio);
                 objetivosSeleccionados[i].RecibeDaño((int)danio);
             }
+            objetivosSeleccionados.Clear();
+            objetivosSeleccionados.TrimExcess();
+        }
+
+            // --- LÓGICA DE DAÑO NORMAL (TU CÓDIGO EXISTENTE MEJORADO) ---
+            var estadisticaAtaque = 0;
+            switch (tipo)
+            {
+                case Ataque.FISICO:
+                    estadisticaAtaque = estadisticas.ataque;
+                    break;
+                case Ataque.ESPECIAL:
+                    estadisticaAtaque = estadisticas.ataqueEspecial;
+                    break;
+            }
+
+            for (int i = 0; i < objetivosSeleccionados.Count; i++)
+            {
+                var defensaObjetivo = 0;
+                switch (tipo)
+                {
+                    case Ataque.FISICO:
+                        defensaObjetivo = objetivosSeleccionados[i].estadisticas.defensa;
+                        break;
+                    case Ataque.ESPECIAL:
+                        defensaObjetivo = objetivosSeleccionados[i].estadisticas.defensaEspecial;
+                        break;
+                }
+
+                // Fórmula corregida sumando potencia
+                float danioBase = estadisticaAtaque + potenciaAtaque; 
+                float factorDefensa = 100f / (100f + defensaObjetivo);
+                float danio = Random.Range(0.9f, 1.1f) * (danioBase * factorDefensa);
+                
+                if (danio < 1) danio = 1;
+
+                Debug.Log((int)danio);
+                objetivosSeleccionados[i].RecibeDaño((int)danio);
+            }
+            
+            objetivosSeleccionados.Clear();
+            objetivosSeleccionados.TrimExcess();
         }
         
         /* Funcion que aplica el daño recibido aplicando distintos modificadores si fuera necesario y devuelve el daño
@@ -137,11 +205,21 @@ namespace Codigo.Scripts
             return dañoReal - vida;
         }
 
+        public void RecibeCuracion(int cantidad)
+        {
+            vida += cantidad;
+            // Evitamos que la vida supere el máximo permitido
+            if (vida > estadisticas.vidaMax)
+            {
+                vida = estadisticas.vidaMax;
+            }
+            Debug.Log(nombre + " se ha curado " + cantidad + " puntos de vida.");
+        }
+
         /* Metodo llamado por la animacion del ataque que indica aue esta ha terminado, ejecutando otro evento para el
            sistema de combate que indica que el luchador a terminado su accion y, por lo tanto, su turno*/
         private void FinAccionLuchador()
         {
-            
             ExecuteEvents.Execute<IMensajesCombate>(SistemaCombate.instance.gameObject, null,
                 (x, y) => { x.FinAccion(); });
         }
@@ -153,11 +231,6 @@ namespace Codigo.Scripts
         public void ResetTurno()
         {
             defiende = false;
-            if (accion != -1)
-            {
-                objetivosSeleccionados.Clear();
-                objetivosSeleccionados.TrimExcess();
-            }
             accion = -1;
         }
 
