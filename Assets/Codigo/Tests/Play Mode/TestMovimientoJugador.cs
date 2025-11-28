@@ -20,19 +20,49 @@ public class TestMovimientoJugador
     {
         // Creamos el GLOBAL para que Start() de jugador se ejecute sin problemas
         globalGO = new GameObject("GLOBAL");
-        yield return null; // Esperamos a que Awake se ejecute
         globalGO.AddComponent<GLOBAL>();
+        yield return null; // Esperamos a que Awake se ejecute
+        
         // Desactivamos el combate para que el jugador se pueda mover
         GLOBAL.enCombate = false;
+        
+        // Limpiamos los datos guardados del juego,IMPORTANTE: no afecta al juego real, es solo para que no interfieran con los tests
+        if (GLOBAL.guardado != null)
+        {
+            if (GLOBAL.guardado.objetosConsumibles != null)
+                GLOBAL.guardado.objetosConsumibles.Clear();
+                
+            // También limpiamos los objetos seleccionados para combate
+            if (GLOBAL.guardado.objetosSeleccionadosCombate != null)
+            {
+                for (int i = 0; i < GLOBAL.guardado.objetosSeleccionadosCombate.Length; i++)
+                {
+                    GLOBAL.guardado.objetosSeleccionadosCombate[i] = -1;
+                }
+            }
+        }
+        
         // Creamos el teclado de prueba
         teclado = InputSystem.AddDevice<Keyboard>();
-        // Creamos el jugador de prueba
+        
+        // Creamos el jugador de prueba (GameObject primero, componente después)
         jugadorGO = new GameObject("JugadorTest");
-        jugador = jugadorGO.AddComponent<Jugador>();
-
+        
         // Añadimos un Animator simulado para evitar errores en el Start
         jugadorGO.AddComponent<Animator>();
-        yield return null; // Esperamos un frame inicialización
+        
+        // Creamos el SistemaInteraccion como hijo del jugador para que Start() de jugador se ejecute sin problemas
+        GameObject hijo0 = new GameObject("Hijo0"); // Primer hijo (índice 0)
+        hijo0.transform.SetParent(jugadorGO.transform);
+        
+        GameObject sistemaInteraccionGO = new GameObject("SistemaInteraccion"); // Segundo hijo (índice 1)
+        sistemaInteraccionGO.transform.SetParent(jugadorGO.transform);
+        sistemaInteraccionGO.AddComponent<SistemaInteraccion>();
+        
+        // Ahora sí añadimos el componente Jugador (esto ejecutará Start())
+        jugador = jugadorGO.AddComponent<Jugador>();
+        
+        yield return null; // Esperamos un frame para que Awake se ejecute
     }
     // Limpiamos la instancia del jugador después de cada test para evitar errores
     [UnityTearDown]

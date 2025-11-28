@@ -60,7 +60,8 @@ public class Jugador : MonoBehaviour
     {
         bool hablando = SistemaDialogo.instance != null && SistemaDialogo.instance.enDialogo;
         //string escena = SceneManager.GetActiveScene().name;
-        if (!GLOBAL.enCombate && !hablando && !MenuSystem.GetMenuFocus()) // si no estamos ni en combate ni en dialogo
+        // si no estamos ni en combate ni en dialogo ni en pausa
+        if (!GLOBAL.enCombate && !hablando && !MenuPausa.enPausa && !MenuSystem.GetMenuFocus()) 
         {
             ControlMovimiento();
             sistemaInteraccion.DetectarInteraccion();

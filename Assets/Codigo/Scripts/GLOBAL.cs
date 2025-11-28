@@ -18,6 +18,9 @@ public class GLOBAL : MonoBehaviour
     public Jugador Jugador;
     public ObjectSlot objetoAEquipar;
     
+    // Un diccionario para recordar: NPC -> Último charla leída"
+    public Dictionary<string, int> memoriaNPCs = new Dictionary<string, int>();
+    
     void Awake()
     {
         Object.DontDestroyOnLoad(gameObject);

@@ -9,5 +9,6 @@ public class MenuFocusInitial : MonoBehaviour
     {
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(botonInicial);
+        Debug.Log("OnEnable ejecutado. Foco puesto en: " + botonInicial.name);
     }
 }
