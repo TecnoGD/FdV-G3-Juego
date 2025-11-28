@@ -68,6 +68,7 @@ namespace Codigo.Scripts
             // si los limites estan activos, no deja que se salga
             if (activarLimites)
             {
+                // para que sitioDeseado no salga de los limites puestos
                 float xLimitado = Mathf.Clamp(sitioDeseado.x, limitesX.x, limitesX.y);
                 sitioDeseado = new Vector3(xLimitado, sitioDeseado.y, sitioDeseado.z);
             }
