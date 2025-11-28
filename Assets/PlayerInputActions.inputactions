@@ -1,0 +1,35 @@
+{
+    "version": 1,
+    "name": "PlayerInputActions",
+    "maps": [
+        {
+            "name": "Jugador",
+            "id": "7715851e-c711-45ef-980e-81b053a4b2aa",
+            "actions": [
+                {
+                    "name": "MenuJugador",
+                    "type": "Button",
+                    "id": "7e172e2c-5e80-4afd-8b76-8ef96ca2e726",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "fe7e90dc-93b2-4ddd-b4eb-a8eff942706c",
+                    "path": "<Keyboard>/#(M)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MenuJugador",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
