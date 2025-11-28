@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 namespace Codigo.Scripts
 {
@@ -7,9 +9,9 @@ namespace Codigo.Scripts
     {
         public static MenuPausa instance; // instancia unica para que no haya duplicados
         public static bool enPausa = false; // variable para saber si el juego esta parado
-
+        
         // el panel de la ui
-        public GameObject menuPausaUI; 
+        public GameObject menuPausaUI;
 
         void Awake()
         {
@@ -51,7 +53,8 @@ namespace Codigo.Scripts
         {
             menuPausaUI.SetActive(true);  
             Time.timeScale = 0f;     // congelamos tiempo
-            enPausa = true;               
+            enPausa = true;   
+            
         }
 
         public void Salir()
