@@ -60,7 +60,7 @@ public class Jugador : MonoBehaviour
     {
         bool hablando = SistemaDialogo.instance != null && SistemaDialogo.instance.enDialogo;
         //string escena = SceneManager.GetActiveScene().name;
-        if (!GLOBAL.enCombate && !hablando) // si no estamos ni en combate ni en dialogo
+        if (!GLOBAL.enCombate && !hablando && !MenuSystem.GetMenuFocus()) // si no estamos ni en combate ni en dialogo
         {
             ControlMovimiento();
             sistemaInteraccion.DetectarInteraccion();
@@ -84,5 +84,14 @@ public class Jugador : MonoBehaviour
             movimiento.x = 1;
             
         transform.position += movimiento.normalized * (velocidad * Time.deltaTime); //calcular la pos
+    }
+
+    public void MenuJugador(InputAction.CallbackContext context)
+    {
+        if (context.performed && !MenuSystem.GetMenuFocus())
+        {
+            //MenuSystem.instance.menuJugador.SetActive(true);
+            MenuSystem.SiguienteMenu(MenuSystem.instance.menuJugador);
+        }
     }
 }

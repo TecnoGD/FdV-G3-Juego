@@ -15,7 +15,8 @@ public class GLOBAL : MonoBehaviour
     public List<DatosLuchador> ListaDatosCombatiente = new List<DatosLuchador>();
     public List<ObjetoConsumible> objetosConsumibles = new List<ObjetoConsumible>();
     public ObjetoConsumible objetivoPrueba;
-    public GameObject Jugador;
+    public Jugador Jugador;
+    public ObjectSlot objetoAEquipar;
     
     void Awake()
     {
@@ -29,6 +30,8 @@ public class GLOBAL : MonoBehaviour
 
     void Start()
     {
+        
+        Object.DontDestroyOnLoad(MenuSystem.instance.menuJugador);
         SceneManager.LoadScene("SalaDescanso");
     }
 
