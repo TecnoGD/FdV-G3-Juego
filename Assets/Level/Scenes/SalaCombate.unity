@@ -394,7 +394,7 @@ MonoBehaviour:
     ataqueEspecial: 0
     defensaEspecial: 0
   animator: {fileID: 0}
-  datos: {fileID: 11400000, guid: a07f5616ca066254aa460245a6e5eb18, type: 2}
+  datos: {fileID: 11400000, guid: 02a7d099344f61944b2f647e05d846fe, type: 2}
   listaAcciones: 
   objetivosSeleccionados: []
   objetosConsumibles:
@@ -5324,7 +5324,7 @@ MonoBehaviour:
     ataqueEspecial: 0
     defensaEspecial: 0
   animator: {fileID: 0}
-  datos: {fileID: 11400000, guid: a07f5616ca066254aa460245a6e5eb18, type: 2}
+  datos: {fileID: 11400000, guid: 173b0e4099f88734fb6d4c24e356e076, type: 2}
   listaAcciones: 00000000
   objetivosSeleccionados: []
   objetosConsumibles:

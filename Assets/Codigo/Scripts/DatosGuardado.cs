@@ -22,11 +22,12 @@ namespace Codigo.Scripts
         {
             estadisticasJugador = new DatosCombate.Estadisticas(50, 5, 1, 10, 1);
             id = 5;
-            accionesJugador = new int[] {0,1,1,1,1};
+            accionesJugador = new int[] {0,1,2,1,1};
             nombre = "Jugador"; 
             objetosConsumibles = new List<DatosObjetoGuardado>();
-            objetosConsumibles.Add(new DatosObjetoGuardado(0, 1));
-            objetosSeleccionadosCombate = new int[] {-1,-1,-1,-1};
+            objetosConsumibles.Add(new DatosObjetoGuardado(0, 5));
+            objetosConsumibles.Add(new DatosObjetoGuardado(1, 1));
+            objetosSeleccionadosCombate = new int[] {0,1,-1,-1};
             progresoHistoria = 0; // Empezamos desde 0 (inicio)
             
         }

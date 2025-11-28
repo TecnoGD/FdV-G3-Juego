@@ -9,7 +9,7 @@ namespace Codigo.Scripts
         public string Animacion;    // Animación del ataque
         public int DañoBase;        // Potencia base del atauqe
         public int tipo;
-        public const int FISICO = 0, ESPECIAL = 1;
+        public const int FISICO = 0, ESPECIAL = 1, CURATIVO = 2;
 
         public override void Ejecuta(Luchador self, Animator animator)
         {

@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 63ede5d10536449e85cdbb7e96204914, type: 3}
-  m_Name: Jugador
-  m_EditorClassIdentifier: Assembly-CSharp::Codigo.Scripts.DatosLuchador
-  tipoLuchador: 1
-  nombre: 
-  VidaMax: 50
-  Ataque: 1
-  Defensa: 1
-  AtaqueEspecial: 1
-  DefensaEspecial: 1
-  acciones: 00000000010000000200000003000000
+  m_Name: DatosBoss1
+  m_EditorClassIdentifier: Scripts::Codigo.Scripts.DatosLuchador
+  tipoLuchador: 2
+  nombre: Magnus(Boss)
+  VidaMax: 100
+  Ataque: 3
+  Defensa: 2
+  AtaqueEspecial: 10
+  DefensaEspecial: 5
+  acciones: 0500000003000000
