@@ -16,10 +16,17 @@ public class TestSistemaCombate
     private GameObject enemigoGO;
     private Luchador enemigo;
     private GameObject vidaEnemigoPadre; // Guardar referencia al padre para evitar que se destruya
+    private GameObject menuSystemGO; 
 
     [UnitySetUp]
     public IEnumerator SetUp()
     {
+        // Mock de MenuSystem necesario para GLOBAL.Start()
+        menuSystemGO = new GameObject("MenuSystem");
+        MenuSystem menuSystem = menuSystemGO.AddComponent<MenuSystem>();
+        MenuSystem.instance = menuSystem; // Asignamos instancia manualmente
+        menuSystem.menuJugador = new GameObject("MenuJugadorMock"); // Mock del menú de jugador
+
         // Crear GLOBAL
         globalGO = new GameObject("GLOBAL");
         globalGO.AddComponent<GLOBAL>();
@@ -144,6 +151,7 @@ public class TestSistemaCombate
         Object.Destroy(enemigoGO);
         Object.Destroy(sistemaCombateGO);
         Object.Destroy(globalGO);
+        Object.Destroy(menuSystemGO);
         SistemaCombate.luchadores.Clear();
         yield return null;
     }
