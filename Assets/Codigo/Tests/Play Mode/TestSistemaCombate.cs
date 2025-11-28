@@ -4,6 +4,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 using Codigo.Scripts;
+using System.Linq;
 
 public class TestSistemaCombate
 {
@@ -213,8 +214,8 @@ public class TestSistemaCombate
         SistemaCombate.luchadores.Add(jugador);
         sistemaCombate.jugador = jugador;
         
-        // Seleccionar pasar turno (acción 2 del menú principal)
-        sistemaCombate.AccionEscogida(2);
+        // Seleccionar pasar turno (acción -1 de AccionEscogida)
+        sistemaCombate.AccionEscogida(-1);
 
         // Comprobar que el turno avanza
         Assert.Greater(sistemaCombate.turno, -1, "El turno debería haber avanzado");
@@ -382,4 +383,241 @@ public class TestSistemaCombate
         yield return null;        
     }
 
+
+    // ========== TESTS DE ANALIZAR ENEMIGO ========== 
+
+    [UnityTest]
+    public IEnumerator TestAnalizarEnemigo()
+    {
+        // Configurar EventSystem para la interacción con la UI 
+        GameObject eventSystemGO = new GameObject("EventSystem");
+        eventSystemGO.AddComponent<UnityEngine.EventSystems.EventSystem>();
+
+        // Configurar MenuObjetivos con los mocks necesarios
+        GameObject objetivoUI = sistemaCombate.ElementosUI[SistemaCombate.UIObjetivoCombate];
+        MenuObjetivos menuObjetivos = objetivoUI.GetComponent<MenuObjetivos>();
+
+        // Mock de Prefabs (Simulamos los elementos visuales que se instancian)
+        GameObject prefabToggle = new GameObject("PrefabToggle");
+        prefabToggle.AddComponent<UnityEngine.UI.Toggle>();
+        GameObject textGO = new GameObject("Text");
+        textGO.transform.SetParent(prefabToggle.transform);
+        textGO.AddComponent<UnityEngine.UI.Text>();
+        menuObjetivos.prefabBotonObjetivo = prefabToggle;
+
+        GameObject prefabAtras = new GameObject("PrefabAtras");
+        prefabAtras.AddComponent<UnityEngine.UI.Button>();
+        menuObjetivos.prefabBotonAtras = prefabAtras;
+
+        // Configurar MenuAnalizar (nueva clase separada)
+        GameObject menuAnalizarGO = new GameObject("MenuAnalizar");
+        MenuAnalizar menuAnalizar = menuAnalizarGO.AddComponent<MenuAnalizar>();
+
+        // Mock del Panel de Análisis
+        GameObject panelAnalisis = new GameObject("PanelAnalisis");
+        panelAnalisis.SetActive(false);
+        menuAnalizar.panelAnalisis = panelAnalisis;
+
+        // Mock de los Textos de Análisis
+        menuAnalizar.textoNombreAnalisis = new GameObject("TxtNombre").AddComponent<TMPro.TextMeshProUGUI>();
+        menuAnalizar.textoVidaAnalisis = new GameObject("TxtVida").AddComponent<TMPro.TextMeshProUGUI>();
+        menuAnalizar.textoAtaqueAnalisis = new GameObject("TxtAtaque").AddComponent<TMPro.TextMeshProUGUI>();
+        menuAnalizar.textoDefensaAnalisis = new GameObject("TxtDefensa").AddComponent<TMPro.TextMeshProUGUI>();
+        menuAnalizar.textoAtaqueEspecialAnalisis = new GameObject("TxtAtqEsp").AddComponent<TMPro.TextMeshProUGUI>();
+        menuAnalizar.textoDefensaEspecialAnalisis = new GameObject("TxtDefEsp").AddComponent<TMPro.TextMeshProUGUI>();
+
+        // Mock del Botón Volver
+        GameObject btnVolver = new GameObject("BtnVolver");
+        menuAnalizar.botonVolverAnalisis = btnVolver.AddComponent<UnityEngine.UI.Button>();
+
+        // Preparar el estado del combate
+        SistemaCombate.luchadores.Clear();
+        SistemaCombate.luchadores.Add(jugador);
+        SistemaCombate.luchadores.Add(enemigo);
+        sistemaCombate.jugador = jugador;
+        GLOBAL.enCombate = true;
+        
+        // Establecer nombre del enemigo para verificación
+        enemigo.nombre = "EnemigoTest";
+
+        // Forzar que OnEnable se ejecute desactivando y reactivando el UI
+        objetivoUI.SetActive(false);
+        yield return null;
+        objetivoUI.SetActive(true);
+        yield return null;
+
+        // Ejecutar la acción de Analizar
+        sistemaCombate.Analizar();
+        yield return null;
+
+        // Simular la selección del enemigo
+        Assert.IsTrue(objetivoUI.activeSelf, "MenuObjetivos debería estar activo");
+
+        // Buscar el toggle. Como solo tenemos 1 enemigo, debería ser el primer toggle instanciado.
+        UnityEngine.UI.Toggle enemyToggle = objetivoUI.GetComponentInChildren<UnityEngine.UI.Toggle>();
+        Assert.IsNotNull(enemyToggle, "El toggle del enemigo debería haber sido creado");
+
+        // Simular la selección del enemigo y mostrar análisis
+        menuAnalizar.MostrarAnalisisEnemigo(enemigo);
+        panelAnalisis.SetActive(true); // Activar manualmente el panel en el test
+        yield return null;
+
+        // Verificar el Panel de Análisis
+        Assert.AreEqual("EnemigoTest", menuAnalizar.textoNombreAnalisis.text);
+        Assert.AreEqual("Vida: " + enemigo.vida, menuAnalizar.textoVidaAnalisis.text);
+        Assert.AreEqual("Ataque: " + enemigo.estadisticas.ataque, menuAnalizar.textoAtaqueAnalisis.text);
+        Assert.AreEqual("Defensa: " + enemigo.estadisticas.defensa, menuAnalizar.textoDefensaAnalisis.text);
+        Assert.AreEqual("Atq. Esp: " + enemigo.estadisticas.ataqueEspecial, menuAnalizar.textoAtaqueEspecialAnalisis.text);
+        Assert.AreEqual("Def. Esp: " + enemigo.estadisticas.defensaEspecial, menuAnalizar.textoDefensaEspecialAnalisis.text);
+
+        // Limpieza de objetos creados para el test
+        if (eventSystemGO != null)
+            Object.Destroy(eventSystemGO);
+        Object.Destroy(prefabToggle);
+        Object.Destroy(prefabAtras);
+        Object.Destroy(menuAnalizarGO);
+        Object.Destroy(panelAnalisis);
+        Object.Destroy(menuAnalizar.textoNombreAnalisis.gameObject);
+        Object.Destroy(menuAnalizar.textoVidaAnalisis.gameObject);
+        Object.Destroy(menuAnalizar.textoAtaqueAnalisis.gameObject);
+        Object.Destroy(menuAnalizar.textoDefensaAnalisis.gameObject);
+        Object.Destroy(menuAnalizar.textoAtaqueEspecialAnalisis.gameObject);
+        Object.Destroy(menuAnalizar.textoDefensaEspecialAnalisis.gameObject);
+        Object.Destroy(btnVolver.gameObject);
+        
+        yield return null;
+    }
+
+
+    // ========== TESTS DE SISTEMA DE OBJETOS ==========
+
+    [UnityTest]
+    public IEnumerator TestEjecucionAccionConObjeto()
+    {
+        // Configurar el combate
+        SistemaCombate.luchadores.Clear();
+        SistemaCombate.luchadores.Add(jugador);
+        SistemaCombate.luchadores.Add(enemigo);
+        sistemaCombate.jugador = jugador;
+        GLOBAL.enCombate = true;
+
+        // Crear un objeto consumible mock (usamos ObjetoCurativo como ejemplo)
+        ObjetoCurativo objetoMock = ScriptableObject.CreateInstance<ObjetoCurativo>();
+        objetoMock.nombre = "Objeto Test";
+        objetoMock.estiloSeleccionObjetivo = ObjetoConsumible.SOLOJUGADOR;
+        objetoMock.valorCurativo = 10;
+
+        // Configurar el slot de objeto del jugador
+        jugador.objetosConsumibles = new ObjectSlot[1];
+        jugador.objetosConsumibles[0] = new ObjectSlot(objetoMock, 2);
+
+        // Configurar la acción de usar objeto
+        jugador.objetoSeleccionado = 0;
+        jugador.accion = -2; // Acción de usar objeto (accion < -1)
+        jugador.objetivosSeleccionados.Clear();
+        jugador.objetivosSeleccionados.Add(jugador);
+
+        // Guardar estado inicial
+        int cantidadInicial = jugador.objetosConsumibles[0].cantidad;
+
+        // Ejecutar la acción
+        jugador.EjecutarAccion(SistemaCombate.luchadores);
+        yield return null;
+
+        // Se comprueba que la cantidad del objeto se reduce
+        Assert.AreEqual(cantidadInicial - 1, jugador.objetosConsumibles[0].cantidad, 
+            "La cantidad del objeto debería reducirse después de ejecutar la acción");
+
+        // Cleanup
+        Object.Destroy(objetoMock);
+        yield return null;
+    }
+
+    [UnityTest]
+    public IEnumerator TestSeleccionObjetoCorrecto()
+    {
+        // Configurar el combate
+        SistemaCombate.luchadores.Clear();
+        SistemaCombate.luchadores.Add(jugador);
+        sistemaCombate.jugador = jugador;
+        GLOBAL.enCombate = true;
+
+        // Crear dos objetos diferentes
+        ObjetoCurativo objeto1 = ScriptableObject.CreateInstance<ObjetoCurativo>();
+        objeto1.nombre = "Objeto 1";
+        objeto1.valorCurativo = 10;
+
+        ObjetoCurativo objeto2 = ScriptableObject.CreateInstance<ObjetoCurativo>();
+        objeto2.nombre = "Objeto 2";
+        objeto2.valorCurativo = 20;
+
+        // Configurar slots de objetos
+        jugador.objetosConsumibles = new ObjectSlot[2];
+        jugador.objetosConsumibles[0] = new ObjectSlot(objeto1, 3);
+        jugador.objetosConsumibles[1] = new ObjectSlot(objeto2, 2);
+
+        // Seleccionar el segundo objeto (índice 1)
+        jugador.objetoSeleccionado = 1;
+        jugador.accion = -2;
+        jugador.objetivosSeleccionados.Clear();
+        jugador.objetivosSeleccionados.Add(jugador);
+
+        // Ejecutar la acción
+        jugador.EjecutarAccion(SistemaCombate.luchadores);
+        yield return null;
+
+        // Verificar que se usó el objeto correcto (el segundo)
+        Assert.AreEqual(3, jugador.objetosConsumibles[0].cantidad, 
+            "El primer objeto NO debería haberse usado");
+        Assert.AreEqual(1, jugador.objetosConsumibles[1].cantidad, 
+            "El segundo objeto SÍ debería haberse usado (cantidad reducida de 2 a 1)");
+
+        // Cleanup
+        Object.Destroy(objeto1);
+        Object.Destroy(objeto2);
+        yield return null;
+    }
+
+    [UnityTest]
+    public IEnumerator TestEliminacionObjetoAgotado()
+    {
+        // Configurar el combate
+        SistemaCombate.luchadores.Clear();
+        SistemaCombate.luchadores.Add(jugador);
+        sistemaCombate.jugador = jugador;
+        GLOBAL.enCombate = true;
+
+        // Crear un objeto con cantidad = 1 (última unidad)
+        ObjetoCurativo objetoMock = ScriptableObject.CreateInstance<ObjetoCurativo>();
+        objetoMock.nombre = "Última Unidad";
+        objetoMock.estiloSeleccionObjetivo = ObjetoConsumible.SOLOJUGADOR;
+        objetoMock.valorCurativo = 15;
+
+        // Configurar el slot con cantidad = 1
+        jugador.objetosConsumibles = new ObjectSlot[1];
+        jugador.objetosConsumibles[0] = new ObjectSlot(objetoMock, 1);
+
+        // Usar el objeto
+        jugador.objetoSeleccionado = 0;
+        jugador.accion = -2;
+        jugador.objetivosSeleccionados.Clear();
+        jugador.objetivosSeleccionados.Add(jugador);
+
+        // Ejecutar la acción
+        jugador.EjecutarAccion(SistemaCombate.luchadores);
+        yield return null;
+
+        // Verificar que el objeto se eliminó del slot
+        Assert.IsNull(jugador.objetosConsumibles[0].objeto, 
+            "El objeto debería ser null cuando se agota (cantidad llega a 0)");
+        Assert.AreEqual(-1, jugador.objetosConsumibles[0].cantidad, 
+            "La cantidad debería ser -1 cuando el objeto se elimina del slot");
+
+        // Cleanup
+        Object.Destroy(objetoMock);
+        yield return null;
+    }
+
 }
+
+
