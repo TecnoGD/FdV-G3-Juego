@@ -25,6 +25,12 @@ namespace Codigo.Scripts
 
         void Start()
         {
+            // Preguntamos a GLOBAL si hemos hablado con este NPC antes
+            if (GLOBAL.instance.memoriaNPCs.ContainsKey(nombreNPC))
+            {
+                // Si existe en la lista, recuperamos el dato
+                ultimaEtapaLeida = GLOBAL.instance.memoriaNPCs[nombreNPC];
+            }
             // al iniciar comprobamos si hay que mostrar la alerta
             ActualizarAlerta();
         }
@@ -53,6 +59,16 @@ namespace Codigo.Scripts
 
             // registramos que ya hemos leido esta etapa para que no salga la alerta
             ultimaEtapaLeida = progresoActual;
+            
+            // indicar al GLOBAL que guarde que ya he hablado con este
+            if (GLOBAL.instance.memoriaNPCs.ContainsKey(nombreNPC))
+            {
+                GLOBAL.instance.memoriaNPCs[nombreNPC] = ultimaEtapaLeida;
+            }
+            else
+            {
+                GLOBAL.instance.memoriaNPCs.Add(nombreNPC, ultimaEtapaLeida);
+            }
             
             // actualizamos el estado del icono
             ActualizarAlerta();

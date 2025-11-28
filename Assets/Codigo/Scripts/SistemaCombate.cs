@@ -19,6 +19,8 @@ namespace Codigo.Scripts
         public GameObject prefabVidaEnemigos;                           // Prefab de la UI de la vida de los enemigos
         public UnityEngine.UI.Button botonAnalizar;                     // Botón de Analizar enemigos
         public int accionSeleccionada = 0;
+        
+        public Transform CamaraCombate;
 
         // Inicializa lo necesario para el combate
         void Start()
@@ -42,7 +44,14 @@ namespace Codigo.Scripts
             jugador = luchadores[0];                                                                            // Define la variable luchador al GameObject del jugador
             jugador.InicioCombate();                                                                            // Inicializa al jugador para el combate
             var pos = jugador.gameObject.transform.position;
-            jugador.gameObject.transform.parent.position =  new Vector3(-3.99f, pos.y, pos.z);              
+            jugador.gameObject.transform.parent.position =  new Vector3(-3.99f, pos.y, pos.z);    
+            
+            // después de posicionar el jugador, posicionamos la cámara
+            CamaraSeguimiento cam = Camera.main.GetComponent<CamaraSeguimiento>();
+            if (cam != null && CamaraCombate != null)
+            {
+                cam.EnfocarPuntoCombate(CamaraCombate);
+            }
                                                                                                                 //
             gameObject.transform.BroadcastMessage("InicioCombate");                                  // El sistema de combate envia un mensaje de inicio de combate a todos sus hijos
             ElementosUI[UIAccionesCombate].gameObject.SetActive(false);                                         // Desactiva el menu de acciones de combate
@@ -263,6 +272,13 @@ namespace Codigo.Scripts
             TextoVidas.Clear();
             gameObject.SetActive(false);
             GLOBAL.enCombate = false;
+            
+            // al acabar el combate volvemos a enfocar el jugador la cámara
+            CamaraSeguimiento cam = Camera.main.GetComponent<CamaraSeguimiento>();
+            if (cam != null)
+            {
+                cam.EnfocarJugador();
+            }
         }
         
         /* Metodo que abre el menu de seleccion de objetivos para analizar enemigos
