@@ -421,6 +421,7 @@ GameObject:
   - component: {fileID: 235403113}
   - component: {fileID: 235403112}
   - component: {fileID: 235403111}
+  - component: {fileID: 235403116}
   m_Layer: 5
   m_Name: Slot4
   m_TagString: Untagged
@@ -526,7 +527,7 @@ MonoBehaviour:
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
-    m_HighlightedTrigger: Selected
+    m_HighlightedTrigger: Normal
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
@@ -597,6 +598,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 235403109}
   m_CullTransparentMesh: 1
+--- !u!114 &235403116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 235403109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 999c8d4d36954ceb9bcbffee90f90cbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Scripts::Codigo.Scripts.BotonAutoSeleccionable
+  boton: {fileID: 235403113}
 --- !u!1 &235798674
 GameObject:
   m_ObjectHideFlags: 0
@@ -1347,6 +1361,7 @@ GameObject:
   - component: {fileID: 513239977}
   - component: {fileID: 513239980}
   - component: {fileID: 513239981}
+  - component: {fileID: 513239982}
   m_Layer: 5
   m_Name: Ataque
   m_TagString: Untagged
@@ -1516,6 +1531,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &513239982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 513239975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 999c8d4d36954ceb9bcbffee90f90cbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Scripts::Codigo.Scripts.BotonAutoSeleccionable
+  boton: {fileID: 513239977}
 --- !u!1 &546060695
 GameObject:
   m_ObjectHideFlags: 0
@@ -2321,6 +2349,7 @@ GameObject:
   - component: {fileID: 631322824}
   - component: {fileID: 631322823}
   - component: {fileID: 631322822}
+  - component: {fileID: 631322827}
   m_Layer: 5
   m_Name: Slot2
   m_TagString: Untagged
@@ -2426,7 +2455,7 @@ MonoBehaviour:
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
-    m_HighlightedTrigger: Selected
+    m_HighlightedTrigger: Normal
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
@@ -2497,6 +2526,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 631322820}
   m_CullTransparentMesh: 1
+--- !u!114 &631322827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 631322820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 999c8d4d36954ceb9bcbffee90f90cbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Scripts::Codigo.Scripts.BotonAutoSeleccionable
+  boton: {fileID: 631322824}
 --- !u!1 &635335778
 GameObject:
   m_ObjectHideFlags: 0
@@ -3074,6 +3116,7 @@ GameObject:
   - component: {fileID: 957654727}
   - component: {fileID: 957654730}
   - component: {fileID: 957654731}
+  - component: {fileID: 957654732}
   m_Layer: 5
   m_Name: Analizar
   m_TagString: Untagged
@@ -3136,7 +3179,7 @@ MonoBehaviour:
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
-    m_HighlightedTrigger: Selected
+    m_HighlightedTrigger: Normal
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
@@ -3255,6 +3298,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Scripts::MenuNavigator
   siguiente: {fileID: 1095855806}
   desactivaAnterior: 1
+--- !u!114 &957654732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 957654725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 999c8d4d36954ceb9bcbffee90f90cbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Scripts::Codigo.Scripts.BotonAutoSeleccionable
+  boton: {fileID: 957654727}
 --- !u!1 &979983617
 GameObject:
   m_ObjectHideFlags: 0
@@ -3494,6 +3550,7 @@ GameObject:
   - component: {fileID: 1062354315}
   - component: {fileID: 1062354314}
   - component: {fileID: 1062354317}
+  - component: {fileID: 1062354318}
   m_Layer: 5
   m_Name: Pasar Turno
   m_TagString: Untagged
@@ -3556,7 +3613,7 @@ MonoBehaviour:
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
-    m_HighlightedTrigger: Selected
+    m_HighlightedTrigger: Normal
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
@@ -3637,6 +3694,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1062354318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1062354312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 999c8d4d36954ceb9bcbffee90f90cbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Scripts::Codigo.Scripts.BotonAutoSeleccionable
+  boton: {fileID: 1062354314}
 --- !u!1 &1072343369
 GameObject:
   m_ObjectHideFlags: 0
@@ -5281,6 +5351,7 @@ GameObject:
   - component: {fileID: 1469010342}
   - component: {fileID: 1469010341}
   - component: {fileID: 1469010345}
+  - component: {fileID: 1469010346}
   m_Layer: 5
   m_Name: Slot1
   m_TagString: Untagged
@@ -5367,7 +5438,7 @@ MonoBehaviour:
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
-    m_HighlightedTrigger: Selected
+    m_HighlightedTrigger: Normal
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
@@ -5457,6 +5528,19 @@ MonoBehaviour:
   objetoConsumible:
     objeto: {fileID: 0}
     cantidad: 0
+--- !u!114 &1469010346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1469010339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 999c8d4d36954ceb9bcbffee90f90cbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Scripts::Codigo.Scripts.BotonAutoSeleccionable
+  boton: {fileID: 1469010342}
 --- !u!1 &1559070351
 GameObject:
   m_ObjectHideFlags: 0
@@ -5560,6 +5644,7 @@ GameObject:
   - component: {fileID: 1577838325}
   - component: {fileID: 1577838324}
   - component: {fileID: 1577838327}
+  - component: {fileID: 1577838328}
   m_Layer: 5
   m_Name: Defensa
   m_TagString: Untagged
@@ -5622,7 +5707,7 @@ MonoBehaviour:
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
-    m_HighlightedTrigger: Selected
+    m_HighlightedTrigger: Normal
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
@@ -5703,6 +5788,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1577838328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1577838322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 999c8d4d36954ceb9bcbffee90f90cbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Scripts::Codigo.Scripts.BotonAutoSeleccionable
+  boton: {fileID: 1577838324}
 --- !u!1 &1614135353
 GameObject:
   m_ObjectHideFlags: 0
@@ -5915,7 +6013,7 @@ MonoBehaviour:
   m_ScrollWheelAction: {fileID: 6240969308177333660, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_TrackedDevicePositionAction: {fileID: 6564999863303420839, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_DeselectOnBackgroundClick: 1
+  m_DeselectOnBackgroundClick: 0
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
   m_ScrollDeltaPerTick: 6
@@ -6619,6 +6717,7 @@ GameObject:
   - component: {fileID: 1993113131}
   - component: {fileID: 1993113130}
   - component: {fileID: 1993113129}
+  - component: {fileID: 1993113134}
   m_Layer: 5
   m_Name: Slot3
   m_TagString: Untagged
@@ -6724,7 +6823,7 @@ MonoBehaviour:
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
-    m_HighlightedTrigger: Selected
+    m_HighlightedTrigger: Normal
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
@@ -6795,6 +6894,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1993113127}
   m_CullTransparentMesh: 1
+--- !u!114 &1993113134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993113127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 999c8d4d36954ceb9bcbffee90f90cbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Scripts::Codigo.Scripts.BotonAutoSeleccionable
+  boton: {fileID: 1993113131}
 --- !u!1 &1998382104
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Codigo.Scripts
 {
@@ -9,6 +10,8 @@ namespace Codigo.Scripts
         public static MenuSystem instance;                                      // instancia del objeto del sistema de menu
         private static Stack<GameObject> menuStack = new Stack<GameObject>();   // Pila de menus 
         private static GameObject menuFocus;                                    // Menu en la que el jugador tiene su enfoque
+        public static bool enMenu;
+        public GameObject menuJugador;
 
         private void Start()
         {
@@ -28,6 +31,7 @@ namespace Codigo.Scripts
             if (menuStack.Count == 0 && !menuFocus)
             {
                 menuFocus =  menu;
+                enMenu = true;
             }
             else
             {
@@ -52,21 +56,22 @@ namespace Codigo.Scripts
             if (menuStack.Count == 0 && !menuFocus)
             {
                 menuFocus =  menu;
+                enMenu = true;
             }
             else
             {
                 menuStack.Push(menuFocus);
                 menuFocus = menu;  
             }
-            
-            menuFocus.SetActive(true);
+            menu.SetActive(true);
         }
 
         /* Metodo que cambia el menu activo por el más recientemente apilado en menuStack y lo habilita
            PRE: menuStack:Count > 0 
            POST: deshabilita el actual menuFocus, desapila un elemento de menuStack, lo define como el actual
-                 menuFocus y lo habilita*/
-        public static void MenuAnterior()
+                 menuFocus y lo habilita
+                 Devuelve el menu a activar*/
+        public static GameObject MenuAnterior()
         {
             if (menuStack.Count > 0)
             {
@@ -74,7 +79,17 @@ namespace Codigo.Scripts
                 menuFocus = menuStack.Pop();
                 menuFocus.SetActive(true);
             }
-            
+            return menuFocus;
+        }
+        
+        public static GameObject MenuAnterior(bool noDesactiva)
+        {
+            if (menuStack.Count > 0)
+            {
+                menuFocus = menuStack.Pop();
+                menuFocus.SetActive(true);
+            }
+            return menuFocus;
         }
 
         /* Metodo que reinicia el sistema de menus, reiniciando la pila y nullificando el menuFocus
@@ -92,7 +107,7 @@ namespace Codigo.Scripts
                 menu.SetActive(false);
             }
         
-            
+            enMenu = false;
             menuStack.Clear();
         
         }
@@ -110,6 +125,7 @@ namespace Codigo.Scripts
                 menu.SetActive(false);
             }
             menuStack.Clear();
+            enMenu = true;
             menuFocus = menuInicio;
             menuFocus.SetActive(true);
         
