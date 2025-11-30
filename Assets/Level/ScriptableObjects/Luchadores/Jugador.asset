@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63ede5d10536449e85cdbb7e96204914, type: 3}
   m_Name: Jugador
   m_EditorClassIdentifier: Assembly-CSharp::Codigo.Scripts.DatosLuchador
+  tipoLuchador: 1
+  nombre: 
   VidaMax: 50
   Ataque: 1
   Defensa: 1

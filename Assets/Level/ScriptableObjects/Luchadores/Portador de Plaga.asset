@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 63ede5d10536449e85cdbb7e96204914, type: 3}
-  m_Name: Enemigo
+  m_Name: Portador de Plaga
   m_EditorClassIdentifier: Assembly-CSharp::Codigo.Scripts.DatosLuchador
   tipoLuchador: 2
-  nombre: Enemigo
-  VidaMax: 20
-  Ataque: 1
-  Defensa: 1
-  AtaqueEspecial: 1
-  DefensaEspecial: 1
+  nombre: Portador de Plaga
+  VidaMax: 100
+  Ataque: 16
+  Defensa: 5
+  AtaqueEspecial: 20
+  DefensaEspecial: 10
   acciones: 00000000
