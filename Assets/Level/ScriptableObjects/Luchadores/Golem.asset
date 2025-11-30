@@ -10,11 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 63ede5d10536449e85cdbb7e96204914, type: 3}
-  m_Name: Jugador
+  m_Name: Golem
   m_EditorClassIdentifier: Assembly-CSharp::Codigo.Scripts.DatosLuchador
-  VidaMax: 50
-  Ataque: 1
-  Defensa: 1
-  AtaqueEspecial: 1
-  DefensaEspecial: 1
-  acciones: 00000000010000000200000003000000
+  tipoLuchador: 2
+  nombre: Golem
+  VidaMax: 60
+  Ataque: 2
+  Defensa: 10
+  AtaqueEspecial: 3
+  DefensaEspecial: 20
+  acciones: 04000000

@@ -5248,6 +5248,10 @@ MonoBehaviour:
   ListaAccionesTotales:
   - {fileID: 11400000, guid: 23ebaaacd4574784d8a082eab75bc6a9, type: 2}
   - {fileID: 11400000, guid: 093c839a00591c540954a0be8dd5dfdb, type: 2}
+  - {fileID: 11400000, guid: b087ac56523589945b24f639c62b1791, type: 2}
+  - {fileID: 11400000, guid: e4637536371d5d84284cd7ab36c1a174, type: 2}
+  - {fileID: 11400000, guid: d745232d5632c424e9e50e5aef2e62e1, type: 2}
+  - {fileID: 11400000, guid: 0bde08ec1bcafdb498896c669b7a4d10, type: 2}
   ListaDatosCombatiente:
   - {fileID: 11400000, guid: cb87cc911d03a21459f6f465a488d9e0, type: 2}
   objetosConsumibles:
