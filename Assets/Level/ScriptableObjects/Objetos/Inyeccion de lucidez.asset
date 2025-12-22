@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e0d2c5f11914cf6930f3ca1e7ebee0b, type: 3}
+  m_Script: {fileID: 11500000, guid: 14ff1f8b5e248064e9bb9399ee92b7e6, type: 3}
   m_Name: Inyeccion de lucidez
-  m_EditorClassIdentifier: Scripts::Codigo.Scripts.ObjetoCurativo
+  m_EditorClassIdentifier: Scripts::Codigo.Scripts.ObjetoCuraEstado
   id: 0
   nombre: Inyeccion de lucidez
   descripcion: "Dosis de cafe\xEDna concentrada. Despierta el cuerpo y la mente."
   estiloSeleccionObjetivo: 0
   textura: {fileID: 0}
-  valorCurativo: 5
+  estadoACurar: 2
