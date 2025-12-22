@@ -23,6 +23,30 @@ namespace Codigo.Scripts
         public ObjectSlot[] objetosConsumibles;
         public int objetoSeleccionado = 0;
         
+        public enum EstadoAlterado { Ninguno, Sangrado, Aturdimiento, Veneno }
+        public List<EstadoAlterado> estadosAlterados = new List<EstadoAlterado>();
+
+        public void AplicarEstado(EstadoAlterado estado)
+        {
+            if (!estadosAlterados.Contains(estado))
+            {
+                estadosAlterados.Add(estado);
+            }
+        }
+
+        public void QuitarEstado(EstadoAlterado estado)
+        {
+            if (estadosAlterados.Contains(estado))
+            {
+                estadosAlterados.Remove(estado);
+            }
+        }
+
+        public bool TieneEstado(EstadoAlterado estado)
+        {
+            return estadosAlterados.Contains(estado);
+        }
+        
         
         /* Metodo encargado de iniciar la ejecución de la accion seleccionada
            PRE: - objetivos -> Una lista de luchadores Rango: [0,inf]
