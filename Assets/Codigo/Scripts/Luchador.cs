@@ -79,6 +79,7 @@ namespace Codigo.Scripts
                 objetosConsumibles[objetoSeleccionado].cantidad--;
                 if (objetosConsumibles[objetoSeleccionado].cantidad <= 0)
                 {
+                    GLOBAL.instance.Jugador.listaObjetos.Remove(objetosConsumibles[objetoSeleccionado]);
                     objetosConsumibles[objetoSeleccionado].objeto = null;
                     objetosConsumibles[objetoSeleccionado].cantidad = -1;
                 }

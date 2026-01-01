@@ -19,7 +19,12 @@ namespace Codigo.Scripts
         }
         private void OnEnable()
         {
-            var valorStat = GLOBAL.instance.Jugador.estadisticasBase.GetStat(statIndex);
+            RefrescarEstadistica();
+        }
+
+        public void RefrescarEstadistica()
+        {
+            var valorStat = GLOBAL.instance.Jugador.estadisticasEfectivas.GetStat(statIndex);
             barra.value = valorStat / 500f;
             valor.text = valorStat.ToString();
         }

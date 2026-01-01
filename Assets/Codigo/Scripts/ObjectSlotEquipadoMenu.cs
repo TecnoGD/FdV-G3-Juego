@@ -1,4 +1,5 @@
 ﻿using System;
+using Codigo.Scripts.Sistema_Menu;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -51,10 +52,10 @@ namespace Codigo.Scripts
         
         
 
-        public void IniciaEquipar()
+        private void IniciaEquipar()
         {
             var lista = GLOBAL.instance.Jugador.objetosSeleccionadosCombate;
-            var objetoAEquipar = GLOBAL.instance.objetoAEquipar;
+            var objetoAEquipar = MenuObjetos.Instancia.objetoSeleccionado.objetoConsumible;
             var terminado = false;
             for (var i = 0; i < lista.Length && !terminado; i++)
             {
@@ -67,10 +68,11 @@ namespace Codigo.Scripts
 
             lista[index] = objetoAEquipar;
             GLOBAL.instance.Jugador.objetosSeleccionadosCombate = lista;
-            GLOBAL.instance.objetoAEquipar= null;
+            MenuObjetos.Instancia.contenedoresDeSeleccionables[0].BroadcastMessage("Refresco");
             gameObject.transform.parent.BroadcastMessage("Refresco");
-            MenuSystem.GetMenuFocus().GetComponent<ObjectSlotMenu>().VueltaFocus();
-            MenuSystem.MenuAnterior(true);
+            MenuObjetos.Instancia.objetoSeleccionado= null;
+            NewMenuSystem.MenuAnterior();
+            NewMenuSystem.MenuAnterior();
         }
 
         /*public void UsoObjeto()
@@ -87,10 +89,7 @@ namespace Codigo.Scripts
 
         public void OnCancel(BaseEventData eventData)
         {
-            GLOBAL.instance.objetoAEquipar= null;
-            gameObject.transform.parent.BroadcastMessage("Refresco");
-            MenuSystem.GetMenuFocus().GetComponent<ObjectSlotMenu>().VueltaFocus();
-            MenuSystem.MenuAnterior(true);
+            MenuObjetos.Instancia.objetoSeleccionado= null;
         }
     }
 }

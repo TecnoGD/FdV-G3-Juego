@@ -1,24 +1,26 @@
 using Codigo.Scripts;
+using Codigo.Scripts.Sistema_Menu;
 using UnityEngine;
 
 public class MenuNavigator : MonoBehaviour
 {
     
-    public GameObject siguiente;    // atributo que contiene el menu a abrir
-    public bool desactivaAnterior;  // atributo que define si el anterior menu se debe desactivar
+    public Menu siguiente;    // atributo que contiene el menu a abrir
     
     /* Metodo que llama al Sistema de menus para abrir el menu asignado como atributo*/
     public void CambioMenu()
     {
         if (!siguiente)
         {
-            MenuSystem.MenuAnterior(); // Si el siguiente menu es null, el navegador vuelve al menu anterior
-            
+            NewMenuSystem.MenuAnterior();  // Si el siguiente menu es null, el navegador vuelve al menu anterior
+            //MenuSystem.MenuAnterior(); 
         }
         else
         {
-            MenuSystem.SiguienteMenu(siguiente, desactivaAnterior); // Abre el siguiente menu y desactiva el anterior
-                                                                    // si fuera indicado
+            NewMenuSystem.SiguienteMenu(siguiente);     // Abre el siguiente menu y desactiva el anterior
+                                                        // si fuera indicado
+            //MenuSystem.SiguienteMenu(siguiente, desactivaAnterior); 
+                                                                    
         }
     }
 }

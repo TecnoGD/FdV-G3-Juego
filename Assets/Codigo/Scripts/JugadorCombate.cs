@@ -9,7 +9,7 @@ namespace Codigo.Scripts
         {
             Jugador jugador = gameObject.transform.parent.gameObject.GetComponent<Jugador>();   // Obtiene los datos de combate de su componente jugador
             nombre = GLOBAL.guardado.nombre;
-            estadisticas = jugador.estadisticasBase;
+            estadisticas = jugador.estadisticasEfectivas;
             listaAcciones  = jugador.accionesJugador;
             vida = estadisticas.vidaMax;
             animator = GetComponent<Animator>();

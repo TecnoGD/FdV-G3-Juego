@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.EventSystems;
+﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
-namespace Codigo.Scripts
+namespace Codigo.Scripts.Sistema_Menu
 {
-    public class MenuPausa : MonoBehaviour
+    public class MenuPausa : Menu
     {
         public static MenuPausa instance; // instancia unica para que no haya duplicados
         public static bool enPausa = false; // variable para saber si el juego esta parado
@@ -27,18 +25,19 @@ namespace Codigo.Scripts
             }
         }
 
-        void Update()
+        void OnDisable()
         {
-            if (Input.GetKeyDown(KeyCode.Escape)) // Esc
-            {
-                if (enPausa)
-                {
-                    Continuar();
-                }
-                else
-                {
-                    Pausar();
-                }
+            Time.timeScale = 1f;
+            enPausa = false;
+        }
+
+        public override void AccionPorDefecto()
+        {
+            if (enPausa)
+            { 
+                Continuar();
+            }else {
+                Pausar();
             }
         }
 
@@ -46,15 +45,17 @@ namespace Codigo.Scripts
         {
             menuPausaUI.SetActive(false); 
             Time.timeScale = 1f;  // tiempo normal  
-            enPausa = false;              
+            NewMenuSystem.MenuAnterior();
+            enPausa = false;
+            
         }
 
         void Pausar()
         {
-            menuPausaUI.SetActive(true);  
-            Time.timeScale = 0f;     // congelamos tiempo
-            enPausa = true;   
             
+            menuPausaUI.SetActive(true);
+            Time.timeScale = 0f; // congelamos tiempo
+            enPausa = true;
         }
 
         public void Salir()

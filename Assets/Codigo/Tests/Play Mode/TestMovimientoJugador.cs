@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 using UnityEngine.InputSystem.LowLevel;
 using Codigo.Scripts;
+using Codigo.Scripts.Sistema_Menu;
 
 public class TestMovimientoJugador
 {
@@ -22,9 +23,9 @@ public class TestMovimientoJugador
     {
         // Mock de MenuSystem necesario para GLOBAL.Start()
         menuSystemGO = new GameObject("MenuSystem");
-        MenuSystem menuSystem = menuSystemGO.AddComponent<MenuSystem>();
-        MenuSystem.instance = menuSystem; // Asignamos instancia manualmente
-        menuSystem.menuJugador = new GameObject("MenuJugadorMock"); // Mock del menú de jugador
+        NewMenuSystem menuSystem = menuSystemGO.AddComponent<NewMenuSystem>();
+        NewMenuSystem.Instancia = menuSystem; // Asignamos instancia manualmente
+        menuSystem.defaultMenus[0] = new GameObject("MenuJugadorMock").AddComponent<TabMenu>();; // Mock del menú de jugador
 
         // Creamos el GLOBAL para que Start() de jugador se ejecute sin problemas
         globalGO = new GameObject("GLOBAL");

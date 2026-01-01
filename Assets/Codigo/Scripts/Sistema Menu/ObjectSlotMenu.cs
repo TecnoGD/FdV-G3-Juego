@@ -1,28 +1,30 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 using Image = UnityEngine.UI.Image;
 
-namespace Codigo.Scripts
+namespace Codigo.Scripts.Sistema_Menu
 {
     public class ObjectSlotMenu : BotonAutoSeleccionable, ISelectHandler, ISubmitHandler
     {
         public int index;
-        public bool esEsquipado;
         public TMP_Text texto;
         public TMP_Text cantidadTexto;
         public Image textura;
         public Image texturaEquipado;
         public ObjectSlot objetoConsumible;
         public MostrarDatosObjeto mostradorDatos;
-        public GameObject ObjetosEquipadosSlots;
+        
         
 
         void OnEnable()
+        {
+            Refresco();
+        }
+
+        public void Refresco()
         {
             if(index <  GLOBAL.instance.Jugador.listaObjetos.Count)
                 objetoConsumible = GLOBAL.instance.Jugador.listaObjetos[index];
@@ -31,7 +33,7 @@ namespace Codigo.Scripts
             {
                 texto.text = objetoConsumible.objeto.nombre;
                 var imagen = textura.sprite = objetoConsumible.objeto.textura;
-                cantidadTexto.text = objetoConsumible.cantidad.ToString();
+                cantidadTexto.text = "x" + objetoConsumible.cantidad.ToString();
                 var color = textura.color;
                 color.a = 1.0f;
                 textura.color = color;
@@ -49,14 +51,8 @@ namespace Codigo.Scripts
                 }
             }else
             {
-                cantidadTexto.text = "";
-                texto.text = "Vacio";
-                var color = textura.color;
-                color.a = 0.0f;
-                textura.color = color;
+                gameObject.SetActive(false);
             }
-            
-            
         }
 
         /*public void UsoObjeto()
@@ -81,46 +77,19 @@ namespace Codigo.Scripts
                 vector3.x = 0;
                 vector3.y = 0 - (vector3.y + target.localPosition.y);
                 if(current > limiteSup)
-                    vector3.y += (scroll.viewport.rect.height / 2) - (target.rect.height / 2);
+                    vector3.y += (scroll.viewport.rect.height / 2) - (target.rect.height / 2) - 10;
                 if(current < limiteInf)
-                    vector3.y -= (scroll.viewport.rect.height / 2) - (target.rect.height / 2);
+                    vector3.y -= (scroll.viewport.rect.height / 2) - (target.rect.height / 2) - 10;
                 scroll.content.localPosition = vector3;
             }
         }
 
         public void OnSubmit(BaseEventData eventData)
         {
-            if (objetoConsumible.objeto)
-            {
-                var scroll = GetComponentInParent<ScrollRect>();
-                foreach (var objetos in scroll.content.GetComponentsInChildren<Selectable>())
-                {
-                    objetos.interactable = false;
-                }
+            if (!objetoConsumible.objeto) return;
+            MenuObjetos.Instancia.objetoSeleccionado = this;
+            NewMenuSystem.SiguienteMenu(MenuObjetos.Instancia.contextMenuObjetos);
 
-                foreach (var slots in ObjetosEquipadosSlots.transform.GetComponentsInChildren<Selectable>())
-                {
-                    slots.interactable = true;
-                }
-                
-                GLOBAL.instance.objetoAEquipar = objetoConsumible;
-                MenuSystem.SiguienteMenu(gameObject);
-                EventSystem.current.SetSelectedGameObject(ObjetosEquipadosSlots.transform.GetChild(0).gameObject);
-            }
-        }
-        
-        public void VueltaFocus(){
-            var scroll = GetComponentInParent<ScrollRect>();
-            foreach (var objetos in scroll.content.GetComponentsInChildren<Selectable>())
-            {
-                objetos.interactable = true;
-            }
-
-            foreach (var slots in ObjetosEquipadosSlots.transform.GetComponentsInChildren<Selectable>())
-            {
-                slots.interactable = false;
-            }
-            EventSystem.current.SetSelectedGameObject(gameObject);
         }
         
     }

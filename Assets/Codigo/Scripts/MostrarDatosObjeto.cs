@@ -9,7 +9,7 @@ namespace Codigo.Scripts
         public TMP_Text textoDescripcion;
 
 
-        void Start()
+        void OnEnable()
         {
             textoNombre.text = "";
             textoDescripcion.text = "";

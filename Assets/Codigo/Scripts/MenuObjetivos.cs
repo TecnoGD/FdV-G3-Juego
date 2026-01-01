@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Codigo.Scripts.Sistema_Menu;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
@@ -10,7 +11,7 @@ using Toggle = UnityEngine.UI.Toggle;
 
 namespace Codigo.Scripts
 {
-    public class MenuObjetivos : MonoBehaviour
+    public class MenuObjetivos : Menu
     {
         public GameObject prefabBotonObjetivo;  // Prefab del boton del objetivo
         public GameObject prefabBotonAtras;     // Prefab del boton para volver al menu anterior
@@ -37,7 +38,7 @@ namespace Codigo.Scripts
                 for (int i = 1; i < SistemaCombate.luchadores.Count; i++)
                 {
                     // Inicializa el toggle del objetivo y obtiene su componente
-                    GameObject toggle = Instantiate(prefabBotonObjetivo, gameObject.transform);
+                    GameObject toggle = Instantiate(prefabBotonObjetivo, contenedoresDeSeleccionables[0]);
                     Toggle toggleObjetivo = toggle.GetComponent<Toggle>();
                     // Vincula el evento de onValueChanged del toggle a un metodo delegado que llama a otro metodo 
                     // que maneja la seleccion de objetivos
@@ -49,8 +50,9 @@ namespace Codigo.Scripts
                     listaNavegacion.Add(toggle);
                 }
                 // añadimos el botón atrás a la lista de navegación tmb
-                GameObject botonAtras = Instantiate(prefabBotonAtras, gameObject.transform);
+                GameObject botonAtras = Instantiate(prefabBotonAtras, contenedoresDeSeleccionables[0]);
                 listaNavegacion.Add(botonAtras);
+                defaultElementFocus = listaNavegacion[0].GetComponent<Selectable>();
                 
                 // Llamamos a nuestro script que configura la navegación Automatica
                 foreach (GameObject toggle in listaNavegacion)
@@ -144,16 +146,16 @@ namespace Codigo.Scripts
             else
                 objetivosSeleccionados--;
 
-            Debug.Log(objetivosSeleccionados);
+            //Debug.Log(objetivosSeleccionados);
             if (objetivosSeleccionados >= objetivosMaximos)
             {
-                Debug.Log("Maximos Objetivos seleccionados");
+                //Debug.Log("Maximos Objetivos seleccionados");
                 // Obtiene a los hijos del objeto asociado y analiza los valores de los toggle para saber
                 // si se ha seleccionado a ese objetivo
                 // se resta -1 a la cantidad de hijos para evitar el boton de ir al anterior menu
-                for (int i = 0; i < gameObject.transform.childCount-1; i++)
+                for (int i = 0; i < contenedoresDeSeleccionables[0].childCount-1; i++)
                 {
-                    if (gameObject.transform.GetChild(i).GetComponent<Toggle>().isOn) // Se comprueba el valor del toggle
+                    if (contenedoresDeSeleccionables[0].GetChild(i).GetComponent<Toggle>().isOn) // Se comprueba el valor del toggle
                     {
                         // Si esta encendido el toggle se añade el luchador asociado como objetivo
                         // Se usa i+1 porque luchador[0] es el jugador
@@ -172,9 +174,9 @@ namespace Codigo.Scripts
         {
             if (GLOBAL.enCombate)
             {
-                for (int i = 0; i < gameObject.transform.childCount; i++)
+                for (int i = 0; i < contenedoresDeSeleccionables[0].childCount; i++)
                 {
-                    Destroy(gameObject.transform.GetChild(i).gameObject);
+                    Destroy(contenedoresDeSeleccionables[0].GetChild(i).gameObject);
                 }
                 objetivosSeleccionados = 0;
             }
