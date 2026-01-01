@@ -25,7 +25,8 @@ public class TestMovimientoJugador
         menuSystemGO = new GameObject("MenuSystem");
         NewMenuSystem menuSystem = menuSystemGO.AddComponent<NewMenuSystem>();
         NewMenuSystem.Instancia = menuSystem; // Asignamos instancia manualmente
-        menuSystem.defaultMenus[0] = new GameObject("MenuJugadorMock").AddComponent<TabMenu>();; // Mock del menú de jugador
+        NewMenuSystem.Instancia.defaultMenus = new Menu[1];
+        menuSystem.defaultMenus[0] = new GameObject("MenuJugadorMock").AddComponent<TabMenu>(); // Mock del menú de jugador
 
         // Creamos el GLOBAL para que Start() de jugador se ejecute sin problemas
         globalGO = new GameObject("GLOBAL");

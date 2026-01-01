@@ -56,7 +56,7 @@ public class Jugador : MonoBehaviour
             else
                 objetosSeleccionadosCombate[i] = listaObjetos[GLOBAL.guardado.objetosSeleccionadosCombate[i]];
         }
-        GLOBAL.instance.Jugador.ActualizarEstadisticas();
+        ActualizarEstadisticas();
         ListasDeEquipamientosInventario[0].Add(0);
         ListasDeEquipamientosInventario[1].Add(0);
         ListasDeEquipamientosInventario[2].Add(0);

@@ -24,6 +24,7 @@ public class BotonAccion : MonoBehaviour
         {
             gameObject.GetComponentInChildren<TMP_Text>().text = "Atras"; // Si el boton tiene asignada la accion nula
                                                                           // el boton es para retroceder al anterior menu
+                                                                          
         }
     }
 

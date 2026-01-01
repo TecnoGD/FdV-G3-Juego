@@ -174,7 +174,7 @@ namespace Codigo.Scripts
         {
             if (GLOBAL.enCombate)
             {
-                for (int i = 0; i < contenedoresDeSeleccionables[0].childCount; i++)
+                for (int i = 0; i < contenedoresDeSeleccionables[0]?.childCount; i++)
                 {
                     Destroy(contenedoresDeSeleccionables[0].GetChild(i).gameObject);
                 }
