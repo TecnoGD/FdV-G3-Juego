@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 using UnityEngine.InputSystem.LowLevel;
 using Codigo.Scripts;
+using Codigo.Scripts.Sistema_Menu;
 
 public class TestMovimientoJugador
 {
@@ -14,10 +15,19 @@ public class TestMovimientoJugador
     private Jugador jugador;
     private Keyboard teclado;
     private GameObject globalGO;
+    private GameObject menuSystemGO;
+
     // Setup de los tests
     [UnitySetUp]
     public IEnumerator SetUp()
     {
+        // Mock de MenuSystem necesario para GLOBAL.Start()
+        menuSystemGO = new GameObject("MenuSystem");
+        NewMenuSystem menuSystem = menuSystemGO.AddComponent<NewMenuSystem>();
+        NewMenuSystem.Instancia = menuSystem; // Asignamos instancia manualmente
+        NewMenuSystem.Instancia.defaultMenus = new Menu[1];
+        menuSystem.defaultMenus[0] = new GameObject("MenuJugadorMock").AddComponent<TabMenu>(); // Mock del menú de jugador
+
         // Creamos el GLOBAL para que Start() de jugador se ejecute sin problemas
         globalGO = new GameObject("GLOBAL");
         globalGO.AddComponent<GLOBAL>();
@@ -71,6 +81,7 @@ public class TestMovimientoJugador
         // Limpiamos las instancias
         Object.Destroy(jugadorGO);
         Object.Destroy(globalGO);
+        Object.Destroy(menuSystemGO);
         InputSystem.RemoveDevice(teclado);
         yield return null;
     }

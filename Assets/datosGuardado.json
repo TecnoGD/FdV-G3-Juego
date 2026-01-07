@@ -11,9 +11,7 @@
     "accionesJugador": [
         0,
         1,
-        1,
-        1,
-        1
+        2
     ],
     "objetosConsumibles": [
         {
@@ -22,7 +20,7 @@
         }
     ],
     "objetosSeleccionadosCombate": [
-        0,
+        -1,
         -1,
         -1,
         -1

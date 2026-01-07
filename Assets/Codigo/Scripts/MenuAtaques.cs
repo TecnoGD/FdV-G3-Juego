@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using Codigo.Scripts;
+using Codigo.Scripts.Sistema_Menu;
 using UnityEngine;
 using UnityEngine.UI; 
 using UnityEngine.EventSystems;
 
-public class MenuAtaques : MonoBehaviour
+public class MenuAtaques : Menu
 {
     public GameObject prefabButton;     // Prefab del boton del ataque 
     public GameObject prefabBotonAtras; // Prefab del boton para volver al menu anterior
@@ -23,7 +24,7 @@ public class MenuAtaques : MonoBehaviour
         foreach (int accion in acciones)
         {
             // Crea el botón en la escena
-            GameObject newButton = Instantiate(prefabButton, gameObject.transform);
+            GameObject newButton = Instantiate(prefabButton, contenedoresDeSeleccionables[0]);
             
             // Obtenemos el script 'BotonAccion' que tiene ese prefab
             BotonAccion newButtonScript = newButton.GetComponent<BotonAccion>();
@@ -35,11 +36,11 @@ public class MenuAtaques : MonoBehaviour
             botones.Add(newButton);
         }
         // Crea e instancia el boton del volver al anterior menu
-        GameObject botonAtras = Instantiate(prefabBotonAtras, gameObject.transform);
+        GameObject botonAtras = Instantiate(prefabBotonAtras, contenedoresDeSeleccionables[0]);
         
         // Añade también el botón "Atrás" a la lista de navegación
         botones.Add(botonAtras);
-        
+        defaultElementFocus = botones[0].GetComponent<Selectable>();
         // Llamamos a nuestro script que configura la navegación Automática
         foreach (GameObject button in botones)
         {

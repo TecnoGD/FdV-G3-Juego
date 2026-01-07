@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Codigo.Scripts.Sistema_Menu;
 using UnityEngine;
 using TMPro;
 
@@ -11,11 +12,11 @@ namespace Codigo.Scripts
         public int turno = -1;                                          // -1 jugador esta decidiendo e IAs ejecutan
         public static List<Luchador> luchadores = new List<Luchador>(); // Lista de los luchadores activos en combate
         public Luchador jugador;                                        // Variable que contiene al GameObject del jugador
-        public List<GameObject> UIGeneral;                              // Lista de elementos generales de la UI de combate (vida jugador, vida enemigos, texto de turno)
+        public List<GameObject> UIGeneral;                              // Lista de elementos generales de la UI de combate (caja de combate,vida jugador, vida enemigos, texto de turno)
         public List<TMP_Text> TextoUI;                                  // Lista que contiene los textos de vida de los luchadores en combate
         public List<TMP_Text> TextoVidas = new List<TMP_Text>();
-        public List<GameObject> ElementosUI;                            // Lista que contiene los elementos de UI de decision del jugador (Accion, ataque, objetivos...)
-        public const int UICajaCombate = 0 ,UIJugadorCombate = 1, UIAccionesCombate = 2, UIObjetivoCombate = 3, UIVidaEnemigos = 4, UIAnalizarEnemigos = 5; // Utilizar estas constantes para mejor lectura del codigo a la hora de usar la variable "ElementosUI"
+        public List<Menu> ElementosUI;                            // Lista que contiene los elementos de UI de decision del jugador (Accion, ataque, objetivos...)
+        public const int UIJugadorCombate = 0, UIAccionesCombate = 1, UIObjetivoCombate = 2, UIVidaEnemigos = 3, UIAnalizarEnemigos = 3; // Utilizar estas constantes para mejor lectura del codigo a la hora de usar la variable "ElementosUI"
         public GameObject prefabVidaEnemigos;                           // Prefab de la UI de la vida de los enemigos
         public UnityEngine.UI.Button botonAnalizar;                     // Botón de Analizar enemigos
         public int accionSeleccionada = 0;
@@ -39,7 +40,7 @@ namespace Codigo.Scripts
                 luchadores.Add(h);                                                                              //
                 h.InicioCombate();                                                                              // Inicializa al luchador
                 // Temporal posible cambio (Instancia los paneles de vida de los enemigos)
-                TextoVidas.Add(Instantiate(prefabVidaEnemigos, ElementosUI[UIVidaEnemigos].transform).transform.GetChild(0).GetComponent<TMP_Text>());
+                TextoVidas.Add(Instantiate(prefabVidaEnemigos, UIGeneral[UIVidaEnemigos].transform).transform.GetChild(0).GetComponent<TMP_Text>());
             }                                                                                                   //
             jugador = luchadores[0];                                                                            // Define la variable luchador al GameObject del jugador
             jugador.InicioCombate();                                                                            // Inicializa al jugador para el combate
@@ -56,8 +57,9 @@ namespace Codigo.Scripts
             gameObject.transform.BroadcastMessage("InicioCombate");                                  // El sistema de combate envia un mensaje de inicio de combate a todos sus hijos
             ElementosUI[UIAccionesCombate].gameObject.SetActive(false);                                         // Desactiva el menu de acciones de combate
             ElementosUI[UIObjetivoCombate].gameObject.SetActive(false);                                         // Desactiva el menu de seleccion de objetivos 
-            MenuSystem.ResetMenuSystem(ElementosUI[UIJugadorCombate]);                                          // Reinicia el sistema de menu actual y lo inicializa con la UI de jugador 
-            ElementosUI[UICajaCombate].SetActive(true);                                                         // Habilita la UI de la Caja de Combate
+            NewMenuSystem.Reinicializar(ElementosUI[UIJugadorCombate]);                                         // Reinicia el sistema de menu actual y lo inicializa con la UI de jugador 
+            //MenuSystem.ResetMenuSystem(ElementosUI[UIJugadorCombate]);                                          
+            UIGeneral[0].gameObject.SetActive(true);                                                            // Habilita la UI de la Caja de Combate
             HabilitarUICombate(true);                                                                     // Habilita el resto de elementos de UI de combate
             GLOBAL.enCombate = true;                                                                            // Marca la variable global de estado de en combate a verdadero
         }
@@ -81,10 +83,12 @@ namespace Codigo.Scripts
         */
         void JugadorDecide(bool estado)
         {
-            if(estado)
-                MenuSystem.SiguienteMenu(ElementosUI[UIJugadorCombate]);
+            if (estado)
+                NewMenuSystem.SiguienteMenu(ElementosUI[UIJugadorCombate]);
             else
-                MenuSystem.ResetMenuSystem();
+                NewMenuSystem.Reinicializar();
+            
+            UIGeneral[0].SetActive(estado);
         }
 
         /* Metodo que escoje la accion elegida (que no sea ataque) por el jugador pasado por el parámetro accion 
@@ -230,7 +234,8 @@ namespace Codigo.Scripts
                     EnemigosDeciden();
                     break;
                 case 2:
-                    MenuSystem.SiguienteMenu(ElementosUI[UIAnalizarEnemigos], true);
+                    NewMenuSystem.SiguienteMenu(ElementosUI[UIAnalizarEnemigos]);
+                    //MenuSystem.SiguienteMenu(ElementosUI[UIAnalizarEnemigos], true);
                     ElementosUI[UIAnalizarEnemigos].gameObject.GetComponent<MenuAnalizar>().MostrarAnalisisEnemigo(listaObjetivos[0]);
                     break;
                 case 3:
@@ -272,6 +277,7 @@ namespace Codigo.Scripts
             TextoVidas.Clear();
             gameObject.SetActive(false);
             GLOBAL.enCombate = false;
+            NewMenuSystem.Reinicializar();
             
             // al acabar el combate volvemos a enfocar el jugador la cámara
             CamaraSeguimiento cam = Camera.main.GetComponent<CamaraSeguimiento>();
@@ -285,14 +291,15 @@ namespace Codigo.Scripts
          POST: Se activa la UI de objetivos para que el jugador seleccione un enemigo a analizar */
         public void Analizar()
         {
-            ElementosUI[UIObjetivoCombate].BroadcastMessage("Analisis");
+            ((MenuObjetivos)ElementosUI[UIObjetivoCombate]).Analisis();
         }
 
         public void UsoObjeto(int consumible)
         {
             jugador.accion = -2;
             jugador.objetoSeleccionado = consumible;
-            MenuSystem.SiguienteMenu(ElementosUI[UIObjetivoCombate], true);
+            NewMenuSystem.SiguienteMenu(ElementosUI[UIObjetivoCombate]);
+            //MenuSystem.SiguienteMenu(ElementosUI[UIObjetivoCombate], true);
             ElementosUI[UIObjetivoCombate].BroadcastMessage("UsoObjeto", jugador.objetosConsumibles[consumible].objeto.estiloSeleccionObjetivo);
         }
     }

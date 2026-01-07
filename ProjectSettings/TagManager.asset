@@ -15,6 +15,7 @@ TagManager:
   - Jugador
   - Rig Jugador
   - MenuJugador
+  - ContextMenu
   layers:
   - Default
   - TransparentFX

@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using Codigo.Scripts;
 using System.Linq;
+using Codigo.Scripts.Sistema_Menu;
 
 public class TestSistemaCombate
 {
@@ -16,10 +17,18 @@ public class TestSistemaCombate
     private GameObject enemigoGO;
     private Luchador enemigo;
     private GameObject vidaEnemigoPadre; // Guardar referencia al padre para evitar que se destruya
+    private GameObject menuSystemGO; 
 
     [UnitySetUp]
     public IEnumerator SetUp()
     {
+        // Mock de MenuSystem necesario para GLOBAL.Start()
+        menuSystemGO = new GameObject("MenuSystem");
+        NewMenuSystem menuSystem = menuSystemGO.AddComponent<NewMenuSystem>();
+        NewMenuSystem.Instancia = menuSystem; // Asignamos instancia manualmente
+        menuSystem.defaultMenus = new Menu[1];
+        menuSystem.defaultMenus[0] = new GameObject("MenuJugadorMock").AddComponent<TabMenu>();; // Mock del menú de jugador
+
         // Crear GLOBAL
         globalGO = new GameObject("GLOBAL");
         globalGO.AddComponent<GLOBAL>();
@@ -50,18 +59,28 @@ public class TestSistemaCombate
         sistemaCombate.TextoUI = new List<TMPro.TMP_Text>();
         
         // Inicializar ElementosUI con GameObjects mock
-        sistemaCombate.ElementosUI = new List<GameObject>();
-        for (int i = 0; i <= SistemaCombate.UIVidaEnemigos; i++)
+        sistemaCombate.ElementosUI = new List<Menu>();
+        sistemaCombate.ElementosUI.Add(new GameObject($"UIElement_1").AddComponent<Menu>());
+        sistemaCombate.ElementosUI.Add(new GameObject($"UIElement_2").AddComponent<MenuAtaques>());
+        sistemaCombate.ElementosUI.Add(new GameObject($"UIElement_3").AddComponent<MenuObjetivos>());
+        sistemaCombate.ElementosUI.Add(new GameObject($"UIElement_4").AddComponent<MenuAnalizar>());
+        foreach (var menu in sistemaCombate.ElementosUI)
         {
-            GameObject uiElement = new GameObject($"UIElement_{i}");
-            sistemaCombate.ElementosUI.Add(uiElement);
+            menu.contenedoresDeSeleccionables = new Transform[1];
+        }
+
+        sistemaCombate.ElementosUI[2].contenedoresDeSeleccionables[0] = new GameObject($"ContenedorMock").transform;
+
+        for (var i = 0; i < 3; i++)
+        {
+            sistemaCombate.UIGeneral.Add(new GameObject($"UIElement_{i}"));
         }
         
         // Añadir MenuObjetivos al GameObject de objetivos para que responda al BroadcastMessage de los tests de seleccion de ataques fisico y especial
         // Desactivamos el GameObject antes de añadir el componente para evitar que OnEnable se ejecute
-        GameObject objetivoUI = sistemaCombate.ElementosUI[SistemaCombate.UIObjetivoCombate];
+        GameObject objetivoUI = sistemaCombate.ElementosUI[SistemaCombate.UIObjetivoCombate].gameObject;
         objetivoUI.SetActive(false);
-        objetivoUI.AddComponent<MenuObjetivos>();
+        //objetivoUI.AddComponent<MenuObjetivos>();
         objetivoUI.SetActive(true);
         
         // Inicializar TextoVidas con elementos mock para evitar errores de índice
@@ -119,10 +138,10 @@ public class TestSistemaCombate
         // Limpiar elementos de UI
         if (sistemaCombate != null && sistemaCombate.ElementosUI != null)
         {
-            foreach (GameObject uiElement in sistemaCombate.ElementosUI)
+            foreach (Menu uiElement in sistemaCombate.ElementosUI)
             {
                 if (uiElement != null)
-                    Object.Destroy(uiElement);
+                    Object.Destroy(uiElement.gameObject);
             }
         }
         
@@ -144,6 +163,7 @@ public class TestSistemaCombate
         Object.Destroy(enemigoGO);
         Object.Destroy(sistemaCombateGO);
         Object.Destroy(globalGO);
+        Object.Destroy(menuSystemGO);
         SistemaCombate.luchadores.Clear();
         yield return null;
     }
@@ -394,7 +414,7 @@ public class TestSistemaCombate
         eventSystemGO.AddComponent<UnityEngine.EventSystems.EventSystem>();
 
         // Configurar MenuObjetivos con los mocks necesarios
-        GameObject objetivoUI = sistemaCombate.ElementosUI[SistemaCombate.UIObjetivoCombate];
+        GameObject objetivoUI = sistemaCombate.ElementosUI[SistemaCombate.UIObjetivoCombate].gameObject;
         MenuObjetivos menuObjetivos = objetivoUI.GetComponent<MenuObjetivos>();
 
         // Mock de Prefabs (Simulamos los elementos visuales que se instancian)
@@ -428,7 +448,7 @@ public class TestSistemaCombate
 
         // Mock del Botón Volver
         GameObject btnVolver = new GameObject("BtnVolver");
-        menuAnalizar.botonVolverAnalisis = btnVolver.AddComponent<UnityEngine.UI.Button>();
+        menuAnalizar.defaultElementFocus = btnVolver.AddComponent<UnityEngine.UI.Button>();
 
         // Preparar el estado del combate
         SistemaCombate.luchadores.Clear();
@@ -454,7 +474,7 @@ public class TestSistemaCombate
         Assert.IsTrue(objetivoUI.activeSelf, "MenuObjetivos debería estar activo");
 
         // Buscar el toggle. Como solo tenemos 1 enemigo, debería ser el primer toggle instanciado.
-        UnityEngine.UI.Toggle enemyToggle = objetivoUI.GetComponentInChildren<UnityEngine.UI.Toggle>();
+        UnityEngine.UI.Toggle enemyToggle = menuObjetivos.contenedoresDeSeleccionables[0].GetComponentInChildren<UnityEngine.UI.Toggle>();
         Assert.IsNotNull(enemyToggle, "El toggle del enemigo debería haber sido creado");
 
         // Simular la selección del enemigo y mostrar análisis

@@ -13,6 +13,7 @@ namespace Codigo.Scripts
         public string descripcion;
         public int estiloSeleccionObjetivo;
         public Sprite textura;
+        public bool usoFueraDeCombate;
         public const int SOLOJUGADOR = 0, SOLOENEMIGO = 1, TODOSENEMIGOS = 2;
 
         public ObjetoConsumible(string nombre, string descripcion, int estiloSeleccion)

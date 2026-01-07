@@ -394,7 +394,7 @@ MonoBehaviour:
     ataqueEspecial: 0
     defensaEspecial: 0
   animator: {fileID: 0}
-  datos: {fileID: 11400000, guid: a07f5616ca066254aa460245a6e5eb18, type: 2}
+  datos: {fileID: 11400000, guid: cf797e8f3e469be4698921cc9932c564, type: 2}
   listaAcciones: 
   objetivosSeleccionados: []
   objetosConsumibles:
@@ -880,7 +880,6 @@ GameObject:
   m_Component:
   - component: {fileID: 358762079}
   - component: {fileID: 358762080}
-  - component: {fileID: 358762081}
   m_Layer: 5
   m_Name: Content
   m_TagString: Contenido Acciones
@@ -931,23 +930,6 @@ MonoBehaviour:
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
---- !u!114 &358762081
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 358762078}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e221962a2cf549b1ba4c144ee46b6b38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Codigo.Scripts.MenuObjetivos
-  prefabBotonObjetivo: {fileID: 6269749237531931548, guid: 2f6778190998fea4ab0fedb724c13bd1, type: 3}
-  prefabBotonAtras: {fileID: 2411562006023520722, guid: b5227ce5e2406764891aeb3355494daa, type: 3}
-  objetivosSeleccionados: 0
-  objetivosMaximos: 0
-  listaObjetivos: []
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1507,8 +1489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bceb53f36903f94ea1a18ec6174d282, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuCombate
-  siguiente: {fileID: 1860432271}
-  desactivaAnterior: 1
+  siguiente: {fileID: 1860432276}
 --- !u!95 &513239981
 Animator:
   serializedVersion: 7
@@ -2834,6 +2815,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76ad740874cd4bb994e8702ec4523e94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Scripts::Codigo.Scripts.MenuAnalizar
+  seMuestraEnAnteriorMenu: 0
+  bloqueoMenu: 0
+  conservaAlCambiar: 0
+  recordarUltimoSeleccionado: 0
+  bloqueaVolver: 0
+  defaultElementFocus: {fileID: 1095000755}
+  lastElementFocus: {fileID: 0}
+  elementosGraficos: []
+  seleccionables: []
+  contenedoresDeSubMenus: []
+  contenedoresDeSeleccionables: []
   panelAnalisis: {fileID: 757300819}
   textoNombreAnalisis: {fileID: 1194766764}
   textoVidaAnalisis: {fileID: 621092435}
@@ -2841,7 +2833,6 @@ MonoBehaviour:
   textoDefensaAnalisis: {fileID: 1097833460}
   textoAtaqueEspecialAnalisis: {fileID: 422969079}
   textoDefensaEspecialAnalisis: {fileID: 979983618}
-  botonVolverAnalisis: {fileID: 1095000755}
 --- !u!1 &805918116
 GameObject:
   m_ObjectHideFlags: 0
@@ -3296,8 +3287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bceb53f36903f94ea1a18ec6174d282, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Scripts::MenuNavigator
-  siguiente: {fileID: 1095855806}
-  desactivaAnterior: 1
+  siguiente: {fileID: 1095855811}
 --- !u!114 &957654732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4013,7 +4003,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Scripts::MenuNavigator
   siguiente: {fileID: 0}
-  desactivaAnterior: 0
 --- !u!1 &1095855806
 GameObject:
   m_ObjectHideFlags: 0
@@ -4026,6 +4015,7 @@ GameObject:
   - component: {fileID: 1095855810}
   - component: {fileID: 1095855809}
   - component: {fileID: 1095855808}
+  - component: {fileID: 1095855811}
   m_Layer: 5
   m_Name: UI Objetivos
   m_TagString: UI Objetivos
@@ -4121,6 +4111,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1095855806}
   m_CullTransparentMesh: 1
+--- !u!114 &1095855811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095855806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e221962a2cf549b1ba4c144ee46b6b38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Codigo.Scripts.MenuObjetivos
+  seMuestraEnAnteriorMenu: 0
+  bloqueoMenu: 0
+  conservaAlCambiar: 0
+  recordarUltimoSeleccionado: 1
+  bloqueaVolver: 0
+  defaultElementFocus: {fileID: 0}
+  lastElementFocus: {fileID: 0}
+  elementosGraficos: []
+  seleccionables: []
+  contenedoresDeSubMenus: []
+  contenedoresDeSeleccionables:
+  - {fileID: 358762079}
+  prefabBotonObjetivo: {fileID: 6269749237531931548, guid: 2f6778190998fea4ab0fedb724c13bd1, type: 3}
+  prefabBotonAtras: {fileID: 2411562006023520722, guid: b5227ce5e2406764891aeb3355494daa, type: 3}
+  objetivosSeleccionados: 0
+  objetivosMaximos: 0
+  listaObjetivos: []
 --- !u!1 &1097833458
 GameObject:
   m_ObjectHideFlags: 0
@@ -4766,20 +4785,20 @@ MonoBehaviour:
   turno: -1
   jugador: {fileID: 0}
   UIGeneral:
+  - {fileID: 1165246618}
   - {fileID: 1072343369}
   - {fileID: 1170174786}
+  - {fileID: 2016572424}
   TextoUI:
   - {fileID: 1364587931}
   - {fileID: 0}
   - {fileID: 1072343370}
   TextoVidas: []
   ElementosUI:
-  - {fileID: 1165246618}
-  - {fileID: 1820065129}
-  - {fileID: 1860432271}
-  - {fileID: 1095855806}
-  - {fileID: 2016572424}
-  - {fileID: 757300819}
+  - {fileID: 1820065132}
+  - {fileID: 1860432276}
+  - {fileID: 1095855811}
+  - {fileID: 757300823}
   prefabVidaEnemigos: {fileID: 1505479227350628230, guid: 4876ebf2c812ee748a92deb8dabee054, type: 3}
   botonAnalizar: {fileID: 957654727}
   accionSeleccionada: 0
@@ -5324,7 +5343,7 @@ MonoBehaviour:
     ataqueEspecial: 0
     defensaEspecial: 0
   animator: {fileID: 0}
-  datos: {fileID: 11400000, guid: a07f5616ca066254aa460245a6e5eb18, type: 2}
+  datos: {fileID: 11400000, guid: 65423242e1a13e7498b3503cc4e75b18, type: 2}
   listaAcciones: 00000000
   objetivosSeleccionados: []
   objetosConsumibles:
@@ -6331,6 +6350,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1820065130}
   - component: {fileID: 1820065131}
+  - component: {fileID: 1820065132}
   m_Layer: 5
   m_Name: UI Jugador
   m_TagString: UI Combate
@@ -6371,6 +6391,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuFocusInitial
   botonInicial: {fileID: 513239975}
+--- !u!114 &1820065132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1820065129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 348269f3dc7241d28154fbbcd519a584, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Scripts::Codigo.Scripts.Sistema_Menu.Menu
+  seMuestraEnAnteriorMenu: 0
+  bloqueoMenu: 0
+  conservaAlCambiar: 0
+  recordarUltimoSeleccionado: 1
+  bloqueaVolver: 1
+  defaultElementFocus: {fileID: 513239977}
+  lastElementFocus: {fileID: 0}
+  elementosGraficos: []
+  seleccionables:
+  - {fileID: 513239977}
+  - {fileID: 1577838324}
+  - {fileID: 957654727}
+  - {fileID: 1062354314}
+  - {fileID: 1469010342}
+  - {fileID: 631322824}
+  - {fileID: 1993113131}
+  - {fileID: 235403113}
+  contenedoresDeSubMenus: []
+  contenedoresDeSeleccionables: []
 --- !u!1 &1833702144
 GameObject:
   m_ObjectHideFlags: 0
@@ -6416,6 +6467,7 @@ GameObject:
   - component: {fileID: 1860432275}
   - component: {fileID: 1860432274}
   - component: {fileID: 1860432273}
+  - component: {fileID: 1860432276}
   m_Layer: 5
   m_Name: UI Acciones
   m_TagString: UI Acciones
@@ -6511,6 +6563,32 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1860432271}
   m_CullTransparentMesh: 1
+--- !u!114 &1860432276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1860432271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b2f1a95351498c4c88ce6c16a6e4e1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MenuAtaques
+  seMuestraEnAnteriorMenu: 0
+  bloqueoMenu: 0
+  conservaAlCambiar: 0
+  recordarUltimoSeleccionado: 1
+  bloqueaVolver: 0
+  defaultElementFocus: {fileID: 0}
+  lastElementFocus: {fileID: 0}
+  elementosGraficos: []
+  seleccionables: []
+  contenedoresDeSubMenus: []
+  contenedoresDeSeleccionables:
+  - {fileID: 2122756027}
+  prefabButton: {fileID: 6045181025754028263, guid: c36201bee2e8ce3428d9f1264f88622f, type: 3}
+  prefabBotonAtras: {fileID: 2411562006023520722, guid: b5227ce5e2406764891aeb3355494daa, type: 3}
 --- !u!1 &1870545174
 GameObject:
   m_ObjectHideFlags: 0
@@ -6525,7 +6603,7 @@ GameObject:
   - component: {fileID: 1870545176}
   - component: {fileID: 1870545175}
   m_Layer: 0
-  m_Name: CambioASalaDescanso
+  m_Name: CambioASala
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6543,8 +6621,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81bd7a97baa1ea3488a0628ba6337bef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CambioEscena
-  escena: SalaDescanso
-  posicion: {x: 6, y: 1.09, z: 0}
+  escena: PasilloPrincipal
+  posicion: {x: 2.5, y: 1.09, z: 0}
+  interactuar: 0
+  textoInteractuar: {fileID: 0}
+  boxCollider: {fileID: 0}
 --- !u!65 &1870545176
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7326,7 +7407,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2122756027}
   - component: {fileID: 2122756028}
-  - component: {fileID: 2122756029}
   m_Layer: 5
   m_Name: Content
   m_TagString: Contenido Acciones
@@ -7377,20 +7457,6 @@ MonoBehaviour:
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
---- !u!114 &2122756029
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2122756026}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b2f1a95351498c4c88ce6c16a6e4e1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MenuAtaques
-  prefabButton: {fileID: 6045181025754028263, guid: c36201bee2e8ce3428d9f1264f88622f, type: 3}
-  prefabBotonAtras: {fileID: 2411562006023520722, guid: b5227ce5e2406764891aeb3355494daa, type: 3}
 --- !u!1 &2133597465
 GameObject:
   m_ObjectHideFlags: 0

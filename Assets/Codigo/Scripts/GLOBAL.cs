@@ -16,7 +16,11 @@ public class GLOBAL : MonoBehaviour
     public List<ObjetoConsumible> objetosConsumibles = new List<ObjetoConsumible>();
     public ObjetoConsumible objetivoPrueba;
     public Jugador Jugador;
-    public ObjectSlot objetoAEquipar;
+    public List<Equipamiento> listaArmasTotal;
+    public List<Equipamiento> listaArmaduraTotal;
+    public List<Equipamiento> listaZapatosTotal;
+    public List<Equipamiento> listaAccesoriosTotal;
+    public List<Equipamiento>[] ListasDeEquipamientos;
     
     // Un diccionario para recordar: NPC -> Último charla leída"
     public Dictionary<string, int> memoriaNPCs = new Dictionary<string, int>();
@@ -29,12 +33,13 @@ public class GLOBAL : MonoBehaviour
         acciones = ListaAccionesTotales;
         combatientes = ListaDatosCombatiente;
         guardado = SistemaGuardado.Cargar();    // Carga los datos de guardado
+        ListasDeEquipamientos = new [] {listaArmasTotal, listaArmaduraTotal,  listaZapatosTotal, listaAccesoriosTotal};
     }
 
     void Start()
     {
         
-        Object.DontDestroyOnLoad(MenuSystem.instance.menuJugador);
+        //Object.DontDestroyOnLoad(MenuSystem.instance.menuJugador);
         SceneManager.LoadScene("SalaDescanso");
     }
 

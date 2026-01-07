@@ -14,7 +14,17 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Level/Scenes/SalaDescanso.unity
     guid: 9b1930dc33d74f243a656c2f2ef90cd8
+  - enabled: 1
+    path: Assets/Level/Scenes/PasilloPrincipal.unity
+    guid: 4265912371d4f734c91cffab7d9f8329
+  - enabled: 1
+    path: Assets/Level/Scenes/SalaNexo.unity
+    guid: 10f036aa308d2ec429003df12f9586a4
+  - enabled: 1
+    path: Assets/Level/Scenes/SalaB.unity
+    guid: ef98a58bad7ec774fa395e80868aea42
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 489401df0afe01b489adba98cb99f0cf, type: 2}
+    com.unity.input.settings: {fileID: 11400000, guid: 1caf42979db6c3d489cb02bcec018c84, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

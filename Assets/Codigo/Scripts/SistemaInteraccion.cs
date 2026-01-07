@@ -24,7 +24,7 @@ namespace Codigo.Scripts
             if (interactuable != null)
             {
                 objetoInteractuableActual = interactuable;
-                Debug.Log("Objeto interactuable detectado: Pulsa F");
+                //Debug.Log("Objeto interactuable detectado: Pulsa F");
             }
         }
 
@@ -35,7 +35,7 @@ namespace Codigo.Scripts
             if (interactuable != null && interactuable == objetoInteractuableActual)
             {
                 objetoInteractuableActual = null;
-                Debug.Log("Te has alejado del objeto");
+                //Debug.Log("Te has alejado del objeto");
             }
         }
     }

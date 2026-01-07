@@ -1460,7 +1460,7 @@ GameObject:
   - component: {fileID: 2140089714}
   - component: {fileID: 2140089713}
   m_Layer: 0
-  m_Name: CambioASalaDescanso
+  m_Name: CambioASala
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1478,8 +1478,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81bd7a97baa1ea3488a0628ba6337bef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CambioEscena
-  escena: SalaCombate
-  posicion: {x: -8, y: 1.09, z: 0}
+  escena: SalaNexo
+  posicion: {x: -13.5, y: 1.09, z: 0}
+  interactuar: 0
+  textoInteractuar: {fileID: 0}
+  boxCollider: {fileID: 0}
 --- !u!65 &2140089714
 BoxCollider:
   m_ObjectHideFlags: 0
