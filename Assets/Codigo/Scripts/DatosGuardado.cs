@@ -18,6 +18,7 @@ namespace Codigo.Scripts
         public int[] objetosSeleccionadosCombate;
 
         public int progresoHistoria; // Controla el avance de la historia (dialogo).
+        public bool eventoParpadeoYaOcurrio = false;
         public DatosGuardado(ObjetoConsumible obj)
         {
             estadisticasJugador = new DatosCombate.Estadisticas(50, 5, 1, 10, 1);
