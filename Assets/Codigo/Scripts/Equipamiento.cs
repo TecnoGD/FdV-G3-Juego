@@ -15,6 +15,7 @@ namespace Codigo.Scripts
     {
         public string nombre;
         public string descripcion;
+        public int precio;
         public TipoEquipamiento tipoEquipamiento;
         public int[] modificadorEstadisticas = {0,0,0,0,0};
 

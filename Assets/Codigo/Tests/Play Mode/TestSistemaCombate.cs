@@ -84,7 +84,7 @@ public class TestSistemaCombate
         objetivoUI.SetActive(true);
         
         // Inicializar TextoVidas con elementos mock para evitar errores de índice
-        sistemaCombate.TextoVidas = new List<TMPro.TMP_Text>();
+        sistemaCombate.TextoVidas = new List<DatosEnemigo>();
         // Crear un Canvas y un GameObject padre con TextMeshProUGUI para simular la estructura de UI
         // TextMeshProUGUI necesita un Canvas para funcionar
         GameObject canvasGO = new GameObject("Canvas");
@@ -95,10 +95,12 @@ public class TestSistemaCombate
         // El padre debe persistir para que transform.parent no sea null
         vidaEnemigoPadre = new GameObject("VidaEnemigoPadre");
         vidaEnemigoPadre.transform.SetParent(canvasGO.transform);
+        DatosEnemigo componentePadre =  vidaEnemigoPadre.AddComponent<DatosEnemigo>();
         GameObject vidaEnemigoHijo = new GameObject("VidaEnemigoHijo");
         vidaEnemigoHijo.transform.SetParent(vidaEnemigoPadre.transform);
         TMPro.TextMeshProUGUI textoVidaMock = vidaEnemigoHijo.AddComponent<TMPro.TextMeshProUGUI>();
-        sistemaCombate.TextoVidas.Add(textoVidaMock);
+        //componentePadre.
+        sistemaCombate.TextoVidas.Add(componentePadre);
 
         // Crear jugador 
         jugadorGO = new GameObject("Jugador");
@@ -148,7 +150,7 @@ public class TestSistemaCombate
         // Limpiar TextoVidas
         if (sistemaCombate != null && sistemaCombate.TextoVidas != null)
         {
-            foreach (TMPro.TMP_Text textoVida in sistemaCombate.TextoVidas)
+            foreach (DatosEnemigo textoVida in sistemaCombate.TextoVidas)
             {
                 if (textoVida != null && textoVida.gameObject != null)
                     Object.Destroy(textoVida.gameObject);

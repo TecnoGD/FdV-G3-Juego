@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Codigo.Scripts;
+using Codigo.Scripts.Sistema_Menu;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,6 +11,7 @@ public class GLOBAL : MonoBehaviour
     public static List<Accion> acciones;                // Lista de todas las acciones de combate del juego
     public static List<DatosLuchador> combatientes;     // Lista de todos los datos de los luchadores (Sin uso o no se usa) 
     public static DatosGuardado guardado;               // Datos de guardado de la partida
+    public static DatosConfig Configuracion;
     public static bool enCombate;                       // Indica si se esta dentro de combate o no
     public List<Accion> ListaAccionesTotales = new List<Accion>();
     public List<DatosLuchador> ListaDatosCombatiente = new List<DatosLuchador>();
@@ -21,6 +23,8 @@ public class GLOBAL : MonoBehaviour
     public List<Equipamiento> listaZapatosTotal;
     public List<Equipamiento> listaAccesoriosTotal;
     public List<Equipamiento>[] ListasDeEquipamientos;
+    public List<int> listaObjetosConsumiblesTienda = new List<int>();
+    public List<Equipamiento> listaEquipamientoTienda = new List<Equipamiento>();
     
     // Un diccionario para recordar: NPC -> Último charla leída"
     public Dictionary<string, int> memoriaNPCs = new Dictionary<string, int>();
@@ -33,6 +37,7 @@ public class GLOBAL : MonoBehaviour
         acciones = ListaAccionesTotales;
         combatientes = ListaDatosCombatiente;
         guardado = SistemaGuardado.Cargar();    // Carga los datos de guardado
+        Configuracion = SistemaGuardado.CargarConfiguracion();
         ListasDeEquipamientos = new [] {listaArmasTotal, listaArmaduraTotal,  listaZapatosTotal, listaAccesoriosTotal};
     }
 
@@ -40,7 +45,11 @@ public class GLOBAL : MonoBehaviour
     {
         
         //Object.DontDestroyOnLoad(MenuSystem.instance.menuJugador);
-        SceneManager.LoadScene("EscenaPrologo");
+        
+        Screen.SetResolution(Configuracion.width, Configuracion.height, Configuracion.fullScreen);
+        //Object.DontDestroyOnLoad(NewMenuSystem.Instancia.menuJugador);
+        //SceneManager.LoadScene("EscenaPrologo");
+        
     }
 
     public void CambiarEscena(string escena, Vector3 posicion)
@@ -84,5 +93,10 @@ public class GLOBAL : MonoBehaviour
         {
             guardado.flagsEventos.Add(idFlag);
         }
+    }
+    
+    void OnApplicationQuit()
+    {
+        SistemaGuardado.GuardarConfiguracion(Configuracion);
     }
 }

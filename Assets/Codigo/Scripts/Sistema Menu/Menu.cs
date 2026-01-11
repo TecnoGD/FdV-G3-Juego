@@ -13,6 +13,7 @@ namespace Codigo.Scripts.Sistema_Menu
         public bool conservaAlCambiar;
         public bool recordarUltimoSeleccionado;
         public bool bloqueaVolver;
+        public bool bloquearAutoSeleccionado;
         public Selectable defaultElementFocus;
         public Selectable lastElementFocus;
         public GameObject[] elementosGraficos; 
@@ -23,16 +24,18 @@ namespace Codigo.Scripts.Sistema_Menu
 
         public virtual void AbreMenu()
         {
+            PrecargaMenu();
             CambiarEstadoSeleccionables(true);
             MostrarMenu();
-            
-            if (recordarUltimoSeleccionado && lastElementFocus)
-                lastElementFocus?.Select();
-            else
-                defaultElementFocus?.Select();
-                
-                
+            if (!bloquearAutoSeleccionado)
+            {
+                EventSystem.current.SetSelectedGameObject(null);
 
+                if (recordarUltimoSeleccionado && lastElementFocus)
+                    lastElementFocus.Select();
+                else
+                    defaultElementFocus?.Select();
+            }
             AccionPorDefecto();
         }
 
@@ -58,7 +61,7 @@ namespace Codigo.Scripts.Sistema_Menu
 
         public virtual void CierraMenu(bool noDesactivar = true)
         {
-            lastElementFocus = EventSystem.current.currentSelectedGameObject.GetComponent<Selectable>();
+            if(!bloquearAutoSeleccionado) lastElementFocus = EventSystem.current.currentSelectedGameObject.GetComponent<Selectable>();
             CambiarEstadoSeleccionables(false);
             SalidaPorDefecto();
             if(!seMuestraEnAnteriorMenu)
@@ -72,7 +75,7 @@ namespace Codigo.Scripts.Sistema_Menu
             gameObject.SetActive(false);
         }
 
-        public void IrASubMenu(IMenu subMenu)
+        public void IrASubMenu(Menu subMenu)
         {
             NewMenuSystem.SiguienteMenuInterno(subMenu, conservaAlCambiar);
         }
@@ -98,6 +101,11 @@ namespace Codigo.Scripts.Sistema_Menu
                         child.gameObject.GetComponent<Selectable>().interactable = estado;
                 }
             }
+        }
+
+        public virtual void PrecargaMenu()
+        {
+            return;
         }
 
         public virtual void AccionPorDefecto()

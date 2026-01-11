@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Codigo.Scripts.Sistema_Menu;
 using UnityEngine;
 
 namespace Codigo.Scripts
@@ -8,20 +9,18 @@ namespace Codigo.Scripts
         [System.Serializable] // para definir el struct de dialogo a Unity
         public struct EtapaDialogo
         {
-            public string nota; // nota interna para organizar los dialogos
-            [TextArea(3, 10)]   // para un tamaño legible
+            public string nota;     // nota interna para organizar los dialogos
+            [TextArea(3, 10)]       // para un tamaño legible
             public string[] frases; // array que contiene las lineas de texto
         }
-
         public string nombreNPC = "Cubo";
-        public Sprite fotoPerfil; // imagen que aparecera en la interfaz
-        
-        public GameObject iconoAlerta; // objeto visual para avisar de nuevo dialogo
-        
-        public List<EtapaDialogo> etapasHistoria; // lista con los diferentes dialogos segun la historia
-
-        // variable privada para recordar si ya hablamos en este turno de historia
-        private int ultimaEtapaLeida = -1; 
+        public Sprite fotoPerfil;                   // imagen que aparecera en la interfaz
+        public GameObject iconoAlerta;              // objeto visual para avisar de nuevo dialogo
+        public List<EtapaDialogo> etapasHistoria;   // lista con los diferentes dialogos segun la historia
+        private int ultimaEtapaLeida = -1;          // variable privada para recordar si ya hablamos en este turno de historia
+        public int offset = 1;
+        public bool abreUnMenu;
+        public Menu menuNpc;
 
         void Start()
         {
@@ -54,7 +53,9 @@ namespace Codigo.Scripts
             SistemaDialogo.instance.IniciarDialogo(
                 etapasHistoria[indiceAUsar].frases, 
                 nombreNPC, 
-                fotoPerfil
+                fotoPerfil,
+                abreUnMenu,
+                menuNpc
             );
 
             // registramos que ya hemos leido esta etapa para que no salga la alerta

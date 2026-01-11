@@ -16,5 +16,6 @@ MonoBehaviour:
   nombre: Pocion
   descripcion: "Poci\xF3n B\xE1sica"
   estiloSeleccionObjetivo: 0
+  precio: 10
   textura: {fileID: 21300000, guid: 4257b803932c14841aff8d8a0324f924, type: 3}
   valorCurativo: 5

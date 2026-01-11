@@ -40,6 +40,7 @@ namespace Codigo.Scripts
                     // Inicializa el toggle del objetivo y obtiene su componente
                     GameObject toggle = Instantiate(prefabBotonObjetivo, contenedoresDeSeleccionables[0]);
                     Toggle toggleObjetivo = toggle.GetComponent<Toggle>();
+                    toggle.GetComponent<AutoCameraOnSelect>().indice = i-1;
                     // Vincula el evento de onValueChanged del toggle a un metodo delegado que llama a otro metodo 
                     // que maneja la seleccion de objetivos
                     toggleObjetivo.onValueChanged.AddListener(delegate { SeleccionaObjetivo(toggleObjetivo); });
@@ -180,6 +181,11 @@ namespace Codigo.Scripts
                 }
                 objetivosSeleccionados = 0;
             }
+        }
+
+        public override void SalidaPorDefecto()
+        {
+            SistemaCombate.instance.CambioEnfoqueCamara();
         }
     }
 }

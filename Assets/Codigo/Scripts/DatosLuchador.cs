@@ -17,6 +17,7 @@ namespace Codigo.Scripts
         public int Defensa;                         // Valor de defensa del luchador
         public int AtaqueEspecial;                  // Valor de ataque especial del luchador
         public int DefensaEspecial;                 // Valor de defensa especial del luchador
+        public int dinero;
         public List<int> acciones;                  // Lista de acciones del luchador
 
         public Estadisticas GetEstadisticas()

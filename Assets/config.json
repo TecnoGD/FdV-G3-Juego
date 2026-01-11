@@ -1,0 +1,11 @@
+{
+    "MasterVolume": 1.0,
+    "MusicVolume": 1.0,
+    "SfxVolume": 1.0,
+    "AmbientVolume": 1.0,
+    "width": 1080,
+    "height": 1920,
+    "fullScreen": false,
+    "VSync": false,
+    "frameRate": 144.0
+}

@@ -10,6 +10,7 @@ namespace Codigo.Scripts.Sistema_Menu
         
         // el panel de la ui
         public GameObject menuPausaUI;
+        public Menu menuAjustes;
 
         void Awake()
         {
@@ -31,31 +32,35 @@ namespace Codigo.Scripts.Sistema_Menu
             enPausa = false;
         }
 
-        public override void AccionPorDefecto()
+        public override void SalidaPorDefecto()
         {
-            if (enPausa)
-            { 
-                Continuar();
-            }else {
-                Pausar();
-            }
+            if (NewMenuSystem.DentroDeUnMenu()) return;
+            menuPausaUI.SetActive(false); 
+            Time.timeScale = 1f;  // tiempo normal  
+            enPausa = false;
+
         }
 
         public void Continuar()
         {
             menuPausaUI.SetActive(false); 
-            Time.timeScale = 1f;  // tiempo normal  
+            Time.timeScale = 1f;  // tiempo normal
             NewMenuSystem.MenuAnterior();
             enPausa = false;
             
         }
 
-        void Pausar()
+        public void Pausar()
         {
             
             menuPausaUI.SetActive(true);
             Time.timeScale = 0f; // congelamos tiempo
             enPausa = true;
+        }
+
+        public void EntrarAjustes()
+        {
+            IrASubMenu(menuAjustes);
         }
 
         public void Salir()

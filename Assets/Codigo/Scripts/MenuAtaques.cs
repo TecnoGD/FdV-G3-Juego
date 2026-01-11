@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Codigo.Scripts;
 using Codigo.Scripts.Sistema_Menu;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI; 
 using UnityEngine.EventSystems;
@@ -10,6 +11,7 @@ public class MenuAtaques : Menu
 {
     public GameObject prefabButton;     // Prefab del boton del ataque 
     public GameObject prefabBotonAtras; // Prefab del boton para volver al menu anterior
+    
     
     private List<GameObject> botones = new List<GameObject>(); // almacena los botones creados para poder navegar entre ellos
     
@@ -55,6 +57,19 @@ public class MenuAtaques : Menu
      * MÉTODO DE FOCO (llamando Script MenuNavegacionE
      * Se llama automáticamente CADA VEZ que este GameObject (el panel) se activa.
      */
+
+    public override void AccionPorDefecto()
+    {
+        SistemaCombate.instance.panelInfoAcciones.SetActive(true);
+    }
+
+    public override void SalidaPorDefecto()
+    {
+        SistemaCombate.instance.panelInfoAcciones.SetActive(false);
+    }
+    
+    
+
     private void OnEnable()
     {
         MenuNavegacionE.PonerFoco(botones);

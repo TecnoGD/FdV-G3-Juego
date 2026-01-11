@@ -8,7 +8,7 @@ namespace Codigo.Scripts
     public class VisorEstadistica : MonoBehaviour
     {
         public string nombre;
-        public int statIndex;
+        public Estadistica statIndex;
         public TMP_Text nombreEstadistica;
         public Slider barra;
         public TMP_Text valor;

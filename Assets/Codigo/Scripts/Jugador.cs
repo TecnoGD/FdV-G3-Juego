@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Codigo.Scripts;
 using Codigo.Scripts.Sistema_Menu;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,14 +15,19 @@ public class Jugador : MonoBehaviour
     
     public float velocidad = 5f;
     public Vector3 movimiento;
+    public int vida;
+    public int dinero;
     public DatosCombate.Estadisticas estadisticasBase;      // Estadisticas base del jugador, nunca negativos ni 0 (no se modifican)
     public DatosCombate.Estadisticas estadisticasEfectivas; // Estadisticas efectivas del jugador, nunca negativos ni 0 (no se modifican)
     public List<int> accionesJugador;                       // Lista de acciones que el jugador puede hacer si estuviera en combate
     public List<ObjectSlot> listaObjetos;
-    public List<int>[] ListasDeEquipamientosInventario = new [] {new List<int>(), new List<int>(), new List<int>(), new List<int>()};
-    public int[] equipamientoJugador = {-1,-1,-1,-1};
+    public List<int>[] ListasDeEquipamientosInventario = new List<int>[4];
+    public int[] equipamientoJugador;
     public ObjectSlot[] objetosSeleccionadosCombate;
     public SistemaInteraccion sistemaInteraccion;
+    
+    public float limiteIzquierdo = -15f; // Valor mínimo de X
+    public float limiteDerecho = 7f;    // Valor máximo de X
     
     
     
@@ -56,11 +62,18 @@ public class Jugador : MonoBehaviour
             else
                 objetosSeleccionadosCombate[i] = listaObjetos[GLOBAL.guardado.objetosSeleccionadosCombate[i]];
         }
+
+        ListasDeEquipamientosInventario[0] = GLOBAL.guardado.listasDeEquipamientosArmas;
+        ListasDeEquipamientosInventario[1] = GLOBAL.guardado.listasDeEquipamientosArmaduras;
+        ListasDeEquipamientosInventario[2] = GLOBAL.guardado.listasDeEquipamientosZapatos;
+        ListasDeEquipamientosInventario[3] = GLOBAL.guardado.listasDeEquipamientosAccesorios;
+        equipamientoJugador = GLOBAL.guardado.equipamientoJugador;
+        if(!ListasDeEquipamientosInventario[0].Contains(equipamientoJugador[0])) equipamientoJugador[0] = -1;
+        if(!ListasDeEquipamientosInventario[1].Contains(equipamientoJugador[1])) equipamientoJugador[1] = -1;
+        if(!ListasDeEquipamientosInventario[2].Contains(equipamientoJugador[2])) equipamientoJugador[2] = -1;
+        if(!ListasDeEquipamientosInventario[3].Contains(equipamientoJugador[3])) equipamientoJugador[3] = -1;
         ActualizarEstadisticas();
-        ListasDeEquipamientosInventario[0].Add(0);
-        ListasDeEquipamientosInventario[1].Add(0);
-        ListasDeEquipamientosInventario[2].Add(0);
-        ListasDeEquipamientosInventario[3].Add(0);
+        vida = GLOBAL.guardado.vida;
     }
 
     // Update is called once per frame
@@ -98,6 +111,10 @@ public class Jugador : MonoBehaviour
         estadisticasEfectivas.defensa = estadisticasBase.defensa + modificadores[2];
         estadisticasEfectivas.ataqueEspecial = estadisticasBase.ataqueEspecial + modificadores[3];
         estadisticasEfectivas.defensaEspecial = estadisticasBase.defensaEspecial + modificadores[4];
+        
+        if (estadisticasEfectivas.vidaMax < vida)
+            vida = estadisticasEfectivas.vidaMax;
+        
     }
         
     private void ControlMovimiento()
@@ -110,7 +127,16 @@ public class Jugador : MonoBehaviour
         if (Keyboard.current.dKey.isPressed || Keyboard.current.rightArrowKey.isPressed)
             movimiento.x = 1;
             
-        transform.position += movimiento.normalized * (velocidad * Time.deltaTime); //calcular la pos
+        //transform.position += movimiento.normalized * (velocidad * Time.deltaTime); //calcular la pos
+        
+        // 1. Calculamos la posición a la que el jugador QUIERE ir
+        Vector3 nuevaPosicion = transform.position + movimiento.normalized * (velocidad * Time.deltaTime);
+
+        // 2. Aplicamos el "Clamp" para que X nunca se pase de los límites
+        nuevaPosicion.x = Mathf.Clamp(nuevaPosicion.x, limiteIzquierdo, limiteDerecho);
+
+        // 3. Aplicamos la posición final al transform
+        transform.position = nuevaPosicion;
     }
 
     public void MenuJugador(InputAction.CallbackContext context)
@@ -121,6 +147,7 @@ public class Jugador : MonoBehaviour
             NewMenuSystem.SiguienteMenu(NewMenuSystem.Instancia.defaultMenus[0]);
         }
     }
+    
 }
 
 public enum EquipamientoJugador
