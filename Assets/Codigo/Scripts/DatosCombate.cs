@@ -43,18 +43,76 @@ namespace Codigo.Scripts
                 defensaEspecial = es.defensaEspecial;
             }
 
-            public int GetStat(int stat)
+            public int GetStat(Estadistica stat)
             {
                 return stat switch
                 {
-                    0 => vidaMax,
-                    1 => ataque,
-                    2 => defensa,
-                    3 => ataqueEspecial,
-                    4 => defensaEspecial,
+                    Estadistica.VidaMax => vidaMax,
+                    Estadistica.Ataque => ataque,
+                    Estadistica.Defensa => defensa,
+                    Estadistica.AtaqueEspecial => ataqueEspecial,
+                    Estadistica.DefensaEspecial => defensaEspecial,
                     _ => -1
                 };
             }
+            
+            public void SetStat(Estadistica stat, int valor)
+            {
+                switch (stat)
+                {
+                    case Estadistica.VidaMax:
+                        vidaMax = valor;
+                        break;
+                    case Estadistica.Ataque:
+                        ataque = valor;
+                        break;
+                    case Estadistica.Defensa:
+                        defensa = valor;
+                        break;
+                    case Estadistica.AtaqueEspecial:
+                        ataqueEspecial = valor;
+                        break;
+                    case Estadistica.DefensaEspecial:
+                        defensaEspecial = valor;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(stat), stat, null);
+                }
+            }
+            
+            public void IncrementStat(Estadistica stat, int valor)
+            {
+                switch (stat)
+                {
+                    case Estadistica.VidaMax:
+                        vidaMax += valor;
+                        break;
+                    case Estadistica.Ataque:
+                        ataque += valor;
+                        break;
+                    case Estadistica.Defensa:
+                        defensa += valor;
+                        break;
+                    case Estadistica.AtaqueEspecial:
+                        ataqueEspecial += valor;
+                        break;
+                    case Estadistica.DefensaEspecial:
+                        defensaEspecial += valor;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(stat), stat, null);
+                }
+            }
         }
     }
+
+    public enum Estadistica
+    {
+        VidaMax,
+        Ataque,
+        Defensa,
+        AtaqueEspecial,
+        DefensaEspecial
+    }
+    
 }

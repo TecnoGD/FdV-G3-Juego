@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Codigo.Scripts.Sistema_Menu;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -15,15 +16,16 @@ namespace Codigo.Scripts
         public TMP_Text textoDialogo; 
         
         // elementos para mostrar quien esta hablando
-        public TMP_Text textoNombreNPC; // componente de texto para el nombre
-        public Image imagenPerfilNPC;   // componente de imagen para la foto
-        private Sprite spritePorDefecto; // variable para guardar la imagen inicial y usarla si no nos pasan otra
+        public TMP_Text textoNombreNPC;             // componente de texto para el nombre
+        public Image imagenPerfilNPC;               // componente de imagen para la foto
+        private Sprite spritePorDefecto;            // variable para guardar la imagen inicial y usarla si no nos pasan otra
 
-        // variable para saber si estamos hablando y bloquear movimiento
-        public bool enDialogo = false;  
+                                    
+        public bool enDialogo = false;              // variable para saber si estamos hablando y bloquear movimiento
+        private Queue<string> colaFrases;           // cola para guardar las frases y sacarlas una a una en orden
         
-        // cola para guardar las frases y sacarlas una a una en orden
-        private Queue<string> colaFrases; 
+        public static bool AbreUnMenuAlTerminar = false;
+        public static Menu menuFinDialogo;
         
 
         void Awake()
@@ -47,8 +49,11 @@ namespace Codigo.Scripts
         }
 
         // metodo que llaman los npcs para empezar a hablar
-        public void IniciarDialogo(string[] frases, string nombre, Sprite imagen)
+        public void IniciarDialogo(string[] frases, string nombre, Sprite imagen, bool abreMenu, Menu menu = null)
         {
+            AbreUnMenuAlTerminar =  abreMenu;
+            menuFinDialogo = menu;
+            
             // activamos el estado de dialogo para detener al jugador
             enDialogo = true;
             
@@ -91,6 +96,8 @@ namespace Codigo.Scripts
             if (colaFrases.Count == 0)
             {
                 TerminarDialogo();
+                if(AbreUnMenuAlTerminar)
+                    NewMenuSystem.SiguienteMenu(menuFinDialogo);
                 return;
             }
 

@@ -4,8 +4,9 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 using UnityEditor;
+using UnityEngine.Events;
 
-public class BotonAccion : MonoBehaviour
+public class BotonAccion : MonoBehaviour ,ISelectHandler
 {
     
     public int accion = -1;     // atributo que indica la accion asignada a este boton
@@ -33,5 +34,10 @@ public class BotonAccion : MonoBehaviour
         ExecuteEvents.Execute<IMensajesCombate>(SistemaCombate.instance.gameObject, null,
             (x, y) => { x.AtaqueElegido(accion); }); // Ejecuta el evento de AtaqueElegido
                                                                                        // en el sistema de combate
+    }
+
+    public void OnSelect(BaseEventData eventData)
+    {
+        SistemaCombate.instance.ActualizarDatosAccion(accion);
     }
 }

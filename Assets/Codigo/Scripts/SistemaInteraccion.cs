@@ -5,6 +5,7 @@ namespace Codigo.Scripts
     public class SistemaInteraccion : MonoBehaviour
     {
         private IInteractuable objetoInteractuableActual;  // Guarda el objeto con el que podemos interactuar actualmente
+        public TextoQueSigue recordatorioHablar;
         
         // detectar la tecla F
         public void DetectarInteraccion()
@@ -25,7 +26,12 @@ namespace Codigo.Scripts
             {
                 objetoInteractuableActual = interactuable;
                 //Debug.Log("Objeto interactuable detectado: Pulsa F");
+                recordatorioHablar.aSeguir = other.transform;
+                recordatorioHablar.offset = other.gameObject.GetComponent<NPCInteractuable>().offset;
+                recordatorioHablar.gameObject.SetActive(true);
             }
+            
+            
         }
 
         private void OnTriggerExit(Collider other)
@@ -35,6 +41,7 @@ namespace Codigo.Scripts
             if (interactuable != null && interactuable == objetoInteractuableActual)
             {
                 objetoInteractuableActual = null;
+                recordatorioHablar.gameObject.SetActive(false);
                 //Debug.Log("Te has alejado del objeto");
             }
         }

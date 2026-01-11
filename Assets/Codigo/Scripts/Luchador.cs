@@ -131,8 +131,9 @@ namespace Codigo.Scripts
                 //objetivosSeleccionados[i].RecibeDaño((int)((acc.ObtenerPotencia(i)*estadisticaAtaque*0.5f)/(defensaObjetivo*10f)));
                 //Debug.Log((int)((acc.ObtenerPotencia(i)*estadisticaAtaque*0.5f)/(defensaObjetivo*10f)));
                 float danio = Random.Range(0.9f, 1.1f) * (estadisticaAtaque * (100f / (100f + defensaObjetivo)));
-                Debug.Log((int)danio);
+                //Debug.Log((int)danio);
                 objetivosSeleccionados[i].RecibeDaño((int)danio);
+                
             }
         }
         
@@ -159,6 +160,7 @@ namespace Codigo.Scripts
             else
                 vida -= dañoRecibido;
 
+            SistemaCombate.instance.MostrarDatosEnemigo(this);
             return dañoReal - vida;
         }
 

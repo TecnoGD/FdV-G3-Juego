@@ -49,7 +49,7 @@ namespace Codigo.Scripts.Sistema_Menu
         
         public static void SiguienteMenu(IMenu menu)
         {
-            SiguienteMenuInterno(menu, ((Menu)menu).conservaAlCambiar);
+            if(menu != null) SiguienteMenuInterno(menu, ((Menu)menu).conservaAlCambiar);
         }
 
         public static IMenu MenuAnterior()
@@ -89,7 +89,7 @@ namespace Codigo.Scripts.Sistema_Menu
             _currentMenu?.CierraMenuForzado();
             for (var i = 0; i < _pilaMenus.Count; i++)
             {
-                _pilaMenus.Pop().CierraMenuForzado();
+                _pilaMenus.Pop()?.CierraMenuForzado();
             }
         }
         
@@ -128,6 +128,7 @@ namespace Codigo.Scripts.Sistema_Menu
                 else
                 {
                     SiguienteMenu(defaultMenus[1]);
+                    MenuPausa.instance.Pausar();
                 }
             }
         }

@@ -11,9 +11,15 @@ namespace Codigo.Scripts
     {
         public int id;                                          // Variable de prueba
         public string nombre;                                   // Nombre del jugador
+        public int vida;
         public DatosCombate.Estadisticas estadisticasJugador;   // Estadisticas base del jugador
         public int[] accionesJugador;                           // Lista de acciones del jugador
         [SerializeField] public List<DatosObjetoGuardado> objetosConsumibles;
+        [SerializeField] public List<int> listasDeEquipamientosArmas;
+        [SerializeField] public List<int> listasDeEquipamientosArmaduras;
+        [SerializeField] public List<int> listasDeEquipamientosZapatos;
+        [SerializeField] public List<int> listasDeEquipamientosAccesorios;
+        public int[] equipamientoJugador;
         [NonSerialized] public List<ObjectSlot> objetosCargados;
         public int[] objetosSeleccionadosCombate;
 
@@ -21,12 +27,18 @@ namespace Codigo.Scripts
         public DatosGuardado(ObjetoConsumible obj)
         {
             estadisticasJugador = new DatosCombate.Estadisticas(50, 5, 1, 10, 1);
+            vida = estadisticasJugador.vidaMax;
             id = 5;
             accionesJugador = new int[] {0,1,2};
             nombre = "Jugador"; 
             objetosConsumibles = new List<DatosObjetoGuardado>();
             objetosConsumibles.Add(new DatosObjetoGuardado(0, 1));
             objetosSeleccionadosCombate = new int[] {-1,-1,-1,-1};
+            listasDeEquipamientosArmas = new List<int> { 0 };
+            listasDeEquipamientosArmaduras = new List<int> { 0 };
+            listasDeEquipamientosZapatos = new List<int> { 0 };
+            listasDeEquipamientosAccesorios = new List<int> { 0 };
+            equipamientoJugador = new [] {-1,-1,-1,-1};
             progresoHistoria = 0; // Empezamos desde 0 (inicio)
             
         }

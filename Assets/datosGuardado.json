@@ -1,11 +1,12 @@
 {
     "id": 5,
     "nombre": "Jugador",
+    "vida": 50,
     "estadisticasJugador": {
         "vidaMax": 50,
         "ataque": 5,
         "defensa": 1,
-        "ataqueEspecial": 10,
+        "ataqueEspecial": 40,
         "defensaEspecial": 1
     },
     "accionesJugador": [
@@ -17,7 +18,28 @@
         {
             "id": 0,
             "cantidad": 1
+        },
+        {
+            "id": 1,
+            "cantidad": 1
         }
+    ],
+    "listasDeEquipamientosArmas": [
+    ],
+    "listasDeEquipamientosArmaduras": [
+        0
+    ],
+    "listasDeEquipamientosZapatos": [
+        0
+    ],
+    "listasDeEquipamientosAccesorios": [
+        0
+    ],
+    "equipamientoJugador": [
+        0,
+        0,
+        -1,
+        -1
     ],
     "objetosSeleccionadosCombate": [
         -1,

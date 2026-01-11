@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Codigo.Scripts.Sistema_Menu;
 using UnityEngine;
 
 namespace Codigo.Scripts
@@ -7,7 +8,9 @@ namespace Codigo.Scripts
     {
         // variables privadas para guardar a quien seguimos
         private Transform objetivoActual; 
-        private Transform objetivoJugador; 
+        private Transform objetivoJugador;
+        private Vector3 objetivoCoordenadas;
+        private Coroutine coroutine;
 
         public float suavizado = 0.125f;
         public Vector3 offset = new Vector3(0f, 10f, -8f);
@@ -47,8 +50,26 @@ namespace Codigo.Scripts
         // funcion para mirar al combate
         public void EnfocarPuntoCombate(Transform nuevoObjetivo)
         {
-            objetivoActual = nuevoObjetivo;
+            objetivoCoordenadas = nuevoObjetivo.position;
             activarLimites = false; // quitar limites para ver completo
+            if(coroutine != null)
+                StopCoroutine(coroutine);
+            coroutine = StartCoroutine(CambioPosicionCamara());
+            
+        }
+        
+        public void EnfocarPuntoPosicion(Vector3 nuevoObjetivo)
+        {
+            objetivoCoordenadas = nuevoObjetivo;
+            activarLimites = false; // quitar limites para ver completo
+            if(coroutine != null)
+                StopCoroutine(coroutine);
+            coroutine = StartCoroutine(CambioPosicionCamara());
+        }
+
+        public Transform ObtenerObjetivo()
+        {
+            return objetivoActual;
         }
 
         // funcion para volver a mirar al jugador
@@ -60,8 +81,14 @@ namespace Codigo.Scripts
 
         void LateUpdate()
         {
-            if (objetivoActual == null) return; // si no hay nadie, no hace nada, por si acaso
-
+            if (!objetivoActual || GLOBAL.enCombate || NewMenuSystem.DentroDeUnMenu()) return; // si no hay nadie, no hace nada, por si acaso
+            if (coroutine != null)
+            {
+                StopCoroutine(coroutine);
+                activarLimites = true;
+                coroutine = null;
+            }
+                
             // calcula donde quiere ir la camara
             Vector3 sitioDeseado = objetivoActual.position + offset;
 
@@ -86,6 +113,31 @@ namespace Codigo.Scripts
                 // si esta cerca, se mueve suave
                 transform.position = Vector3.Lerp(transform.position, sitioDeseado, suavizado);
             }
+        }
+
+        private IEnumerator CambioPosicionCamara()
+        {
+            Vector3 sitioDeseado = objetivoCoordenadas + offset;
+            var distancia = Vector3.Distance(transform.position, sitioDeseado);
+            // mide cuan lejos esta la camara del destino
+            while (distancia > 0.001f)
+            {
+                distancia = Vector3.Distance(transform.position, sitioDeseado);
+                
+                // si acaba de empezar o esta muy lejos, salta de golpe
+                if (inicioEscena || distancia > 15f)
+                {
+                    transform.position = sitioDeseado;
+                }
+                else
+                {
+                    // si esta cerca, se mueve suave
+                    transform.position = Vector3.Lerp(transform.position, sitioDeseado, suavizado);
+                }
+                yield return null;
+            }
+            transform.position = sitioDeseado;
+            yield break;
         }
     }
 }
