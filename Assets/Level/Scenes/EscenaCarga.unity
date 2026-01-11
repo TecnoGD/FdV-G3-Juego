@@ -10144,6 +10144,8 @@ MonoBehaviour:
   equipamientoJugador: ffffffffffffffffffffffffffffffffffffffff
   objetosSeleccionadosCombate: []
   sistemaInteraccion: {fileID: 0}
+  limiteIzquierdo: -16
+  limiteDerecho: 100
 --- !u!1 &1222385460
 GameObject:
   m_ObjectHideFlags: 0
