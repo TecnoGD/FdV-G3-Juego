@@ -63,7 +63,7 @@ namespace Codigo.Scripts
             jugador = luchadores[0];                                                                            // Define la variable luchador al GameObject del jugador
             jugador.InicioCombate();                                                                            // Inicializa al jugador para el combate
             var pos = jugador.gameObject.transform.position;
-            jugador.gameObject.transform.parent.position =  new Vector3(-3.99f, pos.y, pos.z);    
+            jugador.gameObject.transform.parent.position =  new Vector3(2.77f, pos.y, pos.z);    
             
             // después de posicionar el jugador, posicionamos la cámara
             _camaraSeguimiento = Camera.main.GetComponent<CamaraSeguimiento>();

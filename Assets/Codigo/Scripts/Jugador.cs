@@ -26,6 +26,11 @@ public class Jugador : MonoBehaviour
     public ObjectSlot[] objetosSeleccionadosCombate;
     public SistemaInteraccion sistemaInteraccion;
     
+    public float limiteIzquierdo = -15f; // Valor mínimo de X
+    public float limiteDerecho = 7f;    // Valor máximo de X
+    
+    
+    
 
     private void Awake()
     {
@@ -122,7 +127,16 @@ public class Jugador : MonoBehaviour
         if (Keyboard.current.dKey.isPressed || Keyboard.current.rightArrowKey.isPressed)
             movimiento.x = 1;
             
-        transform.position += movimiento.normalized * (velocidad * Time.deltaTime); //calcular la pos
+        //transform.position += movimiento.normalized * (velocidad * Time.deltaTime); //calcular la pos
+        
+        // 1. Calculamos la posición a la que el jugador QUIERE ir
+        Vector3 nuevaPosicion = transform.position + movimiento.normalized * (velocidad * Time.deltaTime);
+
+        // 2. Aplicamos el "Clamp" para que X nunca se pase de los límites
+        nuevaPosicion.x = Mathf.Clamp(nuevaPosicion.x, limiteIzquierdo, limiteDerecho);
+
+        // 3. Aplicamos la posición final al transform
+        transform.position = nuevaPosicion;
     }
 
     public void MenuJugador(InputAction.CallbackContext context)
