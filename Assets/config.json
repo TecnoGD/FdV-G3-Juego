@@ -2,9 +2,9 @@
     "MasterVolume": 1.0,
     "MusicVolume": 1.0,
     "SfxVolume": 1.0,
-    "AmbientVolume": 0.00009999999747378752,
-    "width": 1920,
-    "height": 1080,
+    "AmbientVolume": 1.0,
+    "width": 1080,
+    "height": 1920,
     "fullScreen": false,
     "VSync": false,
     "frameRate": 144.0
