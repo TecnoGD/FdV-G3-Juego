@@ -17,8 +17,6 @@ public class EventoSombraSala : MonoBehaviour
     public Transform puntoFinal;     // Dónde termina (se esconderá)
     public float velocidadSombra = 5f; // Un poco más rápido para que sea fugaz
 
-    // HE BORRADO LAS VARIABLES DE "MONÓLOGO" Y "NOMBRE" PORQUE YA NO SE USAN
-
     private void Start()
     {
         // CASO 1: Ocurre el evento ahora (Primera vez)

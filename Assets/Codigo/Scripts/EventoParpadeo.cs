@@ -17,7 +17,7 @@ public class EventoParpadeo : MonoBehaviour
     private void Start()
     {
         // Solo intentamos el susto si NUNCA ha ocurrido antes en esta partida
-        if (!GLOBAL.guardado.eventoParpadeoYaOcurrio)
+        if (!GLOBAL.TieneFlag("evento_parpadeo_hecho"))
         {
             float dado = Random.Range(0f, 100f);
             
@@ -27,7 +27,7 @@ public class EventoParpadeo : MonoBehaviour
                 lucesRotas = true;
                 
                 // 2. Lo marcamos en el guardado GLOBAL para que NO vuelva a pasar en el futuro
-                GLOBAL.guardado.eventoParpadeoYaOcurrio = true;
+                GLOBAL.PonerFlag("evento_parpadeo_hecho");
                 
                 StartCoroutine(RutinaParpadeo());
             }

@@ -21,7 +21,7 @@ public class EventoEspejo : MonoBehaviour, IInteractuable
     {
         triggerInteraction = GetComponent<Collider>();
 
-        if (GLOBAL.guardado.espejoRoto)
+        if (GLOBAL.TieneFlag("espejo_roto"))
         {
             // Si ya estaba roto, desactivamos todo inmediatamente
             DesactivarEspejo();
@@ -34,7 +34,7 @@ public class EventoEspejo : MonoBehaviour, IInteractuable
         // Evitar solapamientos si ya se está hablando
         if (SistemaDialogo.instance.enDialogo) return;
 
-        if (GLOBAL.guardado.espejoRoto) return;
+        if (GLOBAL.TieneFlag("espejo_roto")) return;
 
         if (estadoInteraccion == 0)
         {
@@ -63,7 +63,7 @@ public class EventoEspejo : MonoBehaviour, IInteractuable
         // Esperamos a que el jugador termine de leer
         yield return new WaitUntil(() => !SistemaDialogo.instance.enDialogo);
 
-        GLOBAL.guardado.espejoRoto = true;
+        GLOBAL.PonerFlag("espejo_roto");
 
         DesactivarEspejo();
         
