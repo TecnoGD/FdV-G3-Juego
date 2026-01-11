@@ -48,7 +48,7 @@ public class EventoSombraSala : MonoBehaviour
         if(objetoSombra) objetoSombra.gameObject.SetActive(true);
 
         // Esperamos un poco para que el jugador se confíe
-        yield return new WaitForSeconds(1.5f); 
+        yield return new WaitForSeconds(0.5f); 
 
         // 2. CAMBIO DE LUCES (El quiebre visual)
         if(lucesNormales) lucesNormales.SetActive(false);

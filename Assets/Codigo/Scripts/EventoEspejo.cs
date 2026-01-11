@@ -3,6 +3,9 @@ using Codigo.Scripts; // Necesario para GLOBAL, IInteractuable, SistemaDialogo
 
 public class EventoEspejo : MonoBehaviour, IInteractuable
 {
+    [Header("Referencias Visuales")]
+    public GameObject iconoExclamacion;
+
     [Header("Narrativa - Fase 1: Introspección")]
     [TextArea] public string[] dialogoFase1; 
 
@@ -17,6 +20,12 @@ public class EventoEspejo : MonoBehaviour, IInteractuable
     private void Start()
     {
         triggerInteraction = GetComponent<Collider>();
+
+        if (GLOBAL.guardado.espejoRoto)
+        {
+            // Si ya estaba roto, desactivamos todo inmediatamente
+            DesactivarEspejo();
+        }
     }
 
     // Implementación de la interfaz IInteractuable
@@ -24,6 +33,8 @@ public class EventoEspejo : MonoBehaviour, IInteractuable
     {
         // Evitar solapamientos si ya se está hablando
         if (SistemaDialogo.instance.enDialogo) return;
+
+        if (GLOBAL.guardado.espejoRoto) return;
 
         if (estadoInteraccion == 0)
         {
@@ -41,19 +52,30 @@ public class EventoEspejo : MonoBehaviour, IInteractuable
 
     private System.Collections.IEnumerator SecuenciaFinal()
     {
-        // 1. Lanzamos el diálogo con el texto de la ruptura
+        // Quitamos la exclamación ahora que empieza el evento final
+        if (iconoExclamacion != null)
+        {
+            iconoExclamacion.SetActive(false);
+        }
+        // Lanzamos el diálogo con el texto de la ruptura
         SistemaDialogo.instance.IniciarDialogo(dialogoFase2, nombreEntidad, null);
         
-        // 2. Esperamos a que el jugador termine de leer
+        // Esperamos a que el jugador termine de leer
         yield return new WaitUntil(() => !SistemaDialogo.instance.enDialogo);
 
-        // 3. "Rompemos" la interacción
-        estadoInteraccion++; 
+        GLOBAL.guardado.espejoRoto = true;
+
+        DesactivarEspejo();
         
-        // Desactivamos el collider. El jugador ya no podrá interactuar más.
-        // El espejo sigue ahí visualmente, pero para el sistema de juego es como una pared normal.
+        Debug.Log("Espejo roto permanentemente.");
+    }
+
+    private void DesactivarEspejo()
+    {
+        // 1. Quitar exclamación
+        if (iconoExclamacion != null) iconoExclamacion.SetActive(false);
+
+        // 2. Desactivar collider para que no se pueda pulsar F
         if (triggerInteraction) triggerInteraction.enabled = false;
-        
-        Debug.Log("Evento Espejo finalizado. Interacción desactivada.");
     }
 }
