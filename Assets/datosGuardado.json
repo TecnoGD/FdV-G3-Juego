@@ -11,7 +11,8 @@
     },
     "accionesJugador": [
         0,
-        1
+        1,
+        2
     ],
     "objetosConsumibles": [
         {
