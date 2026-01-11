@@ -78,8 +78,29 @@ namespace Codigo.Scripts
             
             
             MenuSelectorEquipamiento.instance.ActualizarComparadores(modificadorAntiguo ,modificadorNuevo);
+            ScrollUpdate();
             
             
+        }
+        
+        private void ScrollUpdate()
+        {
+            var scroll = GetComponentInParent<ScrollRect>();
+            var target = gameObject.GetComponent<RectTransform>();
+            var limiteSup = -scroll.viewport.rect.height;
+            var limiteInf = 0;
+            var current = target.localPosition.y + scroll.content.localPosition.y;
+
+            if (scroll && !(current > limiteSup && current < limiteInf))
+            {
+                var vector3 = scroll.content.localPosition;
+                vector3.x = 0;
+                if(current > limiteSup)
+                    vector3.y -= (target.rect.height);
+                if(current < limiteInf)
+                    vector3.y += (target.rect.height);
+                scroll.content.localPosition = vector3;
+            }
         }
 
         

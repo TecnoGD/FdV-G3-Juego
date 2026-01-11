@@ -19,4 +19,5 @@ MonoBehaviour:
   Defensa: 1
   AtaqueEspecial: 9
   DefensaEspecial: 1
+  dinero: 20
   acciones: 03000000

@@ -3,25 +3,39 @@ using System.Collections.Generic;
 using Codigo.Scripts.Sistema_Menu;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Events;
 
 namespace Codigo.Scripts
 {
     public class SistemaCombate : MonoBehaviour , IMensajesCombate
     {
         public static SistemaCombate instance;
+        public int idCombate = 0;
         public int turno = -1;                                          // -1 jugador esta decidiendo e IAs ejecutan
         public static List<Luchador> luchadores = new List<Luchador>(); // Lista de los luchadores activos en combate
         public Luchador jugador;                                        // Variable que contiene al GameObject del jugador
         public List<GameObject> UIGeneral;                              // Lista de elementos generales de la UI de combate (caja de combate,vida jugador, vida enemigos, texto de turno)
         public List<TMP_Text> TextoUI;                                  // Lista que contiene los textos de vida de los luchadores en combate
-        public List<TMP_Text> TextoVidas = new List<TMP_Text>();
+        public List<DatosEnemigo> TextoVidas = new List<DatosEnemigo>();
         public List<Menu> ElementosUI;                            // Lista que contiene los elementos de UI de decision del jugador (Accion, ataque, objetivos...)
-        public const int UIJugadorCombate = 0, UIAccionesCombate = 1, UIObjetivoCombate = 2, UIVidaEnemigos = 3, UIAnalizarEnemigos = 3; // Utilizar estas constantes para mejor lectura del codigo a la hora de usar la variable "ElementosUI"
+        public const int UIJugadorCombate = 0, UIAccionesCombate = 1, UIObjetivoCombate = 2, UIVidaEnemigos = 2, UIAnalizarEnemigos = 3; // Utilizar estas constantes para mejor lectura del codigo a la hora de usar la variable "ElementosUI"
         public GameObject prefabVidaEnemigos;                           // Prefab de la UI de la vida de los enemigos
         public UnityEngine.UI.Button botonAnalizar;                     // Botón de Analizar enemigos
         public int accionSeleccionada = 0;
-        
+        public int previoObjetivoSeleccionado = 0;
         public Transform CamaraCombate;
+        public int factorRecompensa = 5;
+        public int factorDinero = 0;
+        public Canvas battleCanvas;
+        public GameObject panelRecompensa;
+        public GameObject panelInfoAcciones;
+        public TMP_Text tipoAccionTexto;
+        public TMP_Text potenciaAccionTexto;
+        public TMP_Text descripcionAccionTexto;
+        private CamaraSeguimiento _camaraSeguimiento;
+        
+        
+        
 
         // Inicializa lo necesario para el combate
         void Start()
@@ -31,6 +45,7 @@ namespace Codigo.Scripts
         }
         public void IniciarCombate()
         {
+            factorDinero = 0;
             luchadores.Add(GameObject.FindGameObjectWithTag("Luchador Jugador").GetComponent<Luchador>());      // Busca al GameObject del jugador y lo añade a lista de luchadores
             GameObject[] e = GameObject.FindGameObjectsWithTag("Luchador Enemigo");                             // Busca los GameObjects de los enemigos y los añaden a lista de luchadores
                                                                                                                 //
@@ -40,7 +55,10 @@ namespace Codigo.Scripts
                 luchadores.Add(h);                                                                              //
                 h.InicioCombate();                                                                              // Inicializa al luchador
                 // Temporal posible cambio (Instancia los paneles de vida de los enemigos)
-                TextoVidas.Add(Instantiate(prefabVidaEnemigos, UIGeneral[UIVidaEnemigos].transform).transform.GetChild(0).GetComponent<TMP_Text>());
+                var datos = Instantiate(prefabVidaEnemigos, UIGeneral[UIVidaEnemigos].transform)
+                    .GetComponent<DatosEnemigo>();
+                datos.luchador = h;
+                TextoVidas.Add(datos);
             }                                                                                                   //
             jugador = luchadores[0];                                                                            // Define la variable luchador al GameObject del jugador
             jugador.InicioCombate();                                                                            // Inicializa al jugador para el combate
@@ -48,10 +66,10 @@ namespace Codigo.Scripts
             jugador.gameObject.transform.parent.position =  new Vector3(-3.99f, pos.y, pos.z);    
             
             // después de posicionar el jugador, posicionamos la cámara
-            CamaraSeguimiento cam = Camera.main.GetComponent<CamaraSeguimiento>();
-            if (cam != null && CamaraCombate != null)
+            _camaraSeguimiento = Camera.main.GetComponent<CamaraSeguimiento>();
+            if (_camaraSeguimiento != null && CamaraCombate != null)
             {
-                cam.EnfocarPuntoCombate(CamaraCombate);
+                _camaraSeguimiento.EnfocarPuntoCombate(CamaraCombate);
             }
                                                                                                                 //
             gameObject.transform.BroadcastMessage("InicioCombate");                                  // El sistema de combate envia un mensaje de inicio de combate a todos sus hijos
@@ -123,6 +141,7 @@ namespace Codigo.Scripts
             {
                 luchadores[i].DecidirAccion(luchadores[i].LuchadorIA(luchadores));
             }
+            CambioEnfoqueCamara();
             EjecucionTurnos();
         }
 
@@ -130,8 +149,6 @@ namespace Codigo.Scripts
         {
             TextoUI[0].text = "Vida: " + luchadores[0].vida;
             // Temporal, posible cambio
-            for(int i = 1; i < luchadores.Count; i++)
-                TextoVidas[i-1].text = "Vida E: " + luchadores[i].vida;
         }
         
         /* Metodo que ejecuta la accion del luchador al que le corresponde el turno actual
@@ -182,14 +199,19 @@ namespace Codigo.Scripts
                 if (luchadores[i].vida == 0)
                 {
                     luchadores[i].LuchadorDerrotado();
+                    factorDinero += luchadores[i].datos.dinero;
                     luchadores.RemoveAt(i);
                     if (i > 0)
                     {
-                        Destroy(TextoVidas[i-1].transform.parent.gameObject);   //Destruye los paneles de vida de los enemigos
+                        Destroy(TextoVidas[i-1].gameObject);   //Destruye los paneles de vida de los enemigos
                         TextoVidas.RemoveAt(i-1);
                     }
                     i--;
                 }
+            }
+            foreach (var datos in TextoVidas)
+            {
+                datos.gameObject.SetActive(false);
             }
             
             if (jugador.vida == 0)
@@ -264,15 +286,24 @@ namespace Codigo.Scripts
         private void FinDeCombate(bool victorioso)
         {
             Debug.Log(victorioso ? "Has Ganado" : "Has Perdido");
-            
+            HabilitarUICombate(false);
             // para que avanzar la historia (cambiar el diálogo del NPC)
             if (victorioso)
             {
                 // Aumentamos el progreso de la historia (por ahora solo tenemos hasta 1)
+                var recompensas = Instantiate(panelRecompensa, battleCanvas.transform).GetComponent<Menu>();
+                NewMenuSystem.SiguienteMenu(recompensas);
                 GLOBAL.guardado.progresoHistoria++;
             }
+            else
+            {
+                CerrarCombate();
+            }
+        }
+
+        public void CerrarCombate()
+        {
             
-            HabilitarUICombate(false);
             luchadores.Clear();
             TextoVidas.Clear();
             gameObject.SetActive(false);
@@ -302,5 +333,54 @@ namespace Codigo.Scripts
             //MenuSystem.SiguienteMenu(ElementosUI[UIObjetivoCombate], true);
             ElementosUI[UIObjetivoCombate].BroadcastMessage("UsoObjeto", jugador.objetosConsumibles[consumible].objeto.estiloSeleccionObjetivo);
         }
+
+        public void CambioEnfoqueCamara(Transform cam = null, int indiceSeleccionado = -1)
+        {
+            _camaraSeguimiento.EnfocarPuntoCombate(cam == null ? CamaraCombate : cam);
+            if (previoObjetivoSeleccionado != -1)
+                TextoVidas[previoObjetivoSeleccionado].gameObject.SetActive(false);
+            if (indiceSeleccionado != -1)
+                TextoVidas[indiceSeleccionado].gameObject.SetActive(true);
+            
+                
+                
+            
+            previoObjetivoSeleccionado = indiceSeleccionado;
+        }
+
+        public void MostrarDatosEnemigo(Luchador objetivo)
+        {
+            var indice = luchadores.IndexOf(objetivo) - 1;
+            if (indice >= 0)
+            {
+                TextoVidas[indice].gameObject.SetActive(true);
+            }
+                
+        }
+        
+        public void ActualizarDatosAccion(int indice)
+        {
+            var accion =GLOBAL.acciones[indice];
+            if (accion as Ataque)
+            {
+                var ataque = accion as Ataque;
+                var tipo = ataque.tipo switch
+                {
+                    Ataque.FISICO => "Tipo: FISICO",
+                    Ataque.ESPECIAL => "Tipo: ESPECIAL",
+                    _ => ""
+                };
+                tipoAccionTexto.text = tipo;
+                potenciaAccionTexto.text = "Potencia: " + ataque.DañoBase;
+            }
+            else
+            {
+                tipoAccionTexto.text = "Tipo: SIN TIPO";
+                potenciaAccionTexto.text = "Potencia: --";
+            }
+            descripcionAccionTexto.text = accion.Descripcion;
+            
+        }
+        
     }
 }

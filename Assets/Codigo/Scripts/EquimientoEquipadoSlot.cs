@@ -24,7 +24,7 @@ namespace Codigo.Scripts
             if (tipoEquipamiento > 3) tipoEquipamiento = 3;
             var listaApropiada = GLOBAL.instance.ListasDeEquipamientos[tipoEquipamiento];
             var listaApropiadaJugador = GLOBAL.instance.Jugador.ListasDeEquipamientosInventario[tipoEquipamiento];
-            GLOBAL.instance.Jugador.ActualizarEstadisticas();
+            //GLOBAL.instance.Jugador.ActualizarEstadisticas();
             
             if (equipamiento > -1 && equipamiento < listaApropiadaJugador.Count)
             {

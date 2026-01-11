@@ -7,6 +7,7 @@ namespace Codigo.Scripts
     public class SistemaGuardado
     {
         private static string _path = Application.dataPath + "/datosGuardado.json"; // Directorio del archivo de guardado
+        private static string _configPath = Application.dataPath + "/config.json"; // Directorio del archivo de guardado
         
         // Sin implementar
         public static void Guardar(DatosGuardado datosGuardado)
@@ -43,6 +44,29 @@ namespace Codigo.Scripts
             return guardado;
         }
 
+        public static DatosConfig CargarConfiguracion()
+        {
+            DatosConfig config = null;
+            if (File.Exists(_configPath))     // Comprueba si el archivo existe
+            {
+                var contenido =  File.ReadAllText(_configPath);                       // Se lee el contenido del archivo
+                config = JsonUtility.FromJson<DatosConfig>(contenido);            // Se transforma el contenido a un
+                // formato valido
+            }
+            else
+            {
+                config = NuevoArchivoConfiguracion();                             // Se genera nuevo archivo de guardado
+                Debug.Log("No existe archivo de configuracion, se crea uno");
+            }
+            return config;
+        }
+
+        public static void GuardarConfiguracion(DatosConfig config)
+        {
+            var json = JsonUtility.ToJson(config, true);
+            File.WriteAllText(_configPath, json);
+        }
+
         /* Funcion que comprueba si los datos del archivo de guardado son validos
            POST: - Si en las estadisticas del jugador se encuentra algun valor inferior a 0 identifica corrupcion de datos
                    en caso contrario se devuelve un resultado correcto*/
@@ -61,6 +85,14 @@ namespace Codigo.Scripts
             var json = JsonUtility.ToJson(guardado, true);   //Formatea los datos a un formato JSON
             File.WriteAllText(_path, json);                         // Escribe/Genera en el archivo de guardado 
             return guardado;                                                // Devuelve referencia a los datos de guardado 
+        }
+
+        static DatosConfig NuevoArchivoConfiguracion()
+        {
+            DatosConfig config = new DatosConfig();
+            var json = JsonUtility.ToJson(config, true);
+            File.WriteAllText(_configPath, json);
+            return config;
         }
     }
 }
