@@ -21,6 +21,8 @@ namespace Codigo.Scripts
 
         // variable para saber si estamos hablando y bloquear movimiento
         public bool enDialogo = false;  
+
+        public bool usarInputInterno = false;
         
         // cola para guardar las frases y sacarlas una a una en orden
         private Queue<string> colaFrases; 
@@ -43,6 +45,15 @@ namespace Codigo.Scripts
             if (imagenPerfilNPC != null)
             {
                 spritePorDefecto = imagenPerfilNPC.sprite;
+            }
+        }
+
+        void Update()
+        {
+            // Si estamos en dialogo y pulsamos F
+            if (enDialogo && usarInputInterno && Input.GetKeyDown(KeyCode.F))
+            {
+                SiguienteFrase();
             }
         }
 

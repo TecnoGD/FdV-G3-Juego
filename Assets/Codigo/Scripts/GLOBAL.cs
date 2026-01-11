@@ -40,7 +40,7 @@ public class GLOBAL : MonoBehaviour
     {
         
         //Object.DontDestroyOnLoad(MenuSystem.instance.menuJugador);
-        SceneManager.LoadScene("SalaDescanso");
+        SceneManager.LoadScene("EscenaPrologo");
     }
 
     public void CambiarEscena(string escena, Vector3 posicion)

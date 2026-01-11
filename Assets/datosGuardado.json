@@ -26,5 +26,8 @@
         -1
     ],
     "progresoHistoria": 0,
-    "flagsEventos": []
+    "actoActual": 1,
+    "combatesGanados": 0,
+    "flagsEventos": [],
+    "nombreJugador": "Héroe"
 }

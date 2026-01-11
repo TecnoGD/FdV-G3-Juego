@@ -261,6 +261,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 733168297}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &207980005
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 207980007}
+  - component: {fileID: 207980006}
+  m_Layer: 0
+  m_Name: EventoInicial
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &207980006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 207980005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f150c8d6d561e5240bcd6cf2015de721, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Scripts::EventoSalaDescanso
+  nombreVoz: 
+  npcEnEscena: {fileID: 0}
+  dialogoEntrada:
+  - Has encontrado la sala de descanso, parece que esa persona quiere decirte algo
+--- !u!4 &207980007
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 207980005}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.58245, y: 0.59243, z: 1.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &240830050
 GameObject:
   m_ObjectHideFlags: 0
@@ -827,7 +875,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35b70101dcbccf8468d456383b08f06f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Scripts::EventoParpadeo
-  probabilidad: 10
+  probabilidad: 3
   lucesAfectadas:
   - {fileID: 304587712}
   - {fileID: 2016238370}
@@ -2173,7 +2221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 276985384ffca39409809ca229d14956, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Scripts::EventoSombraSala
-  idEventoRequerido: 2
+  idEventoRequerido: 5
   lucesNormales: {fileID: 240830050}
   lucesMoradas: {fileID: 385455417}
   objetoSombra: {fileID: 558869179}
@@ -2604,18 +2652,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a433115cb4154cabb2a4d105965eacc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Codigo.Scripts.NPCInteractuable
-  nombreNPC: Cubo
-  fotoPerfil: {fileID: 21300000, guid: 93a60aafa3d88e74ca4009a4604728a7, type: 3}
+  nombreNPC: Dylan
+  fotoPerfil: {fileID: 21300000, guid: 74f44a31903736d43a81ba2ea8c1f618, type: 3}
   iconoAlerta: {fileID: 1467187353}
   etapasHistoria:
   - nota: Inicio, saludo
     frases:
-    - "\xA1Hola! Soy un cubo."
+    - "\xBFHola? \xBFTe conozco?"
+    - Pareces desorientado, veo que eres nuevo jajaja
+    - Te explico, te vas a tener que enfrentar con gente que no tiene nada que perder
+    - "\xBFSer\xE1s lo suficientemente valiente?"
+    - "Despu\xE9s de cada batalla podr\xE1s comprar en la tienda lo que desees con
+      el dinero que ganes"
+    - "Bueno... lo m\xE1s importante es que... *Una voz grave te llama a lo lejos
+      para la primera batalla*"
+    - Vaya, te llaman. Mucha suerte
   - nota: "Despu\xE9s del primer combate"
     frases:
-    - "\xBFBuscas recompensa?"
-    - "Pues no hay. Porque no has puesto esta tarea en Trello, as\xED que es trabajo
-      gratis."
+    - "\xA1Guau! Incre\xEDble"
+    - Parece que van a tener problemas para derrotarte
 --- !u!136 &1201172144
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3149,11 +3204,11 @@ MonoBehaviour:
   etapasHistoria:
   - nota: Inicio
     frases:
-    - "\xA1Hola! soy un cartel."
-  - nota: Ranking
+    - "Noticias:\nLa tienda permanecer\xE1 cerrada el pr\xF3ximo jueves por vacaciones"
+  - nota: Desarrollo
     frases:
-    - "\xBFBuscas informaci\xF3n del ranking?"
-    - "A\xFAn no est\xE1 implementado, espera a la iteraci\xF3n 4."
+    - '*Anuncio*: Buscamos nuevos luchadores, ofrecemos oro y otras cosas que os
+      pueden interesar'
 --- !u!1 &1346591316
 GameObject:
   m_ObjectHideFlags: 0
@@ -4787,3 +4842,4 @@ SceneRoots:
   - {fileID: 674301118}
   - {fileID: 733168297}
   - {fileID: 919434061}
+  - {fileID: 207980007}

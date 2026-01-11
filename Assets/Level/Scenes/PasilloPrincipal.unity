@@ -2345,7 +2345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 702479a4df27e61459e20a2862166d74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Scripts::EventoPasilloMuerte
-  idEventoRequerido: 0
+  idEventoRequerido: 10
   lucesDelPasillo: {fileID: 2005712259}
   velocidadLenta: 2
   nombreVoz: 
