@@ -24,6 +24,11 @@ namespace Codigo.Scripts
         public int[] objetosSeleccionadosCombate;
 
         public int progresoHistoria; // Controla el avance de la historia (dialogo).
+        public int actoActual = 1;
+        public int combatesGanados = 0;
+        public List<string> flagsEventos = new List<string>();
+        public string nombreJugador = "Héroe";
+
         public DatosGuardado(ObjetoConsumible obj)
         {
             estadisticasJugador = new DatosCombate.Estadisticas(50, 5, 1, 10, 1);

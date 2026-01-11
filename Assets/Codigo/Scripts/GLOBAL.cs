@@ -43,9 +43,13 @@ public class GLOBAL : MonoBehaviour
 
     void Start()
     {
+        
+        //Object.DontDestroyOnLoad(MenuSystem.instance.menuJugador);
+        
         Screen.SetResolution(Configuracion.width, Configuracion.height, Configuracion.fullScreen);
         //Object.DontDestroyOnLoad(NewMenuSystem.Instancia.menuJugador);
-        //SceneManager.LoadScene("SalaDescanso");
+        //SceneManager.LoadScene("EscenaPrologo");
+        
     }
 
     public void CambiarEscena(string escena, Vector3 posicion)
@@ -70,6 +74,27 @@ public class GLOBAL : MonoBehaviour
         yield break;
     }
 
+    // 1. Función para consultar si algo ya pasó
+    public static bool TieneFlag(string idFlag)
+    {
+        // Si la lista está vacía o es nula, obviamente es falso
+        if (guardado.flagsEventos == null) return false;
+
+        return guardado.flagsEventos.Contains(idFlag);
+    }
+
+    // 2. Función para marcar que algo ha pasado
+    public static void PonerFlag(string idFlag)
+    {
+        if (guardado.flagsEventos == null) guardado.flagsEventos = new List<string>();
+
+        // Solo lo añadimos si no está ya, para no tener duplicados
+        if (!guardado.flagsEventos.Contains(idFlag))
+        {
+            guardado.flagsEventos.Add(idFlag);
+        }
+    }
+    
     void OnApplicationQuit()
     {
         SistemaGuardado.GuardarConfiguracion(Configuracion);

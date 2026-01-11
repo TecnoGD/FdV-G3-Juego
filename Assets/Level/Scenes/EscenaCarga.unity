@@ -25274,6 +25274,7 @@ MonoBehaviour:
   textoNombreNPC: {fileID: 2625760562078630087}
   imagenPerfilNPC: {fileID: 8973621265689498732}
   enDialogo: 0
+  usarInputInterno: 0
 --- !u!114 &2625760562078630087
 MonoBehaviour:
   m_ObjectHideFlags: 0

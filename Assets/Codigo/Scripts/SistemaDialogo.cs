@@ -20,6 +20,10 @@ namespace Codigo.Scripts
         public Image imagenPerfilNPC;               // componente de imagen para la foto
         private Sprite spritePorDefecto;            // variable para guardar la imagen inicial y usarla si no nos pasan otra
 
+        // variable para saber si estamos hablando y bloquear movimiento
+        public bool enDialogo = false;  
+
+        public bool usarInputInterno = false;
                                     
         public bool enDialogo = false;              // variable para saber si estamos hablando y bloquear movimiento
         private Queue<string> colaFrases;           // cola para guardar las frases y sacarlas una a una en orden
@@ -45,6 +49,15 @@ namespace Codigo.Scripts
             if (imagenPerfilNPC != null)
             {
                 spritePorDefecto = imagenPerfilNPC.sprite;
+            }
+        }
+
+        void Update()
+        {
+            // Si estamos en dialogo y pulsamos F
+            if (enDialogo && usarInputInterno && Input.GetKeyDown(KeyCode.F))
+            {
+                SiguienteFrase();
             }
         }
 
