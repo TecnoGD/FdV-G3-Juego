@@ -10,6 +10,7 @@ namespace Codigo.Scripts
     public class SistemaCombate : MonoBehaviour , IMensajesCombate
     {
         public static SistemaCombate instance;
+        public static bool boss = false;
         public int idCombate = 0;
         public int turno = -1;                                          // -1 jugador esta decidiendo e IAs ejecutan
         public static List<Luchador> luchadores = new List<Luchador>(); // Lista de los luchadores activos en combate
@@ -293,7 +294,7 @@ namespace Codigo.Scripts
                 // Aumentamos el progreso de la historia (por ahora solo tenemos hasta 1)
                 var recompensas = Instantiate(panelRecompensa, battleCanvas.transform).GetComponent<Menu>();
                 NewMenuSystem.SiguienteMenu(recompensas);
-                GLOBAL.guardado.progresoHistoria++;
+                GLOBAL.AumentarProgresoHistoria();
             }
             else
             {

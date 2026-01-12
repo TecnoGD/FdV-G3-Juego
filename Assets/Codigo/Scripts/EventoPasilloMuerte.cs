@@ -61,6 +61,6 @@ public class EventoPasilloMuerte : MonoBehaviour
         if (lucesDelPasillo) lucesDelPasillo.SetActive(true);
 
         // 5. GUARDAR PROGRESO
-        GLOBAL.guardado.progresoHistoria++;
+        GLOBAL.AumentarProgresoHistoria();
     }
 }

@@ -7107,7 +7107,29 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fd70d8bbd671e5245bd8d0ba597ee45e, type: 2}
   layoutsCombate:
   - {fileID: 11400000, guid: 456dbe7700e96514d82c98e8ac4e4f0d, type: 2}
+  - {fileID: 11400000, guid: 456dbe7700e96514d82c98e8ac4e4f0d, type: 2}
+  - {fileID: 11400000, guid: 456dbe7700e96514d82c98e8ac4e4f0d, type: 2}
+  - {fileID: 11400000, guid: 456dbe7700e96514d82c98e8ac4e4f0d, type: 2}
+  - {fileID: 11400000, guid: 456dbe7700e96514d82c98e8ac4e4f0d, type: 2}
+  - {fileID: 11400000, guid: 456dbe7700e96514d82c98e8ac4e4f0d, type: 2}
+  - {fileID: 11400000, guid: 456dbe7700e96514d82c98e8ac4e4f0d, type: 2}
   - {fileID: 11400000, guid: 26e97b303fbe06848bb2e34b9517631e, type: 2}
+  - {fileID: 11400000, guid: 26e97b303fbe06848bb2e34b9517631e, type: 2}
+  - {fileID: 11400000, guid: 26e97b303fbe06848bb2e34b9517631e, type: 2}
+  - {fileID: 11400000, guid: 26e97b303fbe06848bb2e34b9517631e, type: 2}
+  - {fileID: 11400000, guid: 26e97b303fbe06848bb2e34b9517631e, type: 2}
+  - {fileID: 11400000, guid: 26e97b303fbe06848bb2e34b9517631e, type: 2}
+  - {fileID: 11400000, guid: 26e97b303fbe06848bb2e34b9517631e, type: 2}
+  - {fileID: 11400000, guid: 65cff77853763dc46a78bfac76d3bb66, type: 2}
+  - {fileID: 11400000, guid: 65cff77853763dc46a78bfac76d3bb66, type: 2}
+  - {fileID: 11400000, guid: 65cff77853763dc46a78bfac76d3bb66, type: 2}
+  - {fileID: 11400000, guid: 65cff77853763dc46a78bfac76d3bb66, type: 2}
+  - {fileID: 11400000, guid: 65cff77853763dc46a78bfac76d3bb66, type: 2}
+  layoutsBosses:
+  - {fileID: 11400000, guid: 4def2c0d1202ca1469a04cfd73d14735, type: 2}
+  - {fileID: 11400000, guid: 7f565b60097b5a14096fc99d49cfb2f3, type: 2}
+  - {fileID: 11400000, guid: 48c18ff1f0ec08b429807ec771f8e1a2, type: 2}
+  - {fileID: 11400000, guid: 260a11dd508624b46a78f800d5732f4b, type: 2}
 --- !u!4 &535678431
 Transform:
   m_ObjectHideFlags: 0
@@ -15781,8 +15803,6 @@ MonoBehaviour:
   equipamientoJugador: ffffffffffffffffffffffffffffffffffffffff
   objetosSeleccionadosCombate: []
   sistemaInteraccion: {fileID: 367498599}
-  limiteIzquierdo: -15
-  limiteDerecho: 20
 --- !u!81 &1215776554
 AudioListener:
   m_ObjectHideFlags: 0

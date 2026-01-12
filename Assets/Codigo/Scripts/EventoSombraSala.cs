@@ -67,7 +67,7 @@ public class EventoSombraSala : MonoBehaviour
 
         // 5. FIN Y GUARDADO
         // El ambiente se queda morado y el juego continúa sin decir nada
-        GLOBAL.guardado.progresoHistoria++;
+        GLOBAL.AumentarProgresoHistoria();
     }
 
     private void AplicarAmbienteNormal()
