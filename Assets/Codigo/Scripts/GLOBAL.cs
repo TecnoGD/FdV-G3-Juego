@@ -55,7 +55,6 @@ public class GLOBAL : MonoBehaviour
 
     public void CambiarEscena(string escena, Vector3 posicion)
     {
-        Debug.Log("Cambio a " +  escena);
         StartCoroutine(TestEspera(SceneManager.LoadSceneAsync(escena), posicion));
     }
     
