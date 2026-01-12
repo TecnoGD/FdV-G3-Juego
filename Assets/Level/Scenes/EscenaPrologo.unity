@@ -599,16 +599,11 @@ MonoBehaviour:
   dialogoInicial:
   - ...
   - "Bien. El v\xEDnculo es estable"
-  - "Al parecer eres un asesino serial que tiene numerosos cr\xEDmenes no solo de
-    personas, sino tambi\xE9n de animales... adem\xE1s sin raz\xF3n aparente"
-  - "Tu prop\xF3sito de estar aqu\xED es enfrentarte a numerosas batallas y alzarte
-    con la victoria"
-  - "Tienes que hacerte m\xE1s fuerte tras cada batalla, eso te llevar\xE1 a la gloria"
-  - "Antes de todo, \xBFcon qu\xE9 nombre quieres que te presenten en el campo de
-    batalla?"
+  - Te encuentras en un lugar que no reconoces pero sabes lo que hacer
+  - "Ahora te pregunto, \xBFcu\xE1l es tu nombre?"
   dialogoRespuesta:
   - "\xBF{0}?"
-  - Un nombre curioso para un asesino...
+  - Un nombre interesante
   - "No importa, tu prop\xF3sito comienza ahora"
   - "\xA1Adelante!"
   nombreEscenaJuego: SalaB

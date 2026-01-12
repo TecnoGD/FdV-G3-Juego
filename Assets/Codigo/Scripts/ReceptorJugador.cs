@@ -30,7 +30,7 @@ public class ReceptorJugador : MonoBehaviour
         }
 
         // 3. Esperamos el tiempo de "negro/misterio"
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(0.1f);
 
         // 4. Hacemos visible al jugador
         if (GLOBAL.instance.Jugador != null)
