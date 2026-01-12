@@ -1,31 +1,45 @@
 using System.Collections;
+using System.Collections.Generic; // Necesario para usar Listas
 using UnityEngine;
-using Codigo.Scripts; // Necesario para GLOBAL y SistemaDialogo
+using Codigo.Scripts; 
 
 public class EventoPasilloMuerte : MonoBehaviour
 {
     [Header("Configuración de Historia")]
-    public int idEventoRequerido = 5; // Ajusta este número al momento intermedio del Acto 2
+    public int idEventoRequerido = 5; 
 
-    [Header("Atmósfera")]
-    public GameObject lucesDelPasillo; // El grupo de luces que se apagarán
-    
+    [Header("Sistema de Luces (Tags)")]
+    public string etiquetaLuces = "LuzAmbiente"; // Busca las luces con este Tag
+    // public GameObject lucesDelPasillo; // <-- ESTO LO HEMOS QUITADO
+
     [Header("Efecto Ralentización")]
-    public float velocidadLenta = 2.0f; // La velocidad reducida (normalmente es 5f)
+    public float velocidadLenta = 2.0f; 
     private float velocidadOriginal;
 
     [Header("Narrativa (El Eco)")]
-    public string nombreVoz = "???"; // Desconocido para el jugador
+    public string nombreVoz = "???"; 
     [TextArea] public string[] ecosDelPasado; 
 
+    // Variables internas
     private bool eventoIniciado = false;
+    private List<Light> lucesEncontradas = new List<Light>(); // Lista para guardar las luces
+
+    private void Start()
+    {
+        // 1. BUSCAR LAS LUCES AUTOMÁTICAMENTE AL INICIO
+        GameObject[] objetos = GameObject.FindGameObjectsWithTag(etiquetaLuces);
+        foreach (GameObject obj in objetos)
+        {
+            Light l = obj.GetComponent<Light>();
+            if (l != null) lucesEncontradas.Add(l);
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        // Usamos el tag "Rig Jugador" que usamos en el sistema de cambio de escena
+        // Nota: Asegúrate de que tu personaje tiene el tag "Rig Jugador" o cámbialo aquí
         if (other.CompareTag("Rig Jugador") && !eventoIniciado)
         {
-            // Verificamos si estamos en el momento correcto de la historia
             if (GLOBAL.guardado.progresoHistoria == idEventoRequerido)
             {
                 StartCoroutine(SecuenciaPesadilla());
@@ -37,30 +51,43 @@ public class EventoPasilloMuerte : MonoBehaviour
     {
         eventoIniciado = true;
 
-        // 1. APAGÓN REPENTINO
-        if (lucesDelPasillo) lucesDelPasillo.SetActive(false);
+        // 1. APAGÓN REPENTINO (Usando la lista de luces encontradas)
+        foreach (Light l in lucesEncontradas)
+        {
+            if (l != null) l.enabled = false; // Apagamos el componente de luz
+        }
         
-        // 2. RALENTIZACIÓN (Efecto "Cámara Lenta/Pesadez")
-        // Guardamos la velocidad actual para restaurarla luego
-        velocidadOriginal = GLOBAL.instance.Jugador.velocidad; 
-        GLOBAL.instance.Jugador.velocidad = velocidadLenta; // Aplicamos la lentitud
+        // 2. RALENTIZACIÓN
+        if (GLOBAL.instance != null && GLOBAL.instance.Jugador != null)
+        {
+            velocidadOriginal = GLOBAL.instance.Jugador.velocidad; 
+            GLOBAL.instance.Jugador.velocidad = velocidadLenta; 
+        }
 
-        yield return new WaitForSeconds(4.0f); // El jugador camina lento y a oscuras un rato
+        yield return new WaitForSeconds(4.0f); 
 
         // 3. EL ECO (Diálogo)
-        SistemaDialogo.instance.IniciarDialogo(ecosDelPasado, nombreVoz, null);
-        
-        // Esperamos a que el jugador termine de escuchar/leer el eco
-        yield return new WaitUntil(() => !SistemaDialogo.instance.enDialogo);
+        if (SistemaDialogo.instance != null)
+        {
+            SistemaDialogo.instance.IniciarDialogo(ecosDelPasado, nombreVoz, null);
+            yield return new WaitUntil(() => !SistemaDialogo.instance.enDialogo);
+        }
 
         // 4. RECUPERACIÓN
-        // Restauramos la velocidad normal
-        GLOBAL.instance.Jugador.velocidad = velocidadOriginal;
+        // Restauramos velocidad
+        if (GLOBAL.instance != null && GLOBAL.instance.Jugador != null)
+        {
+            GLOBAL.instance.Jugador.velocidad = velocidadOriginal;
+        }
 
-        // Restauramos las luces
-        if (lucesDelPasillo) lucesDelPasillo.SetActive(true);
+        // Restauramos las luces (Las encendemos de nuevo)
+        foreach (Light l in lucesEncontradas)
+        {
+            if (l != null) l.enabled = true;
+        }
 
         // 5. GUARDAR PROGRESO
         GLOBAL.guardado.progresoHistoria++;
+         
     }
 }

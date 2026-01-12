@@ -22,8 +22,6 @@ public class TutorialSalaB : MonoBehaviour
 
     private void Start()
     {
-        // --- CAMBIO AQUÍ: Quitamos ".instance" ---
-        // Verificamos directamente en la clase estatica
         if (GLOBAL.guardado.flagsEventos.Contains(idEvento))
         {
             if (puertaSalida != null) puertaSalida.SetActive(true);
@@ -65,7 +63,6 @@ public class TutorialSalaB : MonoBehaviour
         // FIN DEL TUTORIAL
         if (puertaSalida != null) puertaSalida.SetActive(true);
 
-        // --- CAMBIO AQUÍ: Quitamos ".instance" también al guardar ---
         if (!GLOBAL.guardado.flagsEventos.Contains(idEvento))
         {
             GLOBAL.guardado.flagsEventos.Add(idEvento);
