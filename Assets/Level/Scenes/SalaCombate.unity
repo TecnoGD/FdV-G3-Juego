@@ -2676,6 +2676,57 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 715425697}
   m_CullTransparentMesh: 1
+--- !u!1 &747851361
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 747851363}
+  - component: {fileID: 747851362}
+  m_Layer: 0
+  m_Name: EventoPrimerCombate
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &747851362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 747851361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00ef4b412e7e58c4cb2c012dd1cffaa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Scripts::EventoPrimerCombate
+  nombreVoz: 
+  frasesVoz:
+  - "Este es tu primer combate, te va a servir para familiarizarte con las mec\xE1nicas"
+  - Puedes atacar, defenderte o incluso usar objetos
+  nombrePresentador: Presentador
+  frasesPresentador:
+  - Tenemos carne nueva y fresca. Que comience el combate
+--- !u!4 &747851363
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 747851361}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.32502, y: 5.36137, z: 3.87212}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &757300819
 GameObject:
   m_ObjectHideFlags: 0
@@ -2790,6 +2841,55 @@ MonoBehaviour:
   textoDefensaAnalisis: {fileID: 1097833460}
   textoAtaqueEspecialAnalisis: {fileID: 422969079}
   textoDefensaEspecialAnalisis: {fileID: 979983618}
+--- !u!1 &789408152
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 789408154}
+  - component: {fileID: 789408153}
+  m_Layer: 0
+  m_Name: EventoNarrativoActo2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &789408153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789408152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2636f7a78bf64cd4b93d4cfb1bd11321, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Scripts::EventoNarrativaActo2
+  nombreNPC: 
+  dialogo:
+  - Vas a pelearte contra el Boss pero antes aparece alguien que te resulta muy familiar
+    y te reta
+  - Que empiece la pelea
+--- !u!4 &789408154
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789408152}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.32502, y: 5.36137, z: 3.87212}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &805918116
 GameObject:
   m_ObjectHideFlags: 0
@@ -3152,6 +3252,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 41.072, y: -90, z: -90}
+--- !u!1 &895095434
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 895095436}
+  - component: {fileID: 895095435}
+  m_Layer: 0
+  m_Name: EventoPresentadorJefes
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &895095435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 895095434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7c7c767671875c44947d5d2cfe17ba7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Scripts::EventoPresentadorJefes
+  nombrePresentador: Presentador
+  discursoJefe1:
+  - "Atenci\xF3n, audiencia! \xA1El momento que todos esperaban!"
+  - "Nuestro peque\xF1o rat\xF3n ha sobrevivido al laberinto inicial..."
+  - "Recuerden: si la sangre salpica a la c\xE1mara, \xA1es un extra de puntuaci\xF3n!
+    \xA1ADELANTE!"
+  discursoJefe2:
+  - "Nuestro concursante parece agotado. Mirad esas ojeras, \xA1qu\xE9 pat\xE9tico!"
+  - "Para animar las cosas, hemos tra\xEDdo a una vieja pesadilla del s\xF3tano."
+  discursoJefe3:
+  - "Este luchador es el m\xE1s fr\xEDo y calculador de todos"
+  - Mirad que cara inhumana, no tiene alma esa cosa
+  - '*El presentador muere de rabia y salta a la zona de combate para pelear contigo*'
+--- !u!4 &895095436
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 895095434}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.32502, y: 5.36137, z: 3.87212}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &895376972
 GameObject:
   m_ObjectHideFlags: 0
@@ -8605,3 +8762,6 @@ SceneRoots:
   - {fileID: 1804747576}
   - {fileID: 848383313}
   - {fileID: 1436905839}
+  - {fileID: 789408154}
+  - {fileID: 895095436}
+  - {fileID: 747851363}

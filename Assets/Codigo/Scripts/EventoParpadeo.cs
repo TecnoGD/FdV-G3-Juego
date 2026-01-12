@@ -1,32 +1,43 @@
-using System.Collections;
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic; // Necesario para usar Listas
 using Codigo.Scripts;
 
 public class EventoParpadeo : MonoBehaviour
 {
     [Header("Configuración")]
     [Range(0, 100)] public float probabilidad = 100f; 
-    
-    [Header("Referencias Visuales")]
-    public Light[] lucesAfectadas; 
+    public string etiquetaLuces = "LuzAmbiente"; // La etiqueta a buscar
+
+    [Header("Audio")]
     public AudioSource audioChisporroteo; 
 
-    // Esta variable ahora es privada, no se guarda en el archivo
+    // Variables internas
     private bool lucesRotas = false; 
+    private List<Light> lucesEncontradas = new List<Light>(); // Lista dinámica
 
     private void Start()
     {
-        // Solo intentamos el susto si NUNCA ha ocurrido antes en esta partida
+        // 1. BUSCAR LAS LUCES AUTOMÁTICAMENTE
+        // Lo hacemos antes de nada para tener la lista lista
+        GameObject[] objetos = GameObject.FindGameObjectsWithTag(etiquetaLuces);
+        foreach (GameObject obj in objetos)
+        {
+            Light l = obj.GetComponent<Light>();
+            if (l != null) lucesEncontradas.Add(l);
+        }
+
+        // 2. LÓGICA DEL EVENTO (Solo si NUNCA ha ocurrido antes)
         if (!GLOBAL.TieneFlag("evento_parpadeo_hecho"))
         {
             float dado = Random.Range(0f, 100f);
             
             if (dado <= probabilidad)
             {
-                // 1. Lo activamos localmente
+                // Lo activamos localmente
                 lucesRotas = true;
                 
-                // 2. Lo marcamos en el guardado GLOBAL para que NO vuelva a pasar en el futuro
+                // Lo marcamos en el guardado GLOBAL para que NO vuelva a pasar
                 GLOBAL.PonerFlag("evento_parpadeo_hecho");
                 
                 StartCoroutine(RutinaParpadeo());
@@ -45,16 +56,30 @@ public class EventoParpadeo : MonoBehaviour
         // Bucle infinito mientras el objeto exista (mientras estemos en la sala)
         while (lucesRotas)
         {
+            // A) CAMBIO DE INTENSIDAD (Flicker rápido)
             float intensidadAleatoria = Random.Range(0f, 2.5f);
-            foreach (Light luz in lucesAfectadas) if(luz) luz.intensity = intensidadAleatoria;
+            
+            foreach (Light luz in lucesEncontradas) 
+            {
+                if(luz != null) luz.intensity = intensidadAleatoria;
+            }
 
             yield return new WaitForSeconds(Random.Range(0.05f, 0.2f));
             
+            // B) APAGÓN TOTAL (Probabilidad pequeña del 20%)
             if (Random.value > 0.8f)
             {
-                foreach (Light luz in lucesAfectadas) if(luz) luz.enabled = false;
+                foreach (Light luz in lucesEncontradas)
+                {
+                    if(luz != null) luz.enabled = false;
+                }
+                
                 yield return new WaitForSeconds(Random.Range(0.2f, 0.5f));
-                foreach (Light luz in lucesAfectadas) if(luz) luz.enabled = true;
+                
+                foreach (Light luz in lucesEncontradas)
+                {
+                    if(luz != null) luz.enabled = true;
+                }
             }
         }
     }

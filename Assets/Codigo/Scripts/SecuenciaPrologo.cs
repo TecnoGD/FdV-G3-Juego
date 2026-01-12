@@ -17,10 +17,10 @@ public class SecuenciaPrologo : MonoBehaviour
     public string nombreEntidad = ""; // La Voz
     
     [TextArea] public string[] dialogoInicial; 
-    [TextArea] public string[] dialogoRespuesta; // Recuerda usar {0} para el nombre
+    [TextArea] public string[] dialogoRespuesta;
 
     [Header("Siguiente Escena")]
-    public string nombreEscenaJuego = "SalaB"; // he cambiado esto a SalaB por defecto
+    public string nombreEscenaJuego = "SalaB";
 
     private void Start()
     {
@@ -68,12 +68,8 @@ public class SecuenciaPrologo : MonoBehaviour
         if (string.IsNullOrEmpty(inputNombre.text)) return;
 
         // A. Guardamos el nombre
-        // Asegúrate de que GLOBAL.guardado existe en tu script GLOBAL.
-        // Si te da error aquí, usa GLOBAL.instance.nombreJugador (depende de como tengas tu script GLOBAL)
         if(GLOBAL.instance != null) // Pequeña protección
         {
-             // Asumo que tienes una estructura 'guardado' dentro de GLOBAL como en tu código original
-             // Si no, cámbialo a donde guardes la variable.
              GLOBAL.guardado.nombreJugador = inputNombre.text;
              
              GLOBAL.guardado.actoActual = 1;
@@ -92,7 +88,6 @@ public class SecuenciaPrologo : MonoBehaviour
         string[] dialogoProcesado = new string[dialogoRespuesta.Length];
         for (int i = 0; i < dialogoRespuesta.Length; i++)
         {
-            // OJO: Aquí uso el texto del input directamente por si GLOBAL tardase en actualizarse
             dialogoProcesado[i] = string.Format(dialogoRespuesta[i], inputNombre.text);
         }
 
@@ -104,15 +99,16 @@ public class SecuenciaPrologo : MonoBehaviour
         // REACTIVAMOS AL JUGADOR ANTES DE VIAJAR
         if (GLOBAL.instance != null && GLOBAL.instance.Jugador != null)
         {
+            // 1. Aseguramos que el objeto está ACTIVO (para que la cámara lo detecte)
             GLOBAL.instance.Jugador.gameObject.SetActive(true);
+
+            // 2. Apagamos sus gráficos para que viaje "invisible"
+            Renderer[] graficos = GLOBAL.instance.Jugador.GetComponentsInChildren<Renderer>();
+            foreach (Renderer r in graficos) r.enabled = false;
         }
 
-        if (SistemaDialogo.instance != null)
-        {
-            SistemaDialogo.instance.usarInputInterno = false;
-        }
+        if (SistemaDialogo.instance != null) SistemaDialogo.instance.usarInputInterno = false;
 
-        // 6. Cargar la siguiente escena
         SceneManager.LoadScene(nombreEscenaJuego);
     }
 }
