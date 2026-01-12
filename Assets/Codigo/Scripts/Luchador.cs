@@ -46,6 +46,17 @@ namespace Codigo.Scripts
         {
             return estadosAlterados.Contains(estado);
         }
+
+        public void ActualizarDatos()
+        {
+            nombre = datos.nombre;
+            estadisticas = datos.GetEstadisticas();
+            listaAcciones  = datos.GetAcciones();
+            vida = estadisticas.vidaMax;
+            animator = gameObject.GetComponent<Animator>();
+            objetivosSeleccionados.Clear();
+            objetivosSeleccionados.TrimExcess();
+        }
         
         
         /* Metodo encargado de iniciar la ejecución de la accion seleccionada
@@ -210,7 +221,7 @@ namespace Codigo.Scripts
             estadisticas = datos.GetEstadisticas();
             nombre = datos.nombre;
             vida = estadisticas.vidaMax;
-            animator = GetComponent<Animator>();
+            animator = gameObject.GetComponent<Animator>();
             objetivosSeleccionados.Clear();
             objetivosSeleccionados.TrimExcess();
             

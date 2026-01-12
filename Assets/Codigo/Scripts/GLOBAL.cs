@@ -25,6 +25,7 @@ public class GLOBAL : MonoBehaviour
     public List<Equipamiento>[] ListasDeEquipamientos;
     public List<int> listaObjetosConsumiblesTienda = new List<int>();
     public List<Equipamiento> listaEquipamientoTienda = new List<Equipamiento>();
+    public List<CombateLayout> layoutsCombate = new List<CombateLayout>();
     
     // Un diccionario para recordar: NPC -> Último charla leída"
     public Dictionary<string, int> memoriaNPCs = new Dictionary<string, int>();

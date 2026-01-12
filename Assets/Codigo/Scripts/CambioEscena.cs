@@ -17,7 +17,7 @@ public class CambioEscena : MonoBehaviour
     {
         if (!interactuar)
         {
-            Debug.Log("test");
+
             if (other.gameObject.CompareTag("Rig Jugador"))
                 GLOBAL.instance.CambiarEscena(escena, posicion);
         }

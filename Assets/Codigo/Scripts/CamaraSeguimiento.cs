@@ -90,7 +90,10 @@ namespace Codigo.Scripts
             }
                 
             // calcula donde quiere ir la camara
-            Vector3 sitioDeseado = objetivoActual.position + offset;
+            Vector3 sitioDeseado = objetivoActual.position;
+            sitioDeseado.x += offset.x;
+            sitioDeseado.y += offset.y;
+            sitioDeseado.z += offset.z;
 
             // si los limites estan activos, no deja que se salga
             if (activarLimites)

@@ -27,7 +27,7 @@ public class Jugador : MonoBehaviour
     public SistemaInteraccion sistemaInteraccion;
     
     public float limiteIzquierdo = -15f; // Valor mínimo de X
-    public float limiteDerecho = 7f;    // Valor máximo de X
+    public float limiteDerecho = 20f;    // Valor máximo de X
     
     
     

@@ -19,10 +19,7 @@ namespace Codigo.Scripts
         public TMP_Text textoNombreNPC;             // componente de texto para el nombre
         public Image imagenPerfilNPC;               // componente de imagen para la foto
         private Sprite spritePorDefecto;            // variable para guardar la imagen inicial y usarla si no nos pasan otra
-
-        // variable para saber si estamos hablando y bloquear movimiento
-        public bool enDialogo = false;  
-
+        
         public bool usarInputInterno = false;
                                     
         public bool enDialogo = false;              // variable para saber si estamos hablando y bloquear movimiento
@@ -62,7 +59,7 @@ namespace Codigo.Scripts
         }
 
         // metodo que llaman los npcs para empezar a hablar
-        public void IniciarDialogo(string[] frases, string nombre, Sprite imagen, bool abreMenu, Menu menu = null)
+        public void IniciarDialogo(string[] frases, string nombre, Sprite imagen, bool abreMenu = false, Menu menu = null)
         {
             AbreUnMenuAlTerminar =  abreMenu;
             menuFinDialogo = menu;
