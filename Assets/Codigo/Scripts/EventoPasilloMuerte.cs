@@ -87,7 +87,6 @@ public class EventoPasilloMuerte : MonoBehaviour
         }
 
         // 5. GUARDAR PROGRESO
-        GLOBAL.guardado.progresoHistoria++;
-         
+        GLOBAL.AumentarProgresoHistoria();
     }
 }

@@ -26,6 +26,9 @@ public class GLOBAL : MonoBehaviour
     public List<int> listaObjetosConsumiblesTienda = new List<int>();
     public List<Equipamiento> listaEquipamientoTienda = new List<Equipamiento>();
     public List<CombateLayout> layoutsCombate = new List<CombateLayout>();
+    public List<CombateLayout> layoutsBosses = new List<CombateLayout>();
+    public static (int,int)[] limitesSpawn = new []{(0,7), (7,14), (14, 19)};
+    public static List<int> batallasPlanificadas = new List<int>(new[] { 7, 16, 17, 24 });
     
     // Un diccionario para recordar: NPC -> Último charla leída"
     public Dictionary<string, int> memoriaNPCs = new Dictionary<string, int>();
@@ -92,6 +95,20 @@ public class GLOBAL : MonoBehaviour
         if (!guardado.flagsEventos.Contains(idFlag))
         {
             guardado.flagsEventos.Add(idFlag);
+        }
+    }
+
+    public static void AumentarProgresoHistoria()
+    {
+        guardado.progresoHistoria++;
+        switch (guardado.progresoHistoria)
+        {
+            case 8:
+                guardado.actoActual = 2;
+                break;
+            case 18:
+                guardado.actoActual = 3;
+                break;
         }
     }
     

@@ -88,7 +88,9 @@ public class EventoSombraSala : MonoBehaviour
 
         // 4. FINALIZAR
         yield return new WaitForSeconds(1.0f);
-        GLOBAL.guardado.progresoHistoria++;
+        // 5. FIN Y GUARDADO
+        // El ambiente se queda morado y el juego continúa sin decir nada
+        GLOBAL.AumentarProgresoHistoria();
     }
 
     // Función auxiliar para pintar todas las luces encontradas
