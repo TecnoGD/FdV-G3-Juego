@@ -50,7 +50,7 @@ public class ControladorLucesDinamicas : MonoBehaviour
 
             if (luz != null)
             {
-                if (historia >= 17) // ACTO 3
+                if (historia >= 18) // ACTO 3
                 {
                     // Cambiamos al color morado
                     luz.color = colorActo3;

@@ -10,8 +10,8 @@ public class EventoNarrativaActo2 : MonoBehaviour
 
     IEnumerator Start()
     {
-        // Solo se activa en el paso previo al Boss del Acto 2 (que es el 16)
-        if (GLOBAL.guardado.progresoHistoria == 15)
+        // Solo se activa en el paso previo al Boss del Acto 2 (que es el 17)
+        if (GLOBAL.guardado.progresoHistoria == 16)
         {
             // Esperamos medio segundo para que la escena cargue visualmente
             yield return new WaitForSeconds(0.5f);

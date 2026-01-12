@@ -7,14 +7,14 @@ public class EventoFinalJuego : MonoBehaviour
     [Header("Configuración")]
     public string nombre = "Tétartos Toíchas";
     
-    [Header("El Colapso (Historia = 24)")]
+    [Header("El Colapso (Historia = 25)")]
     [TextArea] public string[] dialogoFinal;
 
     IEnumerator Start()
     {
         // 23 era el combate. Al ganar, el sistema suma +1.
         // Por tanto, si estamos en 24, acabamos de matar al Jefe Final.
-        if (GLOBAL.guardado.progresoHistoria == 24)
+        if (GLOBAL.guardado.progresoHistoria == 25)
         {
             // Esperamos un poco tras la carga de la escena
             yield return new WaitForSeconds(1.0f);

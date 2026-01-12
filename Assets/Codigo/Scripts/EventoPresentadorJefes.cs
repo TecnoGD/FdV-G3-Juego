@@ -10,10 +10,10 @@ public class EventoPresentadorJefes : MonoBehaviour
     [Header("Jefe Acto 1 (Historia = 7)")]
     [TextArea] public string[] discursoJefe1;
 
-    [Header("Jefe Acto 2 (Historia = 16)")]
+    [Header("Jefe Acto 2 (Historia = 17)")]
     [TextArea] public string[] discursoJefe2;
 
-    [Header("Jefe Final (Historia = 23)")]
+    [Header("Jefe Final (Historia = 24)")]
     [TextArea] public string[] discursoJefe3;
 
     IEnumerator Start()
@@ -27,10 +27,10 @@ public class EventoPresentadorJefes : MonoBehaviour
             case 7:
                 dialogoAUsar = discursoJefe1;
                 break;
-            case 16:
+            case 17:
                 dialogoAUsar = discursoJefe2;
                 break;
-            case 23:
+            case 24:
                 dialogoAUsar = discursoJefe3;
                 break;
         }

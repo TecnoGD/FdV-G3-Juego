@@ -26,6 +26,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Level/Scenes/SalaB.unity
     guid: ef98a58bad7ec774fa395e80868aea42
+  - enabled: 1
+    path: Assets/Level/Scenes/Creditos.unity
+    guid: c49a7732b47a5c74d9c30204245ee37f
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 489401df0afe01b489adba98cb99f0cf, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: 1caf42979db6c3d489cb02bcec018c84, type: 2}

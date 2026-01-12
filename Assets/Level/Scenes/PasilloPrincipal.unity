@@ -961,6 +961,56 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &961392096
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 961392098}
+  - component: {fileID: 961392097}
+  m_Layer: 0
+  m_Name: EventoPasillo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &961392097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961392096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 702479a4df27e61459e20a2862166d74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Scripts::EventoPasilloMuerte
+  idEventoRequerido: 11
+  etiquetaLuces: Luz Ambiente
+  velocidadLenta: 2
+  nombreVoz: 
+  ecosDelPasado:
+  - '*Escuchas un eco a lo lejos que te resulta muy familiar*'
+--- !u!4 &961392098
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961392096}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.32502, y: 5.36137, z: 3.87212}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &984370330
 GameObject:
   m_ObjectHideFlags: 0
@@ -1395,6 +1445,58 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b972b026efaed354d85003cd034f0e30, type: 3}
+--- !u!1 &1260975388
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1260975390}
+  - component: {fileID: 1260975389}
+  m_Layer: 0
+  m_Name: EventoFinal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1260975389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1260975388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7bb3c872c3bada49b232f9f1f778457, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Scripts::EventoFinalJuego
+  nombre: LA VOZ
+  dialogoFinal:
+  - "\xA1Guau! \xA1Incre\xEDble! Me has ayudado a hacer al luchador m\xE1s fuerte"
+  - "Soy la voz que te ha estado acompa\xF1ando durante todo este camino"
+  - "Mi objetivo era que hicieras al luchador m\xE1s fuerte y lo he conseguido"
+  - "Ahora me lo llevar\xE9 conmigo para entrenarlo m\xE1s a\xFAn... *El luchador
+    es m\xE1s fuerte que LA VOZ y lo absorbe*"
+  - '*piiiiiiiiiii*'
+--- !u!4 &1260975390
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1260975388}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.32502, y: 5.36137, z: 3.87212}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1290126785
 GameObject:
   m_ObjectHideFlags: 0
@@ -2112,6 +2214,55 @@ Transform:
   - {fileID: 583817430}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2099587701
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2099587702}
+  - component: {fileID: 2099587703}
+  m_Layer: 0
+  m_Name: EventoLuz
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2099587702
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2099587701}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.32502, y: 5.36137, z: 3.87212}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2099587703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2099587701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae6112278b74f4c4797a43c5d01fddb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Scripts::ControladorLucesDinamicas
+  etiquetaLuces: Luz Ambiente
+  colorActo2: {r: 1, g: 0.20927374, b: 0.20784312, a: 1}
+  multiplicadorIntensidadActo2: 0.5
+  colorActo3: {r: 1, g: 0.20784312, b: 0.48442635, a: 1}
+  multiplicadorIntensidadActo3: 0.3
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2132,3 +2283,6 @@ SceneRoots:
   - {fileID: 1313762362}
   - {fileID: 1486351760}
   - {fileID: 193998606}
+  - {fileID: 961392098}
+  - {fileID: 1260975390}
+  - {fileID: 2099587702}
