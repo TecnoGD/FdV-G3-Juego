@@ -7127,8 +7127,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 65cff77853763dc46a78bfac76d3bb66, type: 2}
   layoutsBosses:
   - {fileID: 11400000, guid: 4def2c0d1202ca1469a04cfd73d14735, type: 2}
-  - {fileID: 11400000, guid: 7f565b60097b5a14096fc99d49cfb2f3, type: 2}
   - {fileID: 11400000, guid: 48c18ff1f0ec08b429807ec771f8e1a2, type: 2}
+  - {fileID: 11400000, guid: 7f565b60097b5a14096fc99d49cfb2f3, type: 2}
   - {fileID: 11400000, guid: 260a11dd508624b46a78f800d5732f4b, type: 2}
 --- !u!4 &535678431
 Transform:

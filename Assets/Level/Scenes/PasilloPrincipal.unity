@@ -119,6 +119,56 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &6370565
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6370567}
+  - component: {fileID: 6370566}
+  m_Layer: 0
+  m_Name: EventoLuz (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &6370566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6370565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae6112278b74f4c4797a43c5d01fddb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Scripts::ControladorLucesDinamicas
+  etiquetaLuces: Luz Ambiente
+  intensidadNormal: 100
+  colorActo2: {r: 1, g: 1, b: 1, a: 1}
+  multiplicadorIntensidadActo2: 0.35
+  colorActo3: {r: 0.1254902, g: 0, b: 1, a: 1}
+  multiplicadorIntensidadActo3: 7
+--- !u!4 &6370567
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6370565}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.32502, y: 5.36137, z: 3.87212}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &163932774
 GameObject:
   m_ObjectHideFlags: 0
@@ -2214,55 +2264,6 @@ Transform:
   - {fileID: 583817430}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2099587701
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2099587702}
-  - component: {fileID: 2099587703}
-  m_Layer: 0
-  m_Name: EventoLuz
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2099587702
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2099587701}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.32502, y: 5.36137, z: 3.87212}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2099587703
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2099587701}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae6112278b74f4c4797a43c5d01fddb7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Scripts::ControladorLucesDinamicas
-  etiquetaLuces: Luz Ambiente
-  colorActo2: {r: 1, g: 0.20927374, b: 0.20784312, a: 1}
-  multiplicadorIntensidadActo2: 0.5
-  colorActo3: {r: 1, g: 0.20784312, b: 0.48442635, a: 1}
-  multiplicadorIntensidadActo3: 0.3
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2285,4 +2286,4 @@ SceneRoots:
   - {fileID: 193998606}
   - {fileID: 961392098}
   - {fileID: 1260975390}
-  - {fileID: 2099587702}
+  - {fileID: 6370567}

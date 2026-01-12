@@ -29,7 +29,14 @@ public class EventoSombraSala : MonoBehaviour
     // Lista interna para guardar las luces que encontremos
     private List<Light> lucesEncontradas = new List<Light>();
 
-    private void Start()
+    public void Start()
+    {
+        var historiaActual = GLOBAL.guardado.progresoHistoria;
+        if (historiaActual == idEventoRequerido && !GLOBAL.TieneFlag("EventoSombraSala"))
+            EjecutarEvento();
+        
+    }
+    public void EjecutarEvento()
     {
         // 1. BUSCAR LAS LUCES POR ETIQUETA
         GameObject[] objetos = GameObject.FindGameObjectsWithTag(etiquetaLuces);
@@ -39,29 +46,14 @@ public class EventoSombraSala : MonoBehaviour
             if (l != null) lucesEncontradas.Add(l);
         }
 
-        int historiaActual = GLOBAL.guardado.progresoHistoria;
-
-        // 2. DECIDIR QUÉ HACER SEGÚN LA HISTORIA
         
         // CASO A: Es el momento exacto (El evento ocurre ahora)
-        if (historiaActual == idEventoRequerido)
-        {
-            // Empezamos con luz normal y lanzamos la secuencia
-            AplicarColorLuces(colorNormal, intensidadNormal);
-            StartCoroutine(SecuenciaEvento());
-        }
-        // CASO B: El evento YA pasó (Mantenemos la sala "maldita")
-        else if (historiaActual > idEventoRequerido)
-        {
-            AplicarColorLuces(colorMiedo, intensidadMiedo);
-            if(objetoSombra) objetoSombra.SetActive(false);
-        }
-        // CASO C: Aún no hemos llegado (Luz normal)
-        else
-        {
-            AplicarColorLuces(colorNormal, intensidadNormal);
-            if(objetoSombra) objetoSombra.SetActive(false);
-        }
+        // Empezamos con luz normal y lanzamos la secuencia
+        AplicarColorLuces(colorNormal, intensidadNormal);
+        GLOBAL.PonerFlag("EventoSombraSala");
+        StartCoroutine(SecuenciaEvento());
+        
+        
     }
 
     private IEnumerator SecuenciaEvento()

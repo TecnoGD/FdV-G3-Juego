@@ -1681,11 +1681,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Scripts::EventoSombraSala
   idEventoRequerido: 19
   esperaInicial: 1.5
-  etiquetaLuces: LuzAmbiente
-  colorNormal: {r: 1, g: 0.20927374, b: 0.20784312, a: 1}
-  intensidadNormal: 0.5
+  etiquetaLuces: Luz Ambiente
+  colorNormal: {r: 1, g: 1, b: 1, a: 1}
+  intensidadNormal: 100
   colorMiedo: {r: 1, g: 0.20784312, b: 0.48442635, a: 1}
-  intensidadMiedo: 0.3
+  intensidadMiedo: 100
   objetoSombra: {fileID: 883701114}
   puntoInicial: {fileID: 1028477423}
   puntoFinal: {fileID: 619266445}
@@ -1979,10 +1979,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Scripts::ControladorLucesDinamicas
   etiquetaLuces: Luz Ambiente
-  colorActo2: {r: 1, g: 0.20927374, b: 0.20784312, a: 1}
-  multiplicadorIntensidadActo2: 0.5
-  colorActo3: {r: 1, g: 0.20784312, b: 0.48442635, a: 1}
-  multiplicadorIntensidadActo3: 0.3
+  intensidadNormal: 100
+  colorActo2: {r: 1, g: 1, b: 1, a: 1}
+  multiplicadorIntensidadActo2: 0.35
+  colorActo3: {r: 0.1254902, g: 0, b: 1, a: 1}
+  multiplicadorIntensidadActo3: 7
 --- !u!1 &1855745037
 GameObject:
   m_ObjectHideFlags: 0
@@ -2286,6 +2287,22 @@ PrefabInstance:
     - target: {fileID: 2050323321742113996, guid: b972b026efaed354d85003cd034f0e30, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4903275770465455037, guid: b972b026efaed354d85003cd034f0e30, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4903275770465455037, guid: b972b026efaed354d85003cd034f0e30, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4903275770465455037, guid: b972b026efaed354d85003cd034f0e30, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4903275770465455037, guid: b972b026efaed354d85003cd034f0e30, type: 3}
+      propertyPath: m_Intensity
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4903275770465455037, guid: b972b026efaed354d85003cd034f0e30, type: 3}
       propertyPath: m_Lightmapping
