@@ -57,7 +57,7 @@ public class GLOBAL : MonoBehaviour
         
         Screen.SetResolution(Configuracion.width, Configuracion.height, Configuracion.fullScreen);
         //Object.DontDestroyOnLoad(NewMenuSystem.Instancia.menuJugador);
-        SceneManager.LoadScene("SalaCombate");
+        SceneManager.LoadScene("EscenaPrologo");
         
     }
 

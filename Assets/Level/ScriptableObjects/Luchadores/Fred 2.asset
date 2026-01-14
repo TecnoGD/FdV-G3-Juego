@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63ede5d10536449e85cdbb7e96204914, type: 3}
+  m_Name: Fred 2
+  m_EditorClassIdentifier: Assembly-CSharp::Codigo.Scripts.DatosLuchador
+  tipoLuchador: 2
+  nombre: Fred
+  VidaMax: 35
+  Ataque: 8
+  Defensa: 5
+  AtaqueEspecial: 13
+  DefensaEspecial: 5
+  dinero: 50
+  sprite: {fileID: 876375411, guid: 0c120b3bd9e9c8e47ab069da28304774, type: 3}
+  comportamiento: 0
+  acciones: 03000000

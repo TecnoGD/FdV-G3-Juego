@@ -198,7 +198,6 @@ namespace Codigo.Scripts
                 if (luchadores[i].vida == 0)
                 {
                     
-                    luchadores.RemoveAt(i);
                     if (i > 0)
                     {
                         luchadores[i].LuchadorDerrotado();
@@ -206,6 +205,8 @@ namespace Codigo.Scripts
                         Destroy(TextoVidas[i-1].gameObject);   //Destruye los paneles de vida de los enemigos
                         TextoVidas.RemoveAt(i-1);
                     }
+                    luchadores.RemoveAt(i);
+
                     i--;
                 }
             }
