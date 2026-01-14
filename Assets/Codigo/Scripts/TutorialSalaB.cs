@@ -24,7 +24,6 @@ public class TutorialSalaB : MonoBehaviour
     {
         if (GLOBAL.guardado.flagsEventos.Contains(idEvento))
         {
-            if (puertaSalida != null) puertaSalida.SetActive(true);
             if (objetoParaInteractuar != null) objetoParaInteractuar.SetActive(true);
 
             Destroy(gameObject); 
@@ -36,7 +35,7 @@ public class TutorialSalaB : MonoBehaviour
 
     private IEnumerator SecuenciaTutorial()
     {
-        if (puertaSalida != null) puertaSalida.SetActive(false);
+        if (puertaSalida != null) puertaSalida.SetActive(true);
 
         yield return new WaitForSeconds(1.0f);
 
@@ -61,11 +60,12 @@ public class TutorialSalaB : MonoBehaviour
         yield return new WaitUntil(() => !SistemaDialogo.instance.enDialogo);
 
         // FIN DEL TUTORIAL
-        if (puertaSalida != null) puertaSalida.SetActive(true);
+        if (puertaSalida != null) puertaSalida.SetActive(false);
 
         if (!GLOBAL.guardado.flagsEventos.Contains(idEvento))
         {
             GLOBAL.guardado.flagsEventos.Add(idEvento);
         }
+        GLOBAL.EnEvento = false;
     }
 }

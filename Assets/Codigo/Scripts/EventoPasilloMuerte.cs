@@ -50,7 +50,7 @@ public class EventoPasilloMuerte : MonoBehaviour
     private IEnumerator SecuenciaPesadilla()
     {
         eventoIniciado = true;
-
+        GLOBAL.EnEvento = true;
         // 1. APAGÓN REPENTINO (Usando la lista de luces encontradas)
         foreach (Light l in lucesEncontradas)
         {
@@ -87,6 +87,7 @@ public class EventoPasilloMuerte : MonoBehaviour
         }
 
         // 5. GUARDAR PROGRESO
+        GLOBAL.EnEvento = false;
         GLOBAL.AumentarProgresoHistoria();
     }
 }

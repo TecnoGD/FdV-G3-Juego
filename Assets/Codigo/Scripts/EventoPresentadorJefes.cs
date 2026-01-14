@@ -43,10 +43,12 @@ public class EventoPresentadorJefes : MonoBehaviour
 
             if (SistemaDialogo.instance != null)
             {
+                GLOBAL.EnEvento = true;
                 SistemaDialogo.instance.IniciarDialogo(dialogoAUsar, nombrePresentador, null);
                 
                 // (Opcional) Bloquear hasta que termine de hablar
                 yield return new WaitUntil(() => !SistemaDialogo.instance.enDialogo);
+                GLOBAL.EnEvento = false;
             }
         }
         else

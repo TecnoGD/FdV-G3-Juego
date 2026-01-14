@@ -14,6 +14,7 @@ public class EventoNarrativaActo2 : MonoBehaviour
         if (GLOBAL.guardado.progresoHistoria == 16)
         {
             // Esperamos medio segundo para que la escena cargue visualmente
+            GLOBAL.EnEvento = true;
             yield return new WaitForSeconds(0.5f);
 
             // Lanzamos el diálogo
@@ -24,6 +25,7 @@ public class EventoNarrativaActo2 : MonoBehaviour
                 // Esperamos a que el jugador termine de leer para que empiece el combate real
                 yield return new WaitUntil(() => !SistemaDialogo.instance.enDialogo);
             }
+            GLOBAL.EnEvento = false;
         }
         else
         {

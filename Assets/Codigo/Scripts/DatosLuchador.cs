@@ -18,6 +18,7 @@ namespace Codigo.Scripts
         public int AtaqueEspecial;                  // Valor de ataque especial del luchador
         public int DefensaEspecial;                 // Valor de defensa especial del luchador
         public int dinero;
+        public Sprite sprite;
         public Comportamiento comportamiento;
         public List<int> acciones;                  // Lista de acciones del luchador
 

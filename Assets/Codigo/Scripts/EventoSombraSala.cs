@@ -59,8 +59,9 @@ public class EventoSombraSala : MonoBehaviour
     private IEnumerator SecuenciaEvento()
     {
         // 1. Esperamos un poco para que el jugador se sitúe
+        GLOBAL.EnEvento = true;
         yield return new WaitForSeconds(esperaInicial);
-
+        
         // 2. ¡CAMBIO DE LUCES! (De normal a morado instantáneamente)
         AplicarColorLuces(colorMiedo, intensidadMiedo);
 
@@ -82,6 +83,7 @@ public class EventoSombraSala : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         // 5. FIN Y GUARDADO
         // El ambiente se queda morado y el juego continúa sin decir nada
+        GLOBAL.EnEvento = false;
         GLOBAL.AumentarProgresoHistoria();
     }
 

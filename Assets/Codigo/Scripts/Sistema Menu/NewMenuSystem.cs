@@ -14,6 +14,7 @@ namespace Codigo.Scripts.Sistema_Menu
         private static Stack<IMenu> _pilaMenus;   //Pila de menus, menus anteriores al actual menu en foco
         public Menu[] defaultMenus;            //Contiene las referencias a los menus que son activados cuando no hay ninguno activo
         private static InputActionMap _accionesSinMenu;
+        public static bool Desactivado = false;
         
         
 
@@ -33,7 +34,7 @@ namespace Codigo.Scripts.Sistema_Menu
 
         public static void SiguienteMenuInterno(IMenu menu, bool noDesactiva = true)
         {
-            if (menu.EstaMenuBloqueado()) return;
+            if (menu.EstaMenuBloqueado() || !SistemaDisponible()) return;
             
             if (_currentMenu != null)
             {
@@ -54,7 +55,7 @@ namespace Codigo.Scripts.Sistema_Menu
 
         public static IMenu MenuAnterior()
         {
-            if(_currentMenu == null)
+            if(_currentMenu == null || !SistemaDisponible())
                 return null;
             
             var menuADesactivar = _currentMenu;
@@ -98,9 +99,7 @@ namespace Codigo.Scripts.Sistema_Menu
             Instancia = this;
             _currentMenu = null;
             _pilaMenus = new Stack<IMenu>();
-            
-            
-            
+
             foreach (var menu in defaultMenus)
             {
                 DontDestroyOnLoad(menu.gameObject);
@@ -115,10 +114,15 @@ namespace Codigo.Scripts.Sistema_Menu
                 SiguienteMenu(defaultMenus[0]);
             }
         }
+
+        public static bool SistemaDisponible()
+        {
+            return !(SistemaDialogo.instance.enDialogo || GLOBAL.EnEvento || Desactivado);
+        }
         
         public void OnCancel(InputAction.CallbackContext context)
         {
-            if (context.performed)
+            if (context.performed && SistemaDisponible())
             {
                 if (DentroDeUnMenu())
                 {

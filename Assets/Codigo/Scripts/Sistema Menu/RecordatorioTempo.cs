@@ -25,7 +25,7 @@ namespace Codigo.Scripts.Sistema_Menu
 
         void Update()
         {
-            if(temporizador >= 0 && !NewMenuSystem.DentroDeUnMenu()) temporizador -= Time.deltaTime;
+            if(temporizador >= 0 && !NewMenuSystem.DentroDeUnMenu() && !GLOBAL.EnEvento) temporizador -= Time.deltaTime;
             if (temporizador <= 0)
             {
                 texto.alpha = 1;

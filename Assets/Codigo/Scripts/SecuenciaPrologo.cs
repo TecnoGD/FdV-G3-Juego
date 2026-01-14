@@ -24,6 +24,7 @@ public class SecuenciaPrologo : MonoBehaviour
 
     private void Start()
     {
+        GLOBAL.EnEvento = true;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
@@ -45,6 +46,7 @@ public class SecuenciaPrologo : MonoBehaviour
     {
         // 1. Silencio dramático (2 segundos)
         yield return new WaitForSeconds(2f);
+        Debug.Log("Rutina Inicio");
 
         // 2. Habla La Voz (Parte 1)
         SistemaDialogo.instance.IniciarDialogo(dialogoInicial, nombreEntidad, null);

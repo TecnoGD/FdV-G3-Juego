@@ -16,5 +16,6 @@ MonoBehaviour:
   nombre: Serum Anti-Toxinas
   descripcion: "Ant\xEDdoto de amplio espectro, huele ligeramente dulce."
   estiloSeleccionObjetivo: 0
-  textura: {fileID: 0}
+  precio: 0
+  textura: {fileID: 21300000, guid: dad5ed80b13e66e4391a6ee22f1a71ea, type: 3}
   estadoACurar: 3

@@ -22,6 +22,7 @@ namespace Codigo.Scripts
         public List<Luchador> objetivosSeleccionados =  new List<Luchador>();   // Objetivos seleccionados al que el luchador va a realizar la accion
         public ObjectSlot[] objetosConsumibles;
         public int objetoSeleccionado = 0;
+        public float potenciadorVeneno = 0.0625f;
         
         public enum EstadoAlterado { Ninguno, Sangrado, Aturdimiento, Veneno }
         public List<EstadoAlterado> estadosAlterados = new List<EstadoAlterado>();
@@ -31,6 +32,8 @@ namespace Codigo.Scripts
             if (!estadosAlterados.Contains(estado))
             {
                 estadosAlterados.Add(estado);
+                if (estado == EstadoAlterado.Veneno)
+                    potenciadorVeneno = 0.0625f;
             }
         }
 
@@ -74,6 +77,11 @@ namespace Codigo.Scripts
             }
             
             if (!fallo && objetivosSeleccionados.Count <= 0)  //Sin objetivos en combate el ataque falla
+            {
+                fallo = true;
+            }
+
+            if (TieneEstado(EstadoAlterado.Aturdimiento) && Random.Range(0f, 1f) <= 0.1)
             {
                 fallo = true;
             }
@@ -179,7 +187,17 @@ namespace Codigo.Scripts
            sistema de combate que indica que el luchador a terminado su accion y, por lo tanto, su turno*/
         private void FinAccionLuchador()
         {
-            
+            if (TieneEstado(EstadoAlterado.Veneno))
+            {
+                var danoVen = (int)(estadisticas.vidaMax * potenciadorVeneno);
+                potenciadorVeneno += 0.0625f;
+                RecibeDaño(danoVen);
+            }
+            if (TieneEstado(EstadoAlterado.Sangrado))
+            {
+                var danoVen = (int)(estadisticas.vidaMax * 0.10);
+                RecibeDaño(danoVen);
+            }
             ExecuteEvents.Execute<IMensajesCombate>(SistemaCombate.instance.gameObject, null,
                 (x, y) => { x.FinAccion(); });
         }

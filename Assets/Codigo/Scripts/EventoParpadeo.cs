@@ -47,6 +47,7 @@ public class EventoParpadeo : MonoBehaviour
 
     private IEnumerator RutinaParpadeo()
     {
+        GLOBAL.EnEvento = true;
         if (audioChisporroteo) 
         {
             audioChisporroteo.loop = true;
@@ -82,5 +83,6 @@ public class EventoParpadeo : MonoBehaviour
                 }
             }
         }
+        GLOBAL.EnEvento = false;
     }
 }

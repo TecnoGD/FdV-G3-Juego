@@ -13,6 +13,7 @@ namespace Codigo.Scripts
             if (Input.GetKeyDown(KeyCode.F) && objetoInteractuableActual != null)
             {
                 objetoInteractuableActual.Interactuar();
+                recordatorioHablar.gameObject.SetActive(false);
             }
         }
     

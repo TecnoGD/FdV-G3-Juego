@@ -6,8 +6,10 @@ using Codigo.Scripts.Sistema_Menu;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using Object = UnityEngine.Object;
 
 public class Jugador : MonoBehaviour
@@ -17,6 +19,7 @@ public class Jugador : MonoBehaviour
     public Vector3 movimiento;
     public int vida;
     public int dinero;
+    public bool andando =  false;
     public DatosCombate.Estadisticas estadisticasBase;      // Estadisticas base del jugador, nunca negativos ni 0 (no se modifican)
     public DatosCombate.Estadisticas estadisticasEfectivas; // Estadisticas efectivas del jugador, nunca negativos ni 0 (no se modifican)
     public List<int> accionesJugador;                       // Lista de acciones que el jugador puede hacer si estuviera en combate
@@ -25,6 +28,10 @@ public class Jugador : MonoBehaviour
     public int[] equipamientoJugador;
     public ObjectSlot[] objetosSeleccionadosCombate;
     public SistemaInteraccion sistemaInteraccion;
+    public Rigidbody rigid;
+    public Animator animator;
+    public SpriteRenderer spriteR;
+    
     
     
 
@@ -35,7 +42,6 @@ public class Jugador : MonoBehaviour
 
     void Start()
     {
-        sistemaInteraccion = gameObject.transform.GetChild(1).gameObject.GetComponent<SistemaInteraccion>();
         estadisticasBase = GLOBAL.guardado.estadisticasJugador;             // Carga las estadisticas base del jugador desde
                                                                             // el archivo de guardado
                                                                             
@@ -73,7 +79,7 @@ public class Jugador : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         bool hablando = SistemaDialogo.instance != null && SistemaDialogo.instance.enDialogo;
         //string escena = SceneManager.GetActiveScene().name;
@@ -83,12 +89,17 @@ public class Jugador : MonoBehaviour
             ControlMovimiento();
             sistemaInteraccion.DetectarInteraccion();
             
-        } 
+        }
         else if (hablando && Input.GetKeyDown(KeyCode.F))
         {
             SistemaDialogo.instance.SiguienteFrase();
         }
-
+        else
+        {
+            if (!andando) return;
+            andando = false;
+            animator.SetBool("Andando", false);
+        }
     }
 
     public void ActualizarEstadisticas()
@@ -118,20 +129,36 @@ public class Jugador : MonoBehaviour
         movimiento = Vector3.zero;
         if (Keyboard.current.aKey.isPressed || Keyboard.current.leftArrowKey.isPressed)
         {
-            movimiento.x = -1;
-        }    
+            movimiento.x += -1;
+            andando = true;
+            spriteR.flipX = true;
+            animator.SetBool("Andando", true);
+        }
+
         if (Keyboard.current.dKey.isPressed || Keyboard.current.rightArrowKey.isPressed)
-            movimiento.x = 1;
+        {
+            andando = true;
+            animator.SetBool("Andando", true);
+            spriteR.flipX = false;
+            movimiento.x += 1;
+        }
+        
+        if(movimiento.x == 0){
+            andando = false;
+            animator.SetBool("Andando", false);
+        }
+            
             
         //transform.position += movimiento.normalized * (velocidad * Time.deltaTime); //calcular la pos
         
         // 1. Calculamos la posición a la que el jugador QUIERE ir
-        Vector3 nuevaPosicion = transform.position + movimiento.normalized * (velocidad * Time.deltaTime);
+        Vector3 nuevaPosicion = rigid.position + movimiento.normalized * (velocidad * Time.deltaTime);
 
 
 
         // 3. Aplicamos la posición final al transform
-        transform.position = nuevaPosicion;
+        //transform.position = nuevaPosicion;
+        rigid.MovePosition(nuevaPosicion);
     }
 
     public void MenuJugador(InputAction.CallbackContext context)

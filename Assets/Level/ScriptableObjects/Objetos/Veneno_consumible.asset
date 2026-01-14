@@ -16,5 +16,6 @@ MonoBehaviour:
   nombre: Veneno
   descripcion: "Le produce da\xF1o al enemigo"
   estiloSeleccionObjetivo: 1
-  textura: {fileID: 21300000, guid: b19dd166ee5f47a4eabc03cbd38b8f81, type: 3}
+  precio: 50
+  textura: {fileID: 21300000, guid: 78cde5d9204eadb41948697949aff2e4, type: 3}
   "valorDa\xF1o": 10

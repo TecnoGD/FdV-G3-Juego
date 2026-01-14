@@ -6,6 +6,6 @@
     "width": 1920,
     "height": 1080,
     "fullScreen": false,
-    "VSync": false,
-    "frameRate": 144.0
+    "VSync": true,
+    "frameRate": 60.0
 }

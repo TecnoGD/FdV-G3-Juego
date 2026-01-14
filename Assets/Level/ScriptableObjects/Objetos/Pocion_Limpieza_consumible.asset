@@ -16,5 +16,6 @@ MonoBehaviour:
   nombre: Pocion de Limpieza
   descripcion: "Compuesto qu\xEDmico vol\xE1til que sella las heridas abiertas."
   estiloSeleccionObjetivo: 0
-  textura: {fileID: 0}
+  precio: 0
+  textura: {fileID: 21300000, guid: e7e2ff53958a8684aa8afd2e431ff321, type: 3}
   estadoACurar: 1

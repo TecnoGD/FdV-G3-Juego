@@ -17,6 +17,7 @@ public class EventoFinalJuego : MonoBehaviour
         if (GLOBAL.guardado.progresoHistoria == 25)
         {
             // Esperamos un poco tras la carga de la escena
+            GLOBAL.EnEvento = true;
             yield return new WaitForSeconds(1.0f);
 
             if (SistemaDialogo.instance != null)
@@ -33,6 +34,7 @@ public class EventoFinalJuego : MonoBehaviour
                 Debug.Log("FIN DEL JUEGO");
                 UnityEngine.SceneManagement.SceneManager.LoadScene("Creditos");
             }
+            GLOBAL.EnEvento = false;
         }
     }
 }

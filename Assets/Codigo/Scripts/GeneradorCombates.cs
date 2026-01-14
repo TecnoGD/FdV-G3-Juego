@@ -27,6 +27,7 @@ namespace Codigo.Scripts
                 vector3.x = vector3.x + pos;
                 pos += 3;
                 enemigo.transform.position = vector3;
+                if(layout[i].sprite) enemigo.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = layout[i].sprite;
                 switch (layout[i].comportamiento)
                 {
                     case Comportamiento.Generico:

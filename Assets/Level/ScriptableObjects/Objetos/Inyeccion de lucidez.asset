@@ -16,5 +16,6 @@ MonoBehaviour:
   nombre: Inyeccion de lucidez
   descripcion: "Dosis de cafe\xEDna concentrada. Despierta el cuerpo y la mente."
   estiloSeleccionObjetivo: 0
-  textura: {fileID: 0}
+  precio: 0
+  textura: {fileID: 21300000, guid: f82052bf8bb419e4ba997e492002a17c, type: 3}
   estadoACurar: 2

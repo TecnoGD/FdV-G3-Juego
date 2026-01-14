@@ -13,6 +13,7 @@ public class GLOBAL : MonoBehaviour
     public static DatosGuardado guardado;               // Datos de guardado de la partida
     public static DatosConfig Configuracion;
     public static bool enCombate;                       // Indica si se esta dentro de combate o no
+    public static bool EnEvento;      
     public List<Accion> ListaAccionesTotales = new List<Accion>();
     public List<DatosLuchador> ListaDatosCombatiente = new List<DatosLuchador>();
     public List<ObjetoConsumible> objetosConsumibles = new List<ObjetoConsumible>();
@@ -40,8 +41,8 @@ public class GLOBAL : MonoBehaviour
         instance = this;
         acciones = ListaAccionesTotales;
         combatientes = ListaDatosCombatiente;
-        guardado = SistemaGuardado.Cargar();    // Carga los datos de guardado
-        Configuracion = SistemaGuardado.CargarConfiguracion();
+        guardado = new DatosGuardado(objetivoPrueba);//SistemaGuardado.Cargar();    // Carga los datos de guardado
+        Configuracion =  new DatosConfig();
         ListasDeEquipamientos = new [] {listaArmasTotal, listaArmaduraTotal,  listaZapatosTotal, listaAccesoriosTotal};
     }
 
@@ -52,7 +53,7 @@ public class GLOBAL : MonoBehaviour
         
         Screen.SetResolution(Configuracion.width, Configuracion.height, Configuracion.fullScreen);
         //Object.DontDestroyOnLoad(NewMenuSystem.Instancia.menuJugador);
-        SceneManager.LoadScene("EscenaPrologo");
+        //SceneManager.LoadScene("EscenaPrologo");
         
     }
 
@@ -114,6 +115,6 @@ public class GLOBAL : MonoBehaviour
     
     void OnApplicationQuit()
     {
-        SistemaGuardado.GuardarConfiguracion(Configuracion);
+        //SistemaGuardado.GuardarConfiguracion(Configuracion);
     }
 }

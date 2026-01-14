@@ -16,10 +16,12 @@ public class EventoSalaDescanso : MonoBehaviour
 
     IEnumerator Start()
     {
+        GLOBAL.EnEvento = true;
         yield return new WaitForSeconds(2.5f);
 
         if (!GLOBAL.guardado.flagsEventos.Contains(idEvento))
         {
+            
             if (npcEnEscena != null && GLOBAL.instance.Jugador != null)
             {
                 // Hacemos que nos mire al entrar
@@ -29,8 +31,9 @@ public class EventoSalaDescanso : MonoBehaviour
             SistemaDialogo.instance.IniciarDialogo(dialogoEntrada, nombreVoz, null);
             
             yield return new WaitUntil(() => !SistemaDialogo.instance.enDialogo);
-
+            
             GLOBAL.guardado.flagsEventos.Add(idEvento);
         }
+        GLOBAL.EnEvento = false;
     }
 }

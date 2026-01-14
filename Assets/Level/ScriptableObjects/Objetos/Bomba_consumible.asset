@@ -16,5 +16,6 @@ MonoBehaviour:
   nombre: Bomba
   descripcion: Bomba Casera
   estiloSeleccionObjetivo: 2
-  textura: {fileID: 21300000, guid: f869bf48cec9dc649b05e1c27deeb06b, type: 3}
+  precio: 500
+  textura: {fileID: 21300000, guid: eebfdf72fdffbd444a4575f0dc32dee5, type: 3}
   "valorDa\xF1o": 40

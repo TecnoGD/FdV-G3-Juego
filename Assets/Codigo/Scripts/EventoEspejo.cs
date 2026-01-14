@@ -53,6 +53,7 @@ public class EventoEspejo : MonoBehaviour, IInteractuable
     private System.Collections.IEnumerator SecuenciaFinal()
     {
         // Quitamos la exclamación ahora que empieza el evento final
+        GLOBAL.EnEvento = true;
         if (iconoExclamacion != null)
         {
             iconoExclamacion.SetActive(false);
@@ -66,7 +67,7 @@ public class EventoEspejo : MonoBehaviour, IInteractuable
         GLOBAL.PonerFlag("espejo_roto");
 
         DesactivarEspejo();
-        
+        GLOBAL.EnEvento = false;
         Debug.Log("Espejo roto permanentemente.");
     }
 

@@ -16,5 +16,6 @@ MonoBehaviour:
   nombre: Pocion
   descripcion: Objeto curativo
   estiloSeleccionObjetivo: 0
-  textura: {fileID: 21300000, guid: 15ed10e0ecf4d664088c917848fba79f, type: 3}
+  precio: 200
+  textura: {fileID: 21300000, guid: 92d13723f70e6f74e94139a05de60cec, type: 3}
   valorCurativo: 50
