@@ -23,3 +23,4 @@ MonoBehaviour:
   sprite: {fileID: 576121778, guid: 9596dfd11c0e4b3438c99b753222e1b5, type: 3}
   comportamiento: 0
   acciones: 0500000003000000
+  controller: {fileID: 22100000, guid: c4857932e99b61d43b7ca97a6e4b2607, type: 2}

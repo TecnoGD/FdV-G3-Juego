@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Codigo.Scripts
 {
-    public class ScrollUpdater : MonoBehaviour, ISelectHandler
+    public class ScrollUpdater : BotonAutoSeleccionable
     {
         public ScrollRect scrollRect;
         public int padding = 5;
@@ -33,8 +33,9 @@ namespace Codigo.Scripts
             yield break;
         }
 
-        public virtual void OnSelect(BaseEventData eventData)
+        public override void OnSelect(BaseEventData eventData)
         {
+            base.OnSelect(eventData);
             StopCoroutine(ScrollUpdate());
             StartCoroutine(ScrollUpdate());
         }

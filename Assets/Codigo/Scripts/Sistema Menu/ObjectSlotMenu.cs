@@ -7,7 +7,7 @@ using Image = UnityEngine.UI.Image;
 
 namespace Codigo.Scripts.Sistema_Menu
 {
-    public class ObjectSlotMenu : BotonAutoSeleccionable, ISelectHandler, ISubmitHandler
+    public class ObjectSlotMenu : BotonAutoSeleccionable
     {
         public int index;
         public TMP_Text texto;
@@ -62,8 +62,9 @@ namespace Codigo.Scripts.Sistema_Menu
                 SistemaCombate.instance.UsoObjeto(index);
             }
         }*/
-        public void OnSelect(BaseEventData eventData)
+        public override void OnSelect(BaseEventData eventData)
         {
+            base.OnSelect(eventData);
             mostradorDatos.CambiarDatos(objetoConsumible.objeto);
             var scroll = GetComponentInParent<ScrollRect>();
             var target = gameObject.GetComponent<RectTransform>();
@@ -84,8 +85,9 @@ namespace Codigo.Scripts.Sistema_Menu
             }
         }
 
-        public void OnSubmit(BaseEventData eventData)
+        public override void OnSubmit(BaseEventData eventData)
         {
+            base.OnSubmit(eventData);
             if (!objetoConsumible.objeto) return;
             MenuObjetos.Instancia.objetoSeleccionado = this;
             NewMenuSystem.SiguienteMenu(MenuObjetos.Instancia.contextMenuObjetos);

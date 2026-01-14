@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Codigo.Scripts.Sistema_Menu;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Events;
+using Debug = UnityEngine.Debug;
 
 namespace Codigo.Scripts
 {
@@ -35,18 +37,27 @@ namespace Codigo.Scripts
         public TMP_Text potenciaAccionTexto;
         public TMP_Text descripcionAccionTexto;
         private CamaraSeguimiento _camaraSeguimiento;
-        
-        
-        
+        public AudioSource musicaBatallaNormal;
+        public AudioSource musicaBatallaBoss;
+        public AudioSource musicaBatallaBossFinal;
+        public AudioSource audienciaAudio;
+        public AudioSource victoriaAudio;
+        public AudioSource derrotaAudio;
 
         // Inicializa lo necesario para el combate
         void Start()
         {
+            if (GLOBAL.datosPartida.actoActual != 3)
+            {
+                audienciaAudio.Play();
+                audienciaAudio.volume = 1f;
+            }
             instance = this;
             gameObject.SetActive(false);
         }
         public void IniciarCombate()
         {
+            audienciaAudio.volume = 0.4f;
             factorDinero = 0;
             luchadores.Add(GameObject.FindGameObjectWithTag("Luchador Jugador").GetComponent<Luchador>());      // Busca al GameObject del jugador y lo añade a lista de luchadores
             var vidaJugador = Instantiate(prefabVidaJugador, battleCanvas.gameObject.transform)
@@ -85,6 +96,23 @@ namespace Codigo.Scripts
             UIGeneral[0].gameObject.SetActive(true);                                                            // Habilita la UI de la Caja de Combate
             HabilitarUICombate(true);                                                                     // Habilita el resto de elementos de UI de combate
             GLOBAL.enCombate = true;                                                                            // Marca la variable global de estado de en combate a verdadero
+
+            if (boss)
+            {
+                if (GLOBAL.datosPartida.progresoHistoria == 24)
+                {
+                    musicaBatallaBossFinal.Play();
+                }
+                else
+                {
+                    musicaBatallaBoss.Play();
+                }
+            }
+            else
+            {
+                musicaBatallaNormal.Play();
+            }
+            
         }
 
         /*Dependiendo del parametro estado, activará o no los elementos generales de
@@ -287,19 +315,27 @@ namespace Codigo.Scripts
             Debug.Log(victorioso ? "Has Ganado" : "Has Perdido");
             HabilitarUICombate(false);
             // para que avanzar la historia (cambiar el diálogo del NPC)
+            musicaBatallaNormal.Stop();
+            musicaBatallaBoss.Stop();
+            musicaBatallaBossFinal.Stop();
+            
             if (victorioso)
             {
                 // Aumentamos el progreso de la historia (por ahora solo tenemos hasta 1)
                 var recompensas = Instantiate(panelRecompensa, battleCanvas.transform).GetComponent<Menu>();
                 GLOBAL.AumentarProgresoHistoria();
                 NewMenuSystem.SiguienteMenu(recompensas);
+                victoriaAudio.Play();
             }
             else
             {
                 CerrarCombate();
                 GLOBAL.CargarGuardado();
                 GLOBAL.instance.CambiarEscena("PasilloPrincipal", new Vector3(2.5f, 1.5f, 2.5f));
+                derrotaAudio.Play();
             }
+            
+            audienciaAudio.volume = 1f;
         }
 
         public void CerrarCombate()

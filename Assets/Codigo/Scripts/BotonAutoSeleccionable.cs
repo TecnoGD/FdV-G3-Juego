@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Codigo.Scripts
 {
-    public class BotonAutoSeleccionable : MonoBehaviour, IPointerEnterHandler
+    public class BotonAutoSeleccionable : MonoBehaviour, IPointerEnterHandler, ISelectHandler, ISubmitHandler
     {
         public Selectable boton;
 
@@ -18,6 +18,16 @@ namespace Codigo.Scripts
         {
             if(boton.interactable)
                 boton.Select();
+        }
+
+        public virtual void OnSelect(BaseEventData eventData)
+        {
+            GLOBAL.instance.hoverMenuSonido.Play();
+        }
+
+        public virtual void OnSubmit(BaseEventData eventData)
+        {
+            GLOBAL.instance.clickMenuSonido.Play();
         }
     }
 }

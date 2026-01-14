@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Codigo.Scripts
 {
-    public class EquipamientoSlot : BotonAutoSeleccionable, ISubmitHandler, ISelectHandler
+    public class EquipamientoSlot : BotonAutoSeleccionable
     {
         public int index;
         public int lista;
@@ -48,8 +48,9 @@ namespace Codigo.Scripts
             }
         }
 
-        public void OnSubmit(BaseEventData eventData)
+        public override void OnSubmit(BaseEventData eventData)
         {
+            base.OnSubmit(eventData);
             GLOBAL.instance.Jugador.equipamientoJugador[(int)MenuSelectorEquipamiento.equipamientoAModificar] = index;
             GLOBAL.instance.Jugador.ActualizarEstadisticas();
             MenuSelectorEquipamiento.instance.refrescoEquipamiento.Invoke();
@@ -57,8 +58,9 @@ namespace Codigo.Scripts
 
         }
 
-        public void OnSelect(BaseEventData eventData)
+        public override void OnSelect(BaseEventData eventData)
         {
+            base.OnSelect(eventData);
             MenuSelectorEquipamiento.instance.descripcionSeleccion.text = _descripcionTexto;
             var tipoAModificar = (int)MenuSelectorEquipamiento.equipamientoAModificar;
             var listaApropiada = GLOBAL.instance.ListasDeEquipamientos[tipoAModificar];

@@ -5157,6 +5157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 661ffa4006424846a50aa34e726255e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Scripts::Codigo.Scripts.ScrollUpdater
+  boton: {fileID: 0}
   scrollRect: {fileID: 1017924815}
   padding: 5
 --- !u!1001 &410184427

@@ -32,6 +32,10 @@ public class GLOBAL : MonoBehaviour
     public static (int,int)[] limitesSpawn = new []{(0,7), (7,14), (14, 19)};
     public static List<int> batallasPlanificadas = new List<int>(new[] { 7, 16, 17, 24 });
     
+    public AudioSource abrirMenuSonido;
+    public AudioSource hoverMenuSonido;
+    public AudioSource clickMenuSonido;
+    
     // Un diccionario para recordar: NPC -> Último charla leída"
     public DiccionarioSerializableStringInt memoriaNPCs;
     
