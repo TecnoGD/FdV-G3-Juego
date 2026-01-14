@@ -8,9 +8,9 @@ namespace Codigo.Scripts
     [Serializable]
     public class ObjetoCuraEstado : ObjetoConsumible
     {
-        public Luchador.EstadoAlterado estadoACurar;
+        public EstadoAlterado estadoACurar;
 
-        public ObjetoCuraEstado(string nombre, string descripcion, int estiloSeleccion, Luchador.EstadoAlterado estadoACurar) : base(nombre, descripcion, estiloSeleccion)
+        public ObjetoCuraEstado(string nombre, string descripcion, int estiloSeleccion, EstadoAlterado estadoACurar) : base(nombre, descripcion, estiloSeleccion)
         {
             this.estadoACurar = estadoACurar;
         }

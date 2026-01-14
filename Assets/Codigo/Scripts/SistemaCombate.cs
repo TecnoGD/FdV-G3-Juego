@@ -197,8 +197,6 @@ namespace Codigo.Scripts
             {
                 if (luchadores[i].vida == 0)
                 {
-                    
-                    luchadores.RemoveAt(i);
                     if (i > 0)
                     {
                         luchadores[i].LuchadorDerrotado();
@@ -206,6 +204,7 @@ namespace Codigo.Scripts
                         Destroy(TextoVidas[i-1].gameObject);   //Destruye los paneles de vida de los enemigos
                         TextoVidas.RemoveAt(i-1);
                     }
+                    luchadores.RemoveAt(i);   
                     i--;
                 }
             }
@@ -292,8 +291,8 @@ namespace Codigo.Scripts
             {
                 // Aumentamos el progreso de la historia (por ahora solo tenemos hasta 1)
                 var recompensas = Instantiate(panelRecompensa, battleCanvas.transform).GetComponent<Menu>();
-                NewMenuSystem.SiguienteMenu(recompensas);
                 GLOBAL.AumentarProgresoHistoria();
+                NewMenuSystem.SiguienteMenu(recompensas);
             }
             else
             {

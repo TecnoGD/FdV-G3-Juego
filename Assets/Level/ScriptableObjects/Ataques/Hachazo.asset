@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7602edd702874b2ba1676424a4a74fdb, type: 3}
-  m_Name: Veneno
-  m_EditorClassIdentifier: Assembly-CSharp::Codigo.Scripts.Ataque
+  m_Name: Hachazo
+  m_EditorClassIdentifier: Scripts::Codigo.Scripts.Ataque
   Id: 0
-  Nombre: Veneno
-  Descripcion: Atacas
+  Nombre: Hachazo
+  Descripcion: 
   EstiloSeleccionObjetivo: 0
-  numObjetivos: 2
-  Animacion: Ataque
-  "Da\xF1oBase": 20
+  numObjetivos: 0
+  Animacion: 
+  "Da\xF1oBase": 0
   tipo: 0

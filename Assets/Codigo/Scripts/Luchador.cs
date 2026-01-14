@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 
 namespace Codigo.Scripts
 {
+    public enum EstadoAlterado { Ninguno, Sangrado, Aturdimiento, Veneno }
     public class Luchador : MonoBehaviour
     {
         public int id;                                                          // id del luchador (actualmente sin uso)
@@ -24,7 +25,7 @@ namespace Codigo.Scripts
         public int objetoSeleccionado = 0;
         public float potenciadorVeneno = 0.0625f;
         
-        public enum EstadoAlterado { Ninguno, Sangrado, Aturdimiento, Veneno }
+        
         public List<EstadoAlterado> estadosAlterados = new List<EstadoAlterado>();
 
         public void AplicarEstado(EstadoAlterado estado)
@@ -107,7 +108,7 @@ namespace Codigo.Scripts
                 return;
             }
                
-            GLOBAL.acciones[listaAcciones[accion]].Ejecuta(this, animator);  // Obtiene los datos de la accion a 
+            GLOBAL.acciones[accion].Ejecuta(this, animator);  // Obtiene los datos de la accion a 
                                                                                  // traves de la variable global "acciones"
         }
         
@@ -122,38 +123,40 @@ namespace Codigo.Scripts
          calcula el daño final y lo aplica al objetivo seleccionado y tras terminar limpia la lista de objetivos*/
         public void ProducirDaño()
         {
-            var acc = GLOBAL.acciones[listaAcciones[accion]];
-            var tipo = acc.ObtenerTipo();
-            
-            var estadisticaAtaque = 0;
-            switch (tipo)
+            for (var i = 0; i < objetivosSeleccionados.Count; i++)
             {
-                case Ataque.FISICO:
-                    estadisticaAtaque = estadisticas.ataque;
-                    break;
-                case Ataque.ESPECIAL:
-                    estadisticaAtaque = estadisticas.ataqueEspecial;
-                    break;
-            }
-            for (int i = 0; i < objetivosSeleccionados.Count; i++)
-            {
-                var defensaObjetivo = 0;
-                switch (tipo)
+                var danio = CalcularDaño(objetivosSeleccionados[i], GLOBAL.acciones[accion].ObtenerPotencia(i),
+                    GLOBAL.acciones[accion].ObtenerTipo());
+                objetivosSeleccionados[i].RecibeDaño(danio);
+                if (accion >= 0 && GLOBAL.acciones[accion] as AtaqueConHitBack)
                 {
-                    case Ataque.FISICO:
-                        defensaObjetivo = objetivosSeleccionados[i].estadisticas.defensa;
-                        break;
-                    case Ataque.ESPECIAL:
-                        defensaObjetivo = objetivosSeleccionados[i].estadisticas.defensaEspecial;
-                        break;
+                    ((AtaqueConHitBack)GLOBAL.acciones[accion]).EfectoSecundario(this,objetivosSeleccionados);
                 }
-                //objetivosSeleccionados[i].RecibeDaño((int)((acc.ObtenerPotencia(i)*estadisticaAtaque*0.5f)/(defensaObjetivo*10f)));
-                //Debug.Log((int)((acc.ObtenerPotencia(i)*estadisticaAtaque*0.5f)/(defensaObjetivo*10f)));
-                float danio = Random.Range(0.9f, 1.1f) * (estadisticaAtaque * (100f / (100f + defensaObjetivo)));
-                //Debug.Log((int)danio);
-                objetivosSeleccionados[i].RecibeDaño((int)danio);
-                
             }
+        }
+
+        public int CalcularDaño(Luchador luchador, int potencia, int tipo)
+        {
+            float danio = 0;
+
+            var estadisticaAtaque = tipo switch
+            {
+                Ataque.FISICO => estadisticas.ataque,
+                Ataque.ESPECIAL => estadisticas.ataqueEspecial,
+                _ => 0
+            };
+
+            var defensaObjetivo = tipo switch
+            {
+                Ataque.FISICO => luchador.estadisticas.defensa,
+                Ataque.ESPECIAL => luchador.estadisticas.defensaEspecial,
+                _ => 0
+            };
+            //objetivosSeleccionados[i].RecibeDaño((int)((acc.ObtenerPotencia(i)*estadisticaAtaque*0.5f)/(defensaObjetivo*10f)));
+            //Debug.Log((int)((acc.ObtenerPotencia(i)*estadisticaAtaque*0.5f)/(defensaObjetivo*10f)));
+            danio = Random.Range(0.9f, 1.1f) * (estadisticaAtaque * (100f / (100f + defensaObjetivo)));
+            //Debug.Log((int)danio);
+            return (int)danio;
         }
         
         /* Funcion que aplica el daño recibido aplicando distintos modificadores si fuera necesario y devuelve el daño
@@ -198,6 +201,12 @@ namespace Codigo.Scripts
                 var danoVen = (int)(estadisticas.vidaMax * 0.10);
                 RecibeDaño(danoVen);
             }
+
+            if (accion >= 0 && GLOBAL.acciones[accion] as AtaqueConEfectoSecundario)
+            {
+                ((AtaqueConEfectoSecundario)GLOBAL.acciones[accion]).AplicarEfectoSecundario(SistemaCombate.instance.jugador, objetivosSeleccionados);
+            }
+            
             ExecuteEvents.Execute<IMensajesCombate>(SistemaCombate.instance.gameObject, null,
                 (x, y) => { x.FinAccion(); });
         }

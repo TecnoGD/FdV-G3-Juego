@@ -102,53 +102,53 @@ public class TestObjetosConsumibles
     public void PocionLimpiezaCuraSangrado()
     {
         // Aplicamos el estado 'Sangrado' al jugador
-        jugador.AplicarEstado(Luchador.EstadoAlterado.Sangrado);
+        jugador.AplicarEstado(EstadoAlterado.Sangrado);
         
         // Creamos la poción de limpieza para target Solo Jugador/Aliado (o Self)
         var pocionLimpieza = ScriptableObject.CreateInstance<ObjetoCuraEstado>();
-        pocionLimpieza.estadoACurar = Luchador.EstadoAlterado.Sangrado;
+        pocionLimpieza.estadoACurar = EstadoAlterado.Sangrado;
         pocionLimpieza.estiloSeleccionObjetivo = ObjetoConsumible.SOLOJUGADOR;
 
         // Usamos la poción
         pocionLimpieza.Ejecutar(new List<Luchador> { jugador });
 
         // Verificamos que el jugador ya NO tiene sangrado
-        Assert.IsFalse(jugador.TieneEstado(Luchador.EstadoAlterado.Sangrado), "El jugador debería haberse curado del Sangrado.");
+        Assert.IsFalse(jugador.TieneEstado(EstadoAlterado.Sangrado), "El jugador debería haberse curado del Sangrado.");
     }
 
     [Test]
     public void InyeccionLucidezCuraAturdimiento()
     {
         // Aplicamos el estado 'Aturdimiento' al jugador
-        jugador.AplicarEstado(Luchador.EstadoAlterado.Aturdimiento);
+        jugador.AplicarEstado(EstadoAlterado.Aturdimiento);
         
         // Creamos la inyección para target Solo Jugador
         var inyeccion = ScriptableObject.CreateInstance<ObjetoCuraEstado>();
-        inyeccion.estadoACurar = Luchador.EstadoAlterado.Aturdimiento;
+        inyeccion.estadoACurar = EstadoAlterado.Aturdimiento;
         inyeccion.estiloSeleccionObjetivo = ObjetoConsumible.SOLOJUGADOR;
 
         // Usamos el objeto
         inyeccion.Ejecutar(new List<Luchador> { jugador });
 
         // Verificamos que el estado ha desaparecido
-        Assert.IsFalse(jugador.TieneEstado(Luchador.EstadoAlterado.Aturdimiento), "El jugador debería haberse curado del Aturdimiento.");
+        Assert.IsFalse(jugador.TieneEstado(EstadoAlterado.Aturdimiento), "El jugador debería haberse curado del Aturdimiento.");
     }
 
     [Test]
     public void SerumAntiToxinasCuraVeneno()
     {
         // Aplicamos el estado 'Veneno' al jugador
-        jugador.AplicarEstado(Luchador.EstadoAlterado.Veneno);
+        jugador.AplicarEstado(EstadoAlterado.Veneno);
         
         // Creamos el serum para target Solo Jugador
         var serum = ScriptableObject.CreateInstance<ObjetoCuraEstado>();
-        serum.estadoACurar = Luchador.EstadoAlterado.Veneno;
+        serum.estadoACurar = EstadoAlterado.Veneno;
         serum.estiloSeleccionObjetivo = ObjetoConsumible.SOLOJUGADOR;
 
         // Usamos el serum
         serum.Ejecutar(new List<Luchador> { jugador });
 
         // Verificamos que el estado Veneno ha sido eliminado
-        Assert.IsFalse(jugador.TieneEstado(Luchador.EstadoAlterado.Veneno), "El jugador debería haberse curado del Veneno.");
+        Assert.IsFalse(jugador.TieneEstado(EstadoAlterado.Veneno), "El jugador debería haberse curado del Veneno.");
     }
 }
