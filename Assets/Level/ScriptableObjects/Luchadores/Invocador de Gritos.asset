@@ -14,9 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Codigo.Scripts.DatosLuchador
   tipoLuchador: 2
   nombre: Invocador de Gritos
-  VidaMax: 80
-  Ataque: 15
-  Defensa: 5
-  AtaqueEspecial: 10
-  DefensaEspecial: 10
+  VidaMax: 55
+  Ataque: 9
+  Defensa: 3
+  AtaqueEspecial: 12
+  DefensaEspecial: 5
+  dinero: 50
+  sprite: {fileID: 2103205558, guid: c9cecf07b0b928e4abbb562533c064f8, type: 3}
+  comportamiento: 0
   acciones: 00000000
+  controller: {fileID: 22100000, guid: df769bead6a4447488851688e4f83b6d, type: 2}

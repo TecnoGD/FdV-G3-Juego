@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Scripts::Codigo.Scripts.Ataque
   Id: 0
   Nombre: Hachazo
-  Descripcion: 
+  Descripcion: "Ataque con hacha b\xE1sico"
   EstiloSeleccionObjetivo: 0
-  numObjetivos: 0
-  Animacion: 
-  "Da\xF1oBase": 0
+  numObjetivos: 1
+  Animacion: Ataque
+  "Da\xF1oBase": 40
   tipo: 0

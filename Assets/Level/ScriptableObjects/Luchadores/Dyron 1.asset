@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63ede5d10536449e85cdbb7e96204914, type: 3}
+  m_Name: Dyron 1
+  m_EditorClassIdentifier: Assembly-CSharp::Codigo.Scripts.DatosLuchador
+  tipoLuchador: 2
+  nombre: Dyron
+  VidaMax: 55
+  Ataque: 10
+  Defensa: 4
+  AtaqueEspecial: 12
+  DefensaEspecial: 5
+  dinero: 50
+  sprite: {fileID: 735619620, guid: d4dd06a59abd7ed4f9115d8409e75503, type: 3}
+  comportamiento: 0
+  acciones: 0500000003000000
+  controller: {fileID: 22100000, guid: 338610730592feb4d897597e0e1aeaa4, type: 2}

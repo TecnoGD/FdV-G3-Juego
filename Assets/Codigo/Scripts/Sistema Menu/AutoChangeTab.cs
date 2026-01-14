@@ -11,13 +11,15 @@ namespace Codigo.Scripts
         public UnityEvent entrarTab;
         
         
-        public virtual void OnSelect(BaseEventData eventData)
+        public override void OnSelect(BaseEventData eventData)
         {
+            base.OnSelect(eventData);
             cambiarTab.Invoke();
         }
 
-        public virtual void OnSubmit(BaseEventData eventData)
+        public override void OnSubmit(BaseEventData eventData)
         {
+            base.OnSubmit(eventData);
             entrarTab.Invoke();
         }
     }

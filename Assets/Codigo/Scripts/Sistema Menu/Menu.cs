@@ -20,7 +20,9 @@ namespace Codigo.Scripts.Sistema_Menu
         public Selectable[] seleccionables; //Para seleccionables estáticos
         public Transform[] contenedoresDeSubMenus;
         public Transform[] contenedoresDeSeleccionables; //Para seleccionables dinámicos o muy numerosos
+        
 
+        
 
         public virtual void AbreMenu()
         {
@@ -35,6 +37,11 @@ namespace Codigo.Scripts.Sistema_Menu
                     lastElementFocus.Select();
                 else
                     defaultElementFocus?.Select();
+            }
+
+            if (NewMenuSystem._pilaMenus.Count == 0&&!NewMenuSystem.DentroDeUnMenu())
+            {
+                GLOBAL.instance.abrirMenuSonido.Play();
             }
             AccionPorDefecto();
         }

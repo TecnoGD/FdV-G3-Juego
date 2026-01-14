@@ -11,7 +11,7 @@ namespace Codigo.Scripts.Sistema_Menu
     {
         public static NewMenuSystem Instancia;     //Referencia al Game Object que contiene el Menu System
         private static IMenu _currentMenu;        //Menu donde se tiene el foco actual
-        private static Stack<IMenu> _pilaMenus;   //Pila de menus, menus anteriores al actual menu en foco
+        public static Stack<IMenu> _pilaMenus;   //Pila de menus, menus anteriores al actual menu en foco
         public Menu[] defaultMenus;            //Contiene las referencias a los menus que son activados cuando no hay ninguno activo
         private static InputActionMap _accionesSinMenu;
         public static bool Desactivado = false;

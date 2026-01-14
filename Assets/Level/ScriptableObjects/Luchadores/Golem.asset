@@ -20,4 +20,7 @@ MonoBehaviour:
   AtaqueEspecial: 3
   DefensaEspecial: 20
   dinero: 50
+  sprite: {fileID: 1956474483, guid: 3e3b3fbda34d1a1469a2d2f881b4efbc, type: 3}
+  comportamiento: 0
   acciones: 04000000
+  controller: {fileID: 22100000, guid: 79b3db8e08d4e974e97b0929e9892785, type: 2}

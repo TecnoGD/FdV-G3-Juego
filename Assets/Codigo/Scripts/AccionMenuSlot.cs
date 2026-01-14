@@ -6,15 +6,16 @@ using UnityEngine.UI;
 
 namespace Codigo.Scripts
 {
-    public class AccionMenuSlot : BotonAutoSeleccionable , ISelectHandler
+    public class AccionMenuSlot : BotonAutoSeleccionable
     {
         public TMP_Text nombreAccion;
         public int indice;
         public UnityEvent<int> actualizarDatosAccion;
 
 
-        public void OnSelect(BaseEventData eventData)
+        public override void OnSelect(BaseEventData eventData)
         {
+            base.OnSelect(eventData);
             actualizarDatosAccion.Invoke(indice);
             ScrollUpdate();
         }

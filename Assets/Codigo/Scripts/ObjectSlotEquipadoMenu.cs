@@ -10,7 +10,7 @@ using Image = UnityEngine.UI.Image;
 
 namespace Codigo.Scripts
 {
-    public class ObjectSlotEquipadoMenu : BotonAutoSeleccionable, ISubmitHandler, ICancelHandler
+    public class ObjectSlotEquipadoMenu : BotonAutoSeleccionable, ICancelHandler
     {
         public int index;
         public bool esEsquipado;
@@ -82,8 +82,9 @@ namespace Codigo.Scripts
                 SistemaCombate.instance.UsoObjeto(index);
             }
         }*/
-        public void OnSubmit(BaseEventData eventData)
+        public override void OnSubmit(BaseEventData eventData)
         {
+            base.OnSubmit(eventData);
             IniciaEquipar();
         }
 
