@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEditor.Animations;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -28,6 +29,9 @@ namespace Codigo.Scripts
                 pos += 3;
                 enemigo.transform.position = vector3;
                 if(layout[i].sprite) enemigo.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = layout[i].sprite;
+                
+                enemigo.transform.GetChild(0).GetComponent<Animator>().runtimeAnimatorController = layout[i].controller;
+
                 switch (layout[i].comportamiento)
                 {
                     case Comportamiento.Generico:

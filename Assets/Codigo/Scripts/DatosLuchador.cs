@@ -21,6 +21,7 @@ namespace Codigo.Scripts
         public Sprite sprite;
         public Comportamiento comportamiento;
         public List<int> acciones;                  // Lista de acciones del luchador
+        public RuntimeAnimatorController controller;
 
         public Estadisticas GetEstadisticas()
         {
