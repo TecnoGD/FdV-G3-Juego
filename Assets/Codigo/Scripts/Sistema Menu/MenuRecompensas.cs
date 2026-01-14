@@ -7,6 +7,9 @@ namespace Codigo.Scripts.Sistema_Menu
     public class MenuRecompensas : Menu
     {
         public TMP_Text dineroTexto;
+        public TMP_Text textoTituloAccion;
+        public TMP_Text accionAprendidaTexto;
+        public List<int> accionParaAprender;
         
         public override void AccionPorDefecto()
         {
@@ -33,6 +36,23 @@ namespace Codigo.Scripts.Sistema_Menu
                 mejora.cantidad = (int)(Random.Range(0.5f, 1.1f) * SistemaCombate.instance.factorRecompensa);
                 if (mejora.textoBoton)
                     mejora.textoBoton.text = _textos[(int)mejora.estadisticaAMejorar] + " +" + mejora.cantidad;
+            }
+
+            var accion = -1;
+            if(GLOBAL.datosPartida.progresoHistoria <  accionParaAprender.Count)
+                accion = accionParaAprender[GLOBAL.datosPartida.progresoHistoria];
+            
+            if (accion >= 0 && accion < GLOBAL.acciones.Count)
+            {
+                textoTituloAccion.gameObject.SetActive(true);
+                accionAprendidaTexto.gameObject.SetActive(true);
+                GLOBAL.instance.Jugador.accionesJugador.Add(accion);
+                accionAprendidaTexto.text = GLOBAL.acciones[accion].Nombre;
+            }
+            else
+            {
+                textoTituloAccion.gameObject.SetActive(false);
+                accionAprendidaTexto.gameObject.SetActive(false);
             }
             
         }

@@ -9,14 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7602edd702874b2ba1676424a4a74fdb, type: 3}
-  m_Name: Veneno
-  m_EditorClassIdentifier: Assembly-CSharp::Codigo.Scripts.Ataque
+  m_Script: {fileID: 11500000, guid: d6a27bfa792041eb8cde31a359a50b6f, type: 3}
+  m_Name: Empuje
+  m_EditorClassIdentifier: Scripts::Codigo.Scripts.AtaqueConHitBack
   Id: 0
-  Nombre: Veneno
-  Descripcion: Atacas
+  Nombre: Empuje
+  Descripcion: a
   EstiloSeleccionObjetivo: 0
-  numObjetivos: 2
+  numObjetivos: 1
   Animacion: Ataque
-  "Da\xF1oBase": 20
+  "Da\xF1oBase": 40
   tipo: 0
+  probabilidadEfectoSecundario: 1
+  hitBack: 0.05

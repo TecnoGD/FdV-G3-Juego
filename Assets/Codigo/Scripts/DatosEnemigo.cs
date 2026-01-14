@@ -38,9 +38,9 @@ using UnityEngine.UI;
             }
             textoVida.text = luchador.vida +  "/" + luchador.estadisticas.vidaMax;
             barra.value = luchador.vida;
-            imagenVeneno.gameObject.SetActive(luchador.TieneEstado(Luchador.EstadoAlterado.Veneno));
-            imagenSangrado.gameObject.SetActive(luchador.TieneEstado(Luchador.EstadoAlterado.Sangrado));
-            imagenAturdido.gameObject.SetActive(luchador.TieneEstado(Luchador.EstadoAlterado.Aturdimiento));
+            imagenVeneno.gameObject.SetActive(luchador.TieneEstado(EstadoAlterado.Veneno));
+            imagenSangrado.gameObject.SetActive(luchador.TieneEstado(EstadoAlterado.Sangrado));
+            imagenAturdido.gameObject.SetActive(luchador.TieneEstado(EstadoAlterado.Aturdimiento));
             
             // Asigna la posición de pantalla al RectTransform del elemento de UI
             // Es posible que necesites ajustar esto si el anclaje de la UI no está en el centro
