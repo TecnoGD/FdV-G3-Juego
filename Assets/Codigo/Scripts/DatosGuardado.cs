@@ -7,20 +7,20 @@ using UnityEngine;
 namespace Codigo.Scripts
 {
     [System.Serializable]
-    public class DatosGuardado
+    public class DatosGuardado : ICloneable
     {
         public int id;                                          // Variable de prueba
         public string nombre;                                   // Nombre del jugador
         public int vida;
         public DatosCombate.Estadisticas estadisticasJugador;   // Estadisticas base del jugador
-        public int[] accionesJugador;                           // Lista de acciones del jugador
+        [SerializeField] public List<int> accionesJugador;                           // Lista de acciones del jugador
         [SerializeField] public List<DatosObjetoGuardado> objetosConsumibles;
         [SerializeField] public List<int> listasDeEquipamientosArmas;
         [SerializeField] public List<int> listasDeEquipamientosArmaduras;
         [SerializeField] public List<int> listasDeEquipamientosZapatos;
         [SerializeField] public List<int> listasDeEquipamientosAccesorios;
         public int[] equipamientoJugador;
-        [NonSerialized] public List<ObjectSlot> objetosCargados;
+        [NonSerialized] public List<ObjectSlot> ObjetosCargados;
         public int[] objetosSeleccionadosCombate;
 
         public int progresoHistoria; // Controla el avance de la historia (dialogo).
@@ -28,13 +28,14 @@ namespace Codigo.Scripts
         public int combatesGanados = 0;
         public List<string> flagsEventos = new List<string>();
         public string nombreJugador = "Héroe";
+        [SerializeField] public DiccionarioSerializableStringInt memoriaNPCs = new DiccionarioSerializableStringInt();
 
         public DatosGuardado(ObjetoConsumible obj)
         {
             estadisticasJugador = new DatosCombate.Estadisticas(50, 5, 1, 10, 1);
             vida = estadisticasJugador.vidaMax;
             id = 5;
-            accionesJugador = new int[] {0,1,2};
+            accionesJugador = new List<int>(new int[] {0,1,2});
             nombre = "Jugador"; 
             objetosConsumibles = new List<DatosObjetoGuardado>();
             objetosConsumibles.Add(new DatosObjetoGuardado(0, 1));
@@ -51,6 +52,22 @@ namespace Codigo.Scripts
         public void CargarObjetos()
         {
             
+        }
+
+        public object Clone()
+        {
+            DatosGuardado copia = (DatosGuardado)MemberwiseClone();
+            copia.accionesJugador =  new List<int>(accionesJugador);
+            copia.objetosConsumibles =  new List<DatosObjetoGuardado>(objetosConsumibles);
+            copia.listasDeEquipamientosArmas = new List<int>(listasDeEquipamientosArmas);
+            copia.listasDeEquipamientosArmaduras = new List<int>(listasDeEquipamientosArmaduras);
+            copia.listasDeEquipamientosZapatos = new List<int>(listasDeEquipamientosZapatos);
+            copia.listasDeEquipamientosAccesorios  = new List<int>(listasDeEquipamientosAccesorios);
+            copia.equipamientoJugador = (int[])equipamientoJugador.Clone();
+            copia.objetosSeleccionadosCombate =  (int[])objetosSeleccionadosCombate.Clone();
+            copia.flagsEventos = new List<string>(flagsEventos);
+            copia.memoriaNPCs = new DiccionarioSerializableStringInt(memoriaNPCs);
+            return copia;
         }
     }
 

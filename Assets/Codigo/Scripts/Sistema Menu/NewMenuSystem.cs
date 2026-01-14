@@ -22,6 +22,8 @@ namespace Codigo.Scripts.Sistema_Menu
         {
             CerrarMenusYPila();
             EventSystem.current.SetSelectedGameObject(null);
+            _pilaMenus = null;
+            _pilaMenus =  new Stack<IMenu>();
             /*if(menu == null)
                 //_accionesSinMenu.Disable();
             else

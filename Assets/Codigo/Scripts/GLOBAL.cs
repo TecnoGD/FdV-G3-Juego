@@ -10,7 +10,8 @@ public class GLOBAL : MonoBehaviour
     public static GLOBAL instance;                      // Contiene la instacia del singleton
     public static List<Accion> acciones;                // Lista de todas las acciones de combate del juego
     public static List<DatosLuchador> combatientes;     // Lista de todos los datos de los luchadores (Sin uso o no se usa) 
-    public static DatosGuardado guardado;               // Datos de guardado de la partida
+    public static DatosGuardado datosPartida;               // Datos de guardado de la partida
+    public static DatosGuardado DatosGuardado;               // Datos de guardado de la partida
     public static DatosConfig Configuracion;
     public static bool enCombate;                       // Indica si se esta dentro de combate o no
     public static bool EnEvento;      
@@ -32,7 +33,7 @@ public class GLOBAL : MonoBehaviour
     public static List<int> batallasPlanificadas = new List<int>(new[] { 7, 16, 17, 24 });
     
     // Un diccionario para recordar: NPC -> Último charla leída"
-    public Dictionary<string, int> memoriaNPCs = new Dictionary<string, int>();
+    public DiccionarioSerializableStringInt memoriaNPCs;
     
     void Awake()
     {
@@ -41,9 +42,12 @@ public class GLOBAL : MonoBehaviour
         instance = this;
         acciones = ListaAccionesTotales;
         combatientes = ListaDatosCombatiente;
-        guardado = new DatosGuardado(objetivoPrueba);//SistemaGuardado.Cargar();    // Carga los datos de guardado
+        datosPartida = new DatosGuardado(objetivoPrueba);//SistemaGuardado.Cargar();    // Carga los datos de guardado
+        SistemaGuardado.Cargar();
+        DatosGuardado = (DatosGuardado)datosPartida.Clone();
         Configuracion =  new DatosConfig();
         ListasDeEquipamientos = new [] {listaArmasTotal, listaArmaduraTotal,  listaZapatosTotal, listaAccesoriosTotal};
+        memoriaNPCs = datosPartida.memoriaNPCs;
     }
 
     void Start()
@@ -53,7 +57,7 @@ public class GLOBAL : MonoBehaviour
         
         Screen.SetResolution(Configuracion.width, Configuracion.height, Configuracion.fullScreen);
         //Object.DontDestroyOnLoad(NewMenuSystem.Instancia.menuJugador);
-        //SceneManager.LoadScene("EscenaPrologo");
+        SceneManager.LoadScene("SalaCombate");
         
     }
 
@@ -82,35 +86,65 @@ public class GLOBAL : MonoBehaviour
     public static bool TieneFlag(string idFlag)
     {
         // Si la lista está vacía o es nula, obviamente es falso
-        if (guardado.flagsEventos == null) return false;
+        if (datosPartida.flagsEventos == null) return false;
 
-        return guardado.flagsEventos.Contains(idFlag);
+        return datosPartida.flagsEventos.Contains(idFlag);
     }
 
     // 2. Función para marcar que algo ha pasado
     public static void PonerFlag(string idFlag)
     {
-        if (guardado.flagsEventos == null) guardado.flagsEventos = new List<string>();
+        if (datosPartida.flagsEventos == null) datosPartida.flagsEventos = new List<string>();
 
         // Solo lo añadimos si no está ya, para no tener duplicados
-        if (!guardado.flagsEventos.Contains(idFlag))
+        if (!datosPartida.flagsEventos.Contains(idFlag))
         {
-            guardado.flagsEventos.Add(idFlag);
+            datosPartida.flagsEventos.Add(idFlag);
         }
     }
 
     public static void AumentarProgresoHistoria()
     {
-        guardado.progresoHistoria++;
-        switch (guardado.progresoHistoria)
+        datosPartida.progresoHistoria++;
+        switch (datosPartida.progresoHistoria)
         {
             case 8:
-                guardado.actoActual = 2;
+                datosPartida.actoActual = 2;
                 break;
             case 18:
-                guardado.actoActual = 3;
+                datosPartida.actoActual = 3;
                 break;
         }
+    }
+
+    public static void GuardarProgreso()
+    {
+        DatosGuardado = null;
+        DatosGuardado = (DatosGuardado)datosPartida.Clone();
+        DatosGuardado.vida = instance.Jugador.vida;
+        DatosGuardado.estadisticasJugador = instance.Jugador.estadisticasBase;
+        var lista = new List<DatosObjetoGuardado>();
+        foreach (var objeto in instance.Jugador.listaObjetos)
+        {
+            lista.Add(new DatosObjetoGuardado(objeto.objeto.id, objeto.cantidad));
+        }
+        DatosGuardado.objetosConsumibles = null;
+        DatosGuardado.objetosConsumibles = lista;
+        
+        DatosGuardado.objetosSeleccionadosCombate[0] =
+            instance.Jugador.listaObjetos.IndexOf(instance.Jugador.objetosSeleccionadosCombate[0]);
+        DatosGuardado.objetosSeleccionadosCombate[1] =
+            instance.Jugador.listaObjetos.IndexOf(instance.Jugador.objetosSeleccionadosCombate[1]);
+        DatosGuardado.objetosSeleccionadosCombate[2] =
+            instance.Jugador.listaObjetos.IndexOf(instance.Jugador.objetosSeleccionadosCombate[2]);
+        DatosGuardado.objetosSeleccionadosCombate[3] =
+            instance.Jugador.listaObjetos.IndexOf(instance.Jugador.objetosSeleccionadosCombate[3]);
+    }
+
+    public static void CargarGuardado()
+    {
+        datosPartida = (DatosGuardado)DatosGuardado.Clone();
+        instance.Jugador.CargarGuardado();
     }
     
     void OnApplicationQuit()

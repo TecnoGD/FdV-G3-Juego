@@ -19,8 +19,9 @@ namespace Codigo.Scripts
         public List<TMP_Text> TextoUI;                                  // Lista que contiene los textos de vida de los luchadores en combate
         public List<DatosEnemigo> TextoVidas = new List<DatosEnemigo>();
         public List<Menu> ElementosUI;                            // Lista que contiene los elementos de UI de decision del jugador (Accion, ataque, objetivos...)
-        public const int UIJugadorCombate = 0, UIAccionesCombate = 1, UIObjetivoCombate = 2, UIVidaEnemigos = 2, UIAnalizarEnemigos = 3; // Utilizar estas constantes para mejor lectura del codigo a la hora de usar la variable "ElementosUI"
+        public const int UIJugadorCombate = 0, UIAccionesCombate = 1, UIObjetivoCombate = 2, UIVidas = 1, UIAnalizarEnemigos = 3; // Utilizar estas constantes para mejor lectura del codigo a la hora de usar la variable "ElementosUI"
         public GameObject prefabVidaEnemigos;                           // Prefab de la UI de la vida de los enemigos
+        public GameObject prefabVidaJugador;  
         public UnityEngine.UI.Button botonAnalizar;                     // Botón de Analizar enemigos
         public int accionSeleccionada = 0;
         public int previoObjetivoSeleccionado = 0;
@@ -48,6 +49,9 @@ namespace Codigo.Scripts
         {
             factorDinero = 0;
             luchadores.Add(GameObject.FindGameObjectWithTag("Luchador Jugador").GetComponent<Luchador>());      // Busca al GameObject del jugador y lo añade a lista de luchadores
+            var vidaJugador = Instantiate(prefabVidaJugador, battleCanvas.gameObject.transform)
+                .GetComponent<DatosEnemigo>();
+            vidaJugador.luchador = luchadores[0];
             GameObject[] e = GameObject.FindGameObjectsWithTag("Luchador Enemigo");                             // Busca los GameObjects de los enemigos y los añaden a lista de luchadores
                                                                                                                 //
             foreach (GameObject g in e)                                                                         //
@@ -56,7 +60,7 @@ namespace Codigo.Scripts
                 luchadores.Add(h);                                                                              //
                 h.InicioCombate();                                                                              // Inicializa al luchador
                 // Temporal posible cambio (Instancia los paneles de vida de los enemigos)
-                var datos = Instantiate(prefabVidaEnemigos, UIGeneral[UIVidaEnemigos].transform)
+                var datos = Instantiate(prefabVidaEnemigos, UIGeneral[UIVidas].transform)
                     .GetComponent<DatosEnemigo>();
                 datos.luchador = h;
                 TextoVidas.Add(datos);
@@ -145,12 +149,6 @@ namespace Codigo.Scripts
             CambioEnfoqueCamara();
             EjecucionTurnos();
         }
-
-        void Update()
-        {
-            TextoUI[0].text = "Vida: " + luchadores[0].vida;
-            // Temporal, posible cambio
-        }
         
         /* Metodo que ejecuta la accion del luchador al que le corresponde el turno actual
            POST: la variable "turno" incrementa en 1 (Inicialmente -1 al comienzo del primer turno)
@@ -199,11 +197,12 @@ namespace Codigo.Scripts
             {
                 if (luchadores[i].vida == 0)
                 {
-                    luchadores[i].LuchadorDerrotado();
-                    factorDinero += luchadores[i].datos.dinero;
+                    
                     luchadores.RemoveAt(i);
                     if (i > 0)
                     {
+                        luchadores[i].LuchadorDerrotado();
+                        factorDinero += luchadores[i].datos.dinero;
                         Destroy(TextoVidas[i-1].gameObject);   //Destruye los paneles de vida de los enemigos
                         TextoVidas.RemoveAt(i-1);
                     }
@@ -299,6 +298,8 @@ namespace Codigo.Scripts
             else
             {
                 CerrarCombate();
+                GLOBAL.CargarGuardado();
+                GLOBAL.instance.CambiarEscena("PasilloPrincipal", new Vector3(2.5f, 1.5f, 2.5f));
             }
         }
 
@@ -310,6 +311,7 @@ namespace Codigo.Scripts
             gameObject.SetActive(false);
             GLOBAL.enCombate = false;
             NewMenuSystem.Reinicializar();
+            GLOBAL.instance.Jugador.vida = jugador.vida;
             
             // al acabar el combate volvemos a enfocar el jugador la cámara
             CamaraSeguimiento cam = Camera.main.GetComponent<CamaraSeguimiento>();

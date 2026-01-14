@@ -42,13 +42,22 @@ public class Jugador : MonoBehaviour
 
     void Start()
     {
-        estadisticasBase = GLOBAL.guardado.estadisticasJugador;             // Carga las estadisticas base del jugador desde
+        CargarGuardado();
+    }
+    
+    
+
+    public void CargarGuardado()
+    {
+        estadisticasBase = GLOBAL.datosPartida.estadisticasJugador;             // Carga las estadisticas base del jugador desde
                                                                             // el archivo de guardado
                                                                             
-        accionesJugador = new List<int>(GLOBAL.guardado.accionesJugador);   // Carga las acciones del jugador desde
+        accionesJugador = GLOBAL.datosPartida.accionesJugador;   // Carga las acciones del jugador desde
                                                                             // el archivo de guardado
+                                                                            
+                                                                            
         listaObjetos = new List<ObjectSlot>();
-        foreach (var objeto in GLOBAL.guardado.objetosConsumibles)
+        foreach (var objeto in GLOBAL.datosPartida.objetosConsumibles)
         {
                 
             var test = new ObjectSlot(GLOBAL.instance.objetosConsumibles[objeto.id], objeto.cantidad);
@@ -56,27 +65,28 @@ public class Jugador : MonoBehaviour
                 
         }
         objetosSeleccionadosCombate = new ObjectSlot[4];
-        for (int i = 0; i< GLOBAL.guardado.objetosSeleccionadosCombate.Length; i++)
+        for (int i = 0; i< GLOBAL.datosPartida.objetosSeleccionadosCombate.Length; i++)
         {
-            var item = GLOBAL.guardado.objetosSeleccionadosCombate[i];
+            var item = GLOBAL.datosPartida.objetosSeleccionadosCombate[i];
             if(item == -1)
                 objetosSeleccionadosCombate[i] = new ObjectSlot(null, -1);
             else
-                objetosSeleccionadosCombate[i] = listaObjetos[GLOBAL.guardado.objetosSeleccionadosCombate[i]];
+                objetosSeleccionadosCombate[i] = listaObjetos[GLOBAL.datosPartida.objetosSeleccionadosCombate[i]];
         }
 
-        ListasDeEquipamientosInventario[0] = GLOBAL.guardado.listasDeEquipamientosArmas;
-        ListasDeEquipamientosInventario[1] = GLOBAL.guardado.listasDeEquipamientosArmaduras;
-        ListasDeEquipamientosInventario[2] = GLOBAL.guardado.listasDeEquipamientosZapatos;
-        ListasDeEquipamientosInventario[3] = GLOBAL.guardado.listasDeEquipamientosAccesorios;
-        equipamientoJugador = GLOBAL.guardado.equipamientoJugador;
+        ListasDeEquipamientosInventario[0] = GLOBAL.datosPartida.listasDeEquipamientosArmas;
+        ListasDeEquipamientosInventario[1] = GLOBAL.datosPartida.listasDeEquipamientosArmaduras;
+        ListasDeEquipamientosInventario[2] = GLOBAL.datosPartida.listasDeEquipamientosZapatos;
+        ListasDeEquipamientosInventario[3] = GLOBAL.datosPartida.listasDeEquipamientosAccesorios;
+        equipamientoJugador = GLOBAL.datosPartida.equipamientoJugador;
         if(!ListasDeEquipamientosInventario[0].Contains(equipamientoJugador[0])) equipamientoJugador[0] = -1;
         if(!ListasDeEquipamientosInventario[1].Contains(equipamientoJugador[1])) equipamientoJugador[1] = -1;
         if(!ListasDeEquipamientosInventario[2].Contains(equipamientoJugador[2])) equipamientoJugador[2] = -1;
         if(!ListasDeEquipamientosInventario[3].Contains(equipamientoJugador[3])) equipamientoJugador[3] = -1;
+        vida = GLOBAL.datosPartida.vida;
         ActualizarEstadisticas();
-        vida = GLOBAL.guardado.vida;
     }
+
 
     // Update is called once per frame
     void FixedUpdate()

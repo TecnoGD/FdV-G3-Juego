@@ -22,7 +22,7 @@ public class TutorialSalaB : MonoBehaviour
 
     private void Start()
     {
-        if (GLOBAL.guardado.flagsEventos.Contains(idEvento))
+        if (GLOBAL.datosPartida.flagsEventos.Contains(idEvento))
         {
             if (objetoParaInteractuar != null) objetoParaInteractuar.SetActive(true);
 
@@ -62,9 +62,9 @@ public class TutorialSalaB : MonoBehaviour
         // FIN DEL TUTORIAL
         if (puertaSalida != null) puertaSalida.SetActive(false);
 
-        if (!GLOBAL.guardado.flagsEventos.Contains(idEvento))
+        if (!GLOBAL.datosPartida.flagsEventos.Contains(idEvento))
         {
-            GLOBAL.guardado.flagsEventos.Add(idEvento);
+            GLOBAL.datosPartida.flagsEventos.Add(idEvento);
         }
         GLOBAL.EnEvento = false;
     }

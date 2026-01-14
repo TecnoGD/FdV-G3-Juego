@@ -37,17 +37,17 @@ public class TestMovimientoJugador
         GLOBAL.enCombate = false;
         
         // Limpiamos los datos guardados del juego,IMPORTANTE: no afecta al juego real, es solo para que no interfieran con los tests
-        if (GLOBAL.guardado != null)
+        if (GLOBAL.datosPartida != null)
         {
-            if (GLOBAL.guardado.objetosConsumibles != null)
-                GLOBAL.guardado.objetosConsumibles.Clear();
+            if (GLOBAL.datosPartida.objetosConsumibles != null)
+                GLOBAL.datosPartida.objetosConsumibles.Clear();
                 
             // También limpiamos los objetos seleccionados para combate
-            if (GLOBAL.guardado.objetosSeleccionadosCombate != null)
+            if (GLOBAL.datosPartida.objetosSeleccionadosCombate != null)
             {
-                for (int i = 0; i < GLOBAL.guardado.objetosSeleccionadosCombate.Length; i++)
+                for (int i = 0; i < GLOBAL.datosPartida.objetosSeleccionadosCombate.Length; i++)
                 {
-                    GLOBAL.guardado.objetosSeleccionadosCombate[i] = -1;
+                    GLOBAL.datosPartida.objetosSeleccionadosCombate[i] = -1;
                 }
             }
         }

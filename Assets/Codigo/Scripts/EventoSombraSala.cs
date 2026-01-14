@@ -31,7 +31,7 @@ public class EventoSombraSala : MonoBehaviour
 
     public void Start()
     {
-        var historiaActual = GLOBAL.guardado.progresoHistoria;
+        var historiaActual = GLOBAL.datosPartida.progresoHistoria;
         if (historiaActual == idEventoRequerido && !GLOBAL.TieneFlag("EventoSombraSala"))
             EjecutarEvento();
         

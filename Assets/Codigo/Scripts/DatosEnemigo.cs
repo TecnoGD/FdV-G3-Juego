@@ -9,6 +9,8 @@ using UnityEngine.UI;
     {
         public Luchador luchador;
         public Transform aSeguir;
+        public bool sigueAObjetivo;
+        public bool mostrarAlIniciar = false;
         public TMP_Text  textoNombre;
         public TMP_Text  textoVida;
         public Image imagenVeneno;
@@ -22,15 +24,18 @@ using UnityEngine.UI;
             aSeguir = luchador.gameObject.transform;
             textoNombre.text = luchador.nombre;
             barra.maxValue = luchador.estadisticas.vidaMax;
-            gameObject.SetActive(false);
+            gameObject.SetActive(mostrarAlIniciar);
         }
         
         void Update()
         {
-            var vector3 = aSeguir.position;
-            vector3.y += luchador.gameObject.transform.localScale.y;
-            Vector3 screenPos = Camera.main.WorldToScreenPoint(aSeguir.position);
-            gameObject.transform.position = screenPos;
+            if (sigueAObjetivo)
+            {
+                var vector3 = aSeguir.position;
+                vector3.y += luchador.gameObject.transform.localScale.y;
+                Vector3 screenPos = Camera.main.WorldToScreenPoint(aSeguir.position);
+                gameObject.transform.position = screenPos;
+            }
             textoVida.text = luchador.vida +  "/" + luchador.estadisticas.vidaMax;
             barra.value = luchador.vida;
             imagenVeneno.gameObject.SetActive(luchador.TieneEstado(Luchador.EstadoAlterado.Veneno));

@@ -11,7 +11,7 @@ namespace Codigo.Scripts.Sistema_Menu
 
         private void Awake()
         {
-            nombreJugador.text = "Nombre: " + GLOBAL.guardado.nombre;
+            nombreJugador.text = "Nombre: " + GLOBAL.datosPartida.nombre;
         }
 
         private void OnEnable()

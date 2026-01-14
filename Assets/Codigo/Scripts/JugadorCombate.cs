@@ -8,7 +8,7 @@ namespace Codigo.Scripts
         public override void InicioCombate()
         {
             Jugador jugador = gameObject.transform.parent.gameObject.GetComponent<Jugador>();   // Obtiene los datos de combate de su componente jugador
-            nombre = GLOBAL.guardado.nombre;
+            nombre = GLOBAL.datosPartida.nombre;
             estadisticas = jugador.estadisticasEfectivas;
             listaAcciones  = jugador.accionesJugador;
             vida = estadisticas.vidaMax;

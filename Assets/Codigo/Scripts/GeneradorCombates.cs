@@ -11,8 +11,8 @@ namespace Codigo.Scripts
         private void Start()
         {
             
-            var limites = GLOBAL.limitesSpawn[GLOBAL.guardado.actoActual - 1];
-            var progreso = GLOBAL.guardado.progresoHistoria;
+            var limites = GLOBAL.limitesSpawn[GLOBAL.datosPartida.actoActual - 1];
+            var progreso = GLOBAL.datosPartida.progresoHistoria;
             SistemaCombate.boss =GLOBAL.batallasPlanificadas.Contains(progreso);
             var layout = SistemaCombate.boss switch
             {

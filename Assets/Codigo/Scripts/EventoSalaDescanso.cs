@@ -19,7 +19,7 @@ public class EventoSalaDescanso : MonoBehaviour
         GLOBAL.EnEvento = true;
         yield return new WaitForSeconds(2.5f);
 
-        if (!GLOBAL.guardado.flagsEventos.Contains(idEvento))
+        if (!GLOBAL.datosPartida.flagsEventos.Contains(idEvento))
         {
             
             if (npcEnEscena != null && GLOBAL.instance.Jugador != null)
@@ -32,7 +32,7 @@ public class EventoSalaDescanso : MonoBehaviour
             
             yield return new WaitUntil(() => !SistemaDialogo.instance.enDialogo);
             
-            GLOBAL.guardado.flagsEventos.Add(idEvento);
+            GLOBAL.datosPartida.flagsEventos.Add(idEvento);
         }
         GLOBAL.EnEvento = false;
     }

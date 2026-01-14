@@ -18,7 +18,7 @@ public class EventoPresentadorJefes : MonoBehaviour
 
     IEnumerator Start()
     {
-        int momentoHistoria = GLOBAL.guardado.progresoHistoria;
+        int momentoHistoria = GLOBAL.datosPartida.progresoHistoria;
         string[] dialogoAUsar = null;
 
         // SELECCIONAR EL DISCURSO SEGÚN EL MOMENTO

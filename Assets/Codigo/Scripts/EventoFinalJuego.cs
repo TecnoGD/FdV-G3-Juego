@@ -14,7 +14,7 @@ public class EventoFinalJuego : MonoBehaviour
     {
         // 23 era el combate. Al ganar, el sistema suma +1.
         // Por tanto, si estamos en 24, acabamos de matar al Jefe Final.
-        if (GLOBAL.guardado.progresoHistoria == 25)
+        if (GLOBAL.datosPartida.progresoHistoria == 25)
         {
             // Esperamos un poco tras la carga de la escena
             GLOBAL.EnEvento = true;

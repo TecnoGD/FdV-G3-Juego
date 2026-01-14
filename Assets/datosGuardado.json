@@ -48,5 +48,9 @@
     "actoActual": 1,
     "combatesGanados": 0,
     "flagsEventos": [],
-    "nombreJugador": "Héroe"
+    "nombreJugador": "Héroe",
+    "memoriaNPCs": {
+        "keys": [],
+        "values": []
+    }
 }

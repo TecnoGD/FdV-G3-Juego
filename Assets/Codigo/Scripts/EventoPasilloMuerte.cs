@@ -40,7 +40,7 @@ public class EventoPasilloMuerte : MonoBehaviour
         // Nota: Asegúrate de que tu personaje tiene el tag "Rig Jugador" o cámbialo aquí
         if (other.CompareTag("Rig Jugador") && !eventoIniciado)
         {
-            if (GLOBAL.guardado.progresoHistoria == idEventoRequerido)
+            if (GLOBAL.datosPartida.progresoHistoria == idEventoRequerido)
             {
                 StartCoroutine(SecuenciaPesadilla());
             }

@@ -44,7 +44,7 @@ namespace Codigo.Scripts
         public void Interactuar()
         {
             // obtenemos el progreso actual desde los datos globales
-            int progresoActual = GLOBAL.guardado.progresoHistoria;
+            int progresoActual = GLOBAL.datosPartida.progresoHistoria;
             
             // nos aseguramos de usar un indice valido dentro de la lista
             int indiceAUsar = Mathf.Clamp(progresoActual, 0, etapasHistoria.Count - 1);
@@ -81,7 +81,7 @@ namespace Codigo.Scripts
             // si no hay icono asignado no hacemos nada
             if (iconoAlerta == null) return;
 
-            int progresoGlobal = GLOBAL.guardado.progresoHistoria;
+            int progresoGlobal = GLOBAL.datosPartida.progresoHistoria;
 
             // condiciones para mostrar el icono:
             // 1. el progreso actual es mayor a lo ultimo que leimos

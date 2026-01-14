@@ -15,7 +15,7 @@ public class EventoPrimerCombate : MonoBehaviour
     IEnumerator Start()
     {
         // SOLO SI ES LA PRIMERA VEZ (Progreso 0)
-        if (GLOBAL.guardado.progresoHistoria == 0)
+        if (GLOBAL.datosPartida.progresoHistoria == 0)
         {
             GLOBAL.EnEvento = true;
             yield return new WaitForSeconds(0.5f);

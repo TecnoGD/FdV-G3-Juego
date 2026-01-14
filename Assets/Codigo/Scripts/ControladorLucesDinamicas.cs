@@ -28,7 +28,7 @@ public class ControladorLucesDinamicas : MonoBehaviour
         int acto = 1;
         if (GLOBAL.instance != null)
         {
-            acto = GLOBAL.guardado.actoActual;
+            acto = GLOBAL.datosPartida.actoActual;
         }
 
         // Si estamos en el Acto 1 (historia < 8), no hacemos nada.

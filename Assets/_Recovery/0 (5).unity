@@ -7045,9 +7045,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 48c18ff1f0ec08b429807ec771f8e1a2, type: 2}
   - {fileID: 11400000, guid: 7f565b60097b5a14096fc99d49cfb2f3, type: 2}
   - {fileID: 11400000, guid: 260a11dd508624b46a78f800d5732f4b, type: 2}
-  memoriaNPCs:
-    keys: []
-    values: 
 --- !u!4 &535678431
 Transform:
   m_ObjectHideFlags: 0
@@ -14532,7 +14529,7 @@ MonoBehaviour:
   - objeto: {fileID: 0}
     cantidad: 0
   objetoSeleccionado: 0
-  potenciadorVeneno: 0.0625
+  potenciadorVeneno: 0
   estadosAlterados: 
 --- !u!4 &1091521846
 Transform:
@@ -15683,7 +15680,7 @@ Transform:
   m_GameObject: {fileID: 1215776551}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.58, y: 1.5, z: 2.5}
+  m_LocalPosition: {x: -2.58, y: 1.5, z: 1.92}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

@@ -72,11 +72,11 @@ public class SecuenciaPrologo : MonoBehaviour
         // A. Guardamos el nombre
         if(GLOBAL.instance != null) // Pequeña protección
         {
-             GLOBAL.guardado.nombreJugador = inputNombre.text;
+             GLOBAL.datosPartida.nombreJugador = inputNombre.text;
              
-             GLOBAL.guardado.actoActual = 1;
-             GLOBAL.guardado.progresoHistoria = 0; 
-             if (GLOBAL.guardado.flagsEventos != null) GLOBAL.guardado.flagsEventos.Clear();
+             GLOBAL.datosPartida.actoActual = 1;
+             GLOBAL.datosPartida.progresoHistoria = 0; 
+             if (GLOBAL.datosPartida.flagsEventos != null) GLOBAL.datosPartida.flagsEventos.Clear();
         }
 
         // B. Ocultamos el panel y seguimos
