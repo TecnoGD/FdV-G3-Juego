@@ -86,6 +86,11 @@ namespace Codigo.Scripts.Sistema_Menu
         {
             return _currentMenu;
         }
+
+        public static bool SoyMenuActual(IMenu menu)
+        {
+            return menu == _currentMenu;
+        }
         
         private static void CerrarMenusYPila()
         {

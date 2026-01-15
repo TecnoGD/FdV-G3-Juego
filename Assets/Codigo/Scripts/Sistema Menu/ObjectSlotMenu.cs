@@ -15,7 +15,7 @@ namespace Codigo.Scripts.Sistema_Menu
         public Image textura;
         public Image texturaEquipado;
         public ObjectSlot objetoConsumible;
-        public MostrarDatosObjeto mostradorDatos;
+        
         
         
 
@@ -65,7 +65,7 @@ namespace Codigo.Scripts.Sistema_Menu
         public override void OnSelect(BaseEventData eventData)
         {
             base.OnSelect(eventData);
-            mostradorDatos.CambiarDatos(objetoConsumible.objeto);
+            MenuObjetos.Instancia.mostradorDatos.CambiarDatos(objetoConsumible.objeto);
             var scroll = GetComponentInParent<ScrollRect>();
             var target = gameObject.GetComponent<RectTransform>();
             var limiteSup = -scroll.viewport.rect.height;

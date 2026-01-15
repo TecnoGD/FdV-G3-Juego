@@ -29,7 +29,7 @@ public class GLOBAL : MonoBehaviour
     public List<Equipamiento> listaEquipamientoTienda = new List<Equipamiento>();
     public List<CombateLayout> layoutsCombate = new List<CombateLayout>();
     public List<CombateLayout> layoutsBosses = new List<CombateLayout>();
-    public static (int,int)[] limitesSpawn = new []{(0,7), (7,14), (14, 19)};
+    public static (int,int)[] limitesSpawn = new []{(0,10), (10,20), (20, 30)};
     public static List<int> batallasPlanificadas = new List<int>(new[] { 7, 16, 17, 24 });
     
     public AudioSource abrirMenuSonido;

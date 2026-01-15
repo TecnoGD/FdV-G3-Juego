@@ -68,7 +68,7 @@ namespace Codigo.Scripts.Sistema_Menu
 
         public virtual void CierraMenu(bool noDesactivar = true)
         {
-            if(!bloquearAutoSeleccionado) lastElementFocus = EventSystem.current.currentSelectedGameObject.GetComponent<Selectable>();
+            if(!bloquearAutoSeleccionado && recordarUltimoSeleccionado) lastElementFocus = EventSystem.current.currentSelectedGameObject.GetComponent<Selectable>();
             CambiarEstadoSeleccionables(false);
             SalidaPorDefecto();
             if(!seMuestraEnAnteriorMenu)

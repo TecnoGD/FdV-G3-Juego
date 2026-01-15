@@ -58,7 +58,6 @@ namespace Codigo.Scripts
 
         public void SiguienteDialogo(InputAction.CallbackContext context)
         {
-            Debug.Log(usarInputInterno);
             if (context.performed && enDialogo)
             {
                 SiguienteFrase();

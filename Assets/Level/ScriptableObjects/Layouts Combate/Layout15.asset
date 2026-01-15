@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Layout15
   m_EditorClassIdentifier: Scripts::Codigo.Scripts.CombateLayout
   luchadores:
-  - {fileID: 11400000, guid: 19b8556e964785a4c96eb706fc6bda35, type: 2}
-  - {fileID: 11400000, guid: e5077d69d5048cd4497aa564abddec92, type: 2}
+  - {fileID: 11400000, guid: 117c13a5e22857a43955ccaa4233a846, type: 2}
+  - {fileID: 11400000, guid: 1bb3076a8122ad94eb5661b397724fc2, type: 2}
