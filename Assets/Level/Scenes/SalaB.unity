@@ -1197,7 +1197,7 @@ MonoBehaviour:
   - "Esta sala es muy \xEDntima y perfecta para practicar un poco los movimientos,
     \xA1Int\xE9ntalo!"
   - "Puedes usar AD o las flechas para moverte, en cu\xE1nto manejes bien el movimiento,
-    dale a Enter para continuar"
+    RECUERDA DARLE A ENTER para continuar"
   faseReaccionMovimiento:
   - "Bien, parece que la motricidad b\xE1sica funciona"
   faseInteraccion:
@@ -1205,6 +1205,7 @@ MonoBehaviour:
     es la sala de descanso. Ah\xED podr\xE1s reponer fuerzas"
   - "Cuando est\xE9s listo, puedes salir de la sala de descanso y a la derecha, al
     final del pasillo encontrar\xE1s el camino para tu primera batalla"
+  - "Puedes probar el men\xFA d\xE1ndole a la M, y ESC para cerrarlo"
 --- !u!4 &748932045
 Transform:
   m_ObjectHideFlags: 0

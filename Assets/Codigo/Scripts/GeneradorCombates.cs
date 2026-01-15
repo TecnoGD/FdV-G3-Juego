@@ -31,14 +31,29 @@ namespace Codigo.Scripts
                 
                 enemigo.transform.GetChild(0).GetComponent<Animator>().runtimeAnimatorController = layout[i].controller;
 
+                GameObject objetoVisual = enemigo.transform.GetChild(0).gameObject;
+                Luchador luchadorBase = objetoVisual.GetComponent<Luchador>();
+                if (luchadorBase != null) DestroyImmediate(luchadorBase);
+
                 switch (layout[i].comportamiento)
                 {
                     case Comportamiento.Generico:
-                        enemigo.transform.GetChild(0).gameObject.AddComponent<EnemigoGenerico>();
+                        objetoVisual.AddComponent<EnemigoGenerico>();
+                        break;
+                        
+                    case Comportamiento.Bruto:
+                        objetoVisual.AddComponent<EnemigoBruto>();
                         break;
 
+                    case Comportamiento.Berserker:
+                        objetoVisual.AddComponent<EnemigoBerserker>();
+                        break;
+
+                    case Comportamiento.Tactico:
+                        objetoVisual.AddComponent<EnemigoTactico>();
+                        break;
                 }
-                var componente = enemigo.transform.GetChild(0).gameObject.GetComponent<Luchador>();
+                var componente = objetoVisual.GetComponent<Luchador>();
                 componente.datos = layout[i];
                 componente.ActualizarDatos();
             }
