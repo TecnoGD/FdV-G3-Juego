@@ -419,6 +419,34 @@ namespace Codigo.Scripts
             descripcionAccionTexto.text = accion.Descripcion;
             
         }
+
+        public void TurnoEnemigo()
+        {
+            StartCoroutine(RutinaIAEnemigo());
+        }
+
+        IEnumerator RutinaIAEnemigo()
+        {
+            Luchador enemigoActual = luchadores[turno]; 
+
+            yield return new WaitForSeconds(1.0f);
+
+            List<Luchador> posiblesObjetivos = new List<Luchador>();
+            posiblesObjetivos.Add(jugador); 
+
+            int idAccionElegida = enemigoActual.LuchadorIA(luchadores);
+            enemigoActual.DecidirAccion(idAccionElegida);
+            
+            if (idAccionElegida != -1)
+            {
+                enemigoActual.objetivosSeleccionados.Add(jugador);
+                enemigoActual.EjecutarAccion(posiblesObjetivos);
+            }
+            else
+            {
+                FinAccion(); 
+            }
+        }
         
     }
 }

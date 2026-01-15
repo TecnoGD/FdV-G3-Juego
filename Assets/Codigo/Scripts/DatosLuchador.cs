@@ -36,6 +36,9 @@ namespace Codigo.Scripts
 
     public enum Comportamiento
     {
-        Generico
+        Generico,
+        Bruto,
+        Berserker,
+        Tactico
     }
 }
