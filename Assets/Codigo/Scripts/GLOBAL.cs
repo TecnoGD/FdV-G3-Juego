@@ -47,7 +47,7 @@ public class GLOBAL : MonoBehaviour
         acciones = ListaAccionesTotales;
         combatientes = ListaDatosCombatiente;
         datosPartida = new DatosGuardado(objetivoPrueba);//SistemaGuardado.Cargar();    // Carga los datos de guardado
-        SistemaGuardado.Cargar();
+        //SistemaGuardado.Cargar();
         DatosGuardado = (DatosGuardado)datosPartida.Clone();
         Configuracion =  new DatosConfig();
         ListasDeEquipamientos = new [] {listaArmasTotal, listaArmaduraTotal,  listaZapatosTotal, listaAccesoriosTotal};

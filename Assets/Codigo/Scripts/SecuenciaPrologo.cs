@@ -35,7 +35,7 @@ public class SecuenciaPrologo : MonoBehaviour
 
         if (GLOBAL.instance != null && GLOBAL.instance.Jugador != null)
         {
-            GLOBAL.instance.Jugador.gameObject.SetActive(false);
+            GLOBAL.instance.Jugador.gameObject.SetActive(true);
         }
 
         // Iniciamos la secuencia

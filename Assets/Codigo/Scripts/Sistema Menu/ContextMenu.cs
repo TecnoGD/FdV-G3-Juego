@@ -27,5 +27,20 @@ namespace Codigo.Scripts.Sistema_Menu
         {
             NewMenuSystem.SiguienteMenu(MenuObjetos.Instancia.menuObjetosEquipados);
         }
+
+        public void Usar()
+        {
+            ((ObjetoCurativo)MenuObjetos.Instancia.objetoSeleccionado.objetoConsumible.objeto).UsoFueraCombate(GLOBAL.instance.Jugador);
+            var indice =
+                GLOBAL.instance.Jugador.listaObjetos.IndexOf(MenuObjetos.Instancia.objetoSeleccionado.objetoConsumible);
+            var objeto = GLOBAL.instance.Jugador.listaObjetos[indice];
+            objeto.cantidad--;
+            if (objeto.cantidad <= 0)
+            {
+                GLOBAL.instance.Jugador.listaObjetos.Remove(objeto);
+            }
+
+            NewMenuSystem.MenuAnterior();
+        }
     }
 }

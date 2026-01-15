@@ -2,6 +2,7 @@
 using Codigo.Scripts.Sistema_Menu;
 using UnityEngine;
 using TMPro;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace Codigo.Scripts
@@ -52,7 +53,13 @@ namespace Codigo.Scripts
         void Update()
         {
             // Si estamos en dialogo y pulsamos F
-            if (enDialogo && usarInputInterno && Input.GetKeyDown(KeyCode.F))
+            
+        }
+
+        public void SiguienteDialogo(InputAction.CallbackContext context)
+        {
+            Debug.Log(usarInputInterno);
+            if (context.performed && enDialogo)
             {
                 SiguienteFrase();
             }
@@ -103,6 +110,7 @@ namespace Codigo.Scripts
         public void SiguienteFrase()
         {
             // si ya no quedan frases en la cola, cerramos el dialogo
+            GLOBAL.instance.clickMenuSonido.Play();
             if (colaFrases.Count == 0)
             {
                 TerminarDialogo();

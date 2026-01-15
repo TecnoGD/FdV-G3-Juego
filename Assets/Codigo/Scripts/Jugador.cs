@@ -100,10 +100,6 @@ public class Jugador : MonoBehaviour
             sistemaInteraccion.DetectarInteraccion();
             
         }
-        else if (hablando && Input.GetKeyDown(KeyCode.F))
-        {
-            SistemaDialogo.instance.SiguienteFrase();
-        }
         else
         {
             if (!andando) return;

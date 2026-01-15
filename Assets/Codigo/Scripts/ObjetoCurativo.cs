@@ -17,8 +17,20 @@ namespace Codigo.Scripts
 
         public override void Ejecutar(List<Luchador> objetivos)
         {
-            foreach(Luchador objetivo in objetivos)
+            foreach (Luchador objetivo in objetivos)
+            {
                 objetivo.vida +=  valorCurativo; 
+                if(objetivo.vida > objetivo.estadisticas.vidaMax)
+                    objetivo.vida = objetivo.estadisticas.vidaMax;
+            }
+                
+        }
+
+        public void UsoFueraCombate(Jugador jugador)
+        {
+            jugador.vida += valorCurativo;
+            if(jugador.vida > jugador.estadisticasEfectivas.vidaMax)
+                jugador.vida = jugador.estadisticasEfectivas.vidaMax;
         }
 
     }
