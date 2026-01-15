@@ -558,6 +558,7 @@ GameObject:
   m_Component:
   - component: {fileID: 701265224}
   - component: {fileID: 701265225}
+  - component: {fileID: 701265226}
   m_Layer: 0
   m_Name: Director_Prologo
   m_TagString: Untagged
@@ -607,6 +608,14 @@ MonoBehaviour:
   - "No importa, tu prop\xF3sito comienza ahora"
   - "\xA1Adelante!"
   nombreEscenaJuego: SalaB
+--- !u!81 &701265226
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 701265222}
+  m_Enabled: 1
 --- !u!1 &743353503
 GameObject:
   m_ObjectHideFlags: 0

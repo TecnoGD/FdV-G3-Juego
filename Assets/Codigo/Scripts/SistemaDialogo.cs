@@ -109,7 +109,7 @@ namespace Codigo.Scripts
         public void SiguienteFrase()
         {
             // si ya no quedan frases en la cola, cerramos el dialogo
-            GLOBAL.instance.clickMenuSonido.Play();
+            GLOBAL.instance.clickMenuSonido.PlayOneShot(GLOBAL.instance.clickMenuSonido.clip);
             if (colaFrases.Count == 0)
             {
                 TerminarDialogo();

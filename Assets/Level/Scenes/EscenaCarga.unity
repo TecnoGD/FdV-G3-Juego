@@ -2984,6 +2984,7 @@ MonoBehaviour:
   recordarUltimoSeleccionado: 0
   bloqueaVolver: 0
   bloquearAutoSeleccionado: 0
+  reproduceSonidoMenu: 0
   defaultElementFocus: {fileID: 527001597}
   lastElementFocus: {fileID: 0}
   elementosGraficos: []
@@ -3408,7 +3409,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 9c581d9774dde9d4f8bc8a88fcaa7f19, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -3420,9 +3421,9 @@ AudioSource:
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
-  BypassEffects: 0
+  BypassEffects: 1
   BypassListenerEffects: 0
-  BypassReverbZones: 0
+  BypassReverbZones: 1
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -4545,6 +4546,7 @@ MonoBehaviour:
   recordarUltimoSeleccionado: 0
   bloqueaVolver: 0
   bloquearAutoSeleccionado: 0
+  reproduceSonidoMenu: 0
   defaultElementFocus: {fileID: 448179129}
   lastElementFocus: {fileID: 0}
   elementosGraficos: []
@@ -6236,6 +6238,7 @@ MonoBehaviour:
   recordarUltimoSeleccionado: 1
   bloqueaVolver: 0
   bloquearAutoSeleccionado: 0
+  reproduceSonidoMenu: 0
   defaultElementFocus: {fileID: 1599448609}
   lastElementFocus: {fileID: 0}
   elementosGraficos: []
@@ -9663,6 +9666,7 @@ MonoBehaviour:
   recordarUltimoSeleccionado: 0
   bloqueaVolver: 0
   bloquearAutoSeleccionado: 0
+  reproduceSonidoMenu: 0
   defaultElementFocus: {fileID: 1088025835}
   lastElementFocus: {fileID: 0}
   elementosGraficos: []
@@ -9923,6 +9927,7 @@ MonoBehaviour:
   recordarUltimoSeleccionado: 1
   bloqueaVolver: 0
   bloquearAutoSeleccionado: 0
+  reproduceSonidoMenu: 1
   defaultElementFocus: {fileID: 456016541}
   lastElementFocus: {fileID: 0}
   elementosGraficos: []
@@ -12108,6 +12113,7 @@ MonoBehaviour:
   recordarUltimoSeleccionado: 0
   bloqueaVolver: 0
   bloquearAutoSeleccionado: 0
+  reproduceSonidoMenu: 0
   defaultElementFocus: {fileID: 800764537}
   lastElementFocus: {fileID: 0}
   elementosGraficos: []
@@ -12540,6 +12546,7 @@ MonoBehaviour:
   recordarUltimoSeleccionado: 0
   bloqueaVolver: 0
   bloquearAutoSeleccionado: 0
+  reproduceSonidoMenu: 0
   defaultElementFocus: {fileID: 814813431}
   lastElementFocus: {fileID: 0}
   elementosGraficos: []
@@ -14232,6 +14239,7 @@ MonoBehaviour:
   recordarUltimoSeleccionado: 0
   bloqueaVolver: 0
   bloquearAutoSeleccionado: 1
+  reproduceSonidoMenu: 0
   defaultElementFocus: {fileID: 0}
   lastElementFocus: {fileID: 0}
   elementosGraficos: []
@@ -14464,6 +14472,8 @@ GameObject:
   - component: {fileID: 1091521848}
   - component: {fileID: 1091521843}
   - component: {fileID: 1091521847}
+  - component: {fileID: 1091521849}
+  - component: {fileID: 1091521850}
   m_Layer: 0
   m_Name: Modelo
   m_TagString: Luchador Jugador
@@ -14594,7 +14604,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1973773581, guid: 5268cdc0412e76f4b8b299a8a4330a3f, type: 3}
+  m_Sprite: {fileID: 1153000446, guid: 8a1f3655cbfdcf0438a2aab246be2fb0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -14605,6 +14615,122 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!82 &1091521849
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1091521838}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 847524845098358400, guid: 995bf0aa6e919d740b9994f8587e765a, type: 2}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.3
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &1091521850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1091521838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7df52566869544dfb074b8d5a632b458, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Scripts::Codigo.Scripts.Pasos
+  clipsPasos:
+  - {fileID: 8300000, guid: c211135e890ace144949c0613e0a7d50, type: 3}
+  - {fileID: 8300000, guid: 791215fbeeb69c340a2545a120d8e7d4, type: 3}
+  - {fileID: 8300000, guid: 5fa0012b9a0f11549a9406346c691c4a, type: 3}
+  - {fileID: 8300000, guid: 31d2716a98969dc4e8e6493a3dc3ce0a, type: 3}
+  - {fileID: 8300000, guid: a37293e1817deef4aa1f839472c543c9, type: 3}
+  - {fileID: 8300000, guid: fb340e17bb6e357468a781e4d46f979f, type: 3}
 --- !u!1 &1112997182
 GameObject:
   m_ObjectHideFlags: 0
@@ -14640,6 +14766,7 @@ MonoBehaviour:
   recordarUltimoSeleccionado: 0
   bloqueaVolver: 0
   bloquearAutoSeleccionado: 0
+  reproduceSonidoMenu: 0
   defaultElementFocus: {fileID: 558543517}
   lastElementFocus: {fileID: 0}
   elementosGraficos: []
@@ -17009,7 +17136,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: bd50a5bbc69e3994399004243a55563d, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -17021,9 +17148,9 @@ AudioSource:
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
-  BypassEffects: 0
+  BypassEffects: 1
   BypassListenerEffects: 0
-  BypassReverbZones: 0
+  BypassReverbZones: 1
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -17815,6 +17942,7 @@ MonoBehaviour:
   recordarUltimoSeleccionado: 1
   bloqueaVolver: 0
   bloquearAutoSeleccionado: 0
+  reproduceSonidoMenu: 0
   defaultElementFocus: {fileID: 395176180}
   lastElementFocus: {fileID: 0}
   elementosGraficos: []
@@ -18244,6 +18372,7 @@ MonoBehaviour:
   recordarUltimoSeleccionado: 1
   bloqueaVolver: 0
   bloquearAutoSeleccionado: 0
+  reproduceSonidoMenu: 0
   defaultElementFocus: {fileID: 0}
   lastElementFocus: {fileID: 0}
   elementosGraficos: []
@@ -19009,7 +19138,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 88b71c3fd727eff4b979a012ff359054, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -19021,9 +19150,9 @@ AudioSource:
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
-  BypassEffects: 0
+  BypassEffects: 1
   BypassListenerEffects: 0
-  BypassReverbZones: 0
+  BypassReverbZones: 1
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:

@@ -32,7 +32,7 @@ namespace Codigo.Scripts
 
         public DatosGuardado(ObjetoConsumible obj)
         {
-            estadisticasJugador = new DatosCombate.Estadisticas(50, 50, 20, 10, 1);
+            estadisticasJugador = new DatosCombate.Estadisticas(50, 10, 10, 10, 5);
             vida = estadisticasJugador.vidaMax;
             id = 5;
             accionesJugador = new List<int>(new int[] {0,1,2});

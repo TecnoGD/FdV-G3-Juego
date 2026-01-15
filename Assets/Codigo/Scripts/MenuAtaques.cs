@@ -38,10 +38,10 @@ public class MenuAtaques : Menu
             botones.Add(newButton);
         }
         // Crea e instancia el boton del volver al anterior menu
-        GameObject botonAtras = Instantiate(prefabBotonAtras, contenedoresDeSeleccionables[0]);
+        //GameObject botonAtras = Instantiate(prefabBotonAtras, contenedoresDeSeleccionables[0]);
         
         // Añade también el botón "Atrás" a la lista de navegación
-        botones.Add(botonAtras);
+        //botones.Add(botonAtras);
         defaultElementFocus = botones[0].GetComponent<Selectable>();
         // Llamamos a nuestro script que configura la navegación Automática
         foreach (GameObject button in botones)

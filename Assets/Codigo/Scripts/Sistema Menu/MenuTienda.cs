@@ -28,6 +28,9 @@ namespace Codigo.Scripts.Sistema_Menu
             var camara = Camera.main.GetComponent<CamaraSeguimiento>();
             var objetivoActual = camara.ObtenerObjetivo().position;
             objetivoActual.x += 5;
+            camara.diferencia.x = 0;
+            camara.diferencia.y = 0;
+            camara.diferencia.z = 0;
             camara.EnfocarPuntoPosicion(objetivoActual);
             ActualizarDinero();
         }

@@ -51,9 +51,9 @@ namespace Codigo.Scripts
                     listaNavegacion.Add(toggle);
                 }
                 // añadimos el botón atrás a la lista de navegación tmb
-                GameObject botonAtras = Instantiate(prefabBotonAtras, contenedoresDeSeleccionables[0]);
-                listaNavegacion.Add(botonAtras);
-                defaultElementFocus = listaNavegacion[0].GetComponent<Selectable>();
+                //GameObject botonAtras = Instantiate(prefabBotonAtras, contenedoresDeSeleccionables[0]);
+                //listaNavegacion.Add(botonAtras);
+                lastElementFocus = listaNavegacion[0].GetComponent<Selectable>();
                 
                 // Llamamos a nuestro script que configura la navegación Automatica
                 foreach (GameObject toggle in listaNavegacion)
@@ -154,7 +154,7 @@ namespace Codigo.Scripts
                 // Obtiene a los hijos del objeto asociado y analiza los valores de los toggle para saber
                 // si se ha seleccionado a ese objetivo
                 // se resta -1 a la cantidad de hijos para evitar el boton de ir al anterior menu
-                for (int i = 0; i < contenedoresDeSeleccionables[0].childCount-1; i++)
+                for (int i = 0; i < contenedoresDeSeleccionables[0].childCount; i++)
                 {
                     if (contenedoresDeSeleccionables[0].GetChild(i).GetComponent<Toggle>().isOn) // Se comprueba el valor del toggle
                     {

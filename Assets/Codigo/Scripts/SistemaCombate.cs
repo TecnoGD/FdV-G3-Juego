@@ -43,6 +43,7 @@ namespace Codigo.Scripts
         public AudioSource audienciaAudio;
         public AudioSource victoriaAudio;
         public AudioSource derrotaAudio;
+        public AudioSource fondoAudio;
 
         // Inicializa lo necesario para el combate
         void Start()
@@ -50,7 +51,8 @@ namespace Codigo.Scripts
             if (GLOBAL.datosPartida.actoActual != 3)
             {
                 audienciaAudio.Play();
-                audienciaAudio.volume = 1f;
+                fondoAudio.Play();
+                audienciaAudio.volume = 0.3f;
             }
             instance = this;
             gameObject.SetActive(false);
@@ -347,6 +349,7 @@ namespace Codigo.Scripts
             GLOBAL.enCombate = false;
             NewMenuSystem.Reinicializar();
             GLOBAL.instance.Jugador.vida = jugador.vida;
+            _camaraSeguimiento.diferencia.y = 0;
             
             // al acabar el combate volvemos a enfocar el jugador la cámara
             CamaraSeguimiento cam = Camera.main.GetComponent<CamaraSeguimiento>();
@@ -374,6 +377,7 @@ namespace Codigo.Scripts
 
         public void CambioEnfoqueCamara(Transform cam = null, int indiceSeleccionado = -1)
         {
+            _camaraSeguimiento.diferencia.y = !cam ? 0 : -2; 
             _camaraSeguimiento.EnfocarPuntoCombate(cam == null ? CamaraCombate : cam);
             if (previoObjetivoSeleccionado != -1)
                 TextoVidas[previoObjetivoSeleccionado].gameObject.SetActive(false);

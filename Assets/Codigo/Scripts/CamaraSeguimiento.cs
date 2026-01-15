@@ -14,6 +14,7 @@ namespace Codigo.Scripts
 
         public float suavizado = 0.125f;
         public Vector3 offset = new Vector3(0f, 10f, -8f);
+        public Vector3 diferencia = new Vector3(0f, 0f, 0f);
 
         public bool activarLimites = true;
         public Vector2 limitesX;
@@ -120,7 +121,7 @@ namespace Codigo.Scripts
 
         private IEnumerator CambioPosicionCamara()
         {
-            Vector3 sitioDeseado = objetivoCoordenadas + offset;
+            Vector3 sitioDeseado = objetivoCoordenadas + offset + diferencia;
             var distancia = Vector3.Distance(transform.position, sitioDeseado);
             // mide cuan lejos esta la camara del destino
             while (distancia > 0.001f)

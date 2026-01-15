@@ -70,7 +70,6 @@ namespace Codigo.Scripts.Sistema_Menu
                 return menuADesactivar;
             }
                 
-            
             _currentMenu = _pilaMenus.Pop();
             _currentMenu.AbreMenu();
             

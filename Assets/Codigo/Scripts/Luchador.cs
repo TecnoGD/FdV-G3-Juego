@@ -127,6 +127,7 @@ namespace Codigo.Scripts
             {
                 var danio = CalcularDaño(objetivosSeleccionados[i], GLOBAL.acciones[accion].ObtenerPotencia(i),
                     GLOBAL.acciones[accion].ObtenerTipo());
+                
                 objetivosSeleccionados[i].RecibeDaño(danio);
                 if (accion >= 0 && GLOBAL.acciones[accion] as AtaqueConHitBack)
                 {
@@ -154,7 +155,7 @@ namespace Codigo.Scripts
             };
             //objetivosSeleccionados[i].RecibeDaño((int)((acc.ObtenerPotencia(i)*estadisticaAtaque*0.5f)/(defensaObjetivo*10f)));
             //Debug.Log((int)((acc.ObtenerPotencia(i)*estadisticaAtaque*0.5f)/(defensaObjetivo*10f)));
-            danio = Random.Range(0.9f, 1.1f) * (estadisticaAtaque * (100f / (100f + defensaObjetivo)));
+            danio = Random.Range(0.85f, 1.1f) * ((estadisticaAtaque * potencia * 10f / (50f * defensaObjetivo)));
             //Debug.Log((int)danio);
             return (int)danio;
         }
@@ -206,6 +207,7 @@ namespace Codigo.Scripts
             {
                 ((AtaqueConEfectoSecundario)GLOBAL.acciones[accion]).AplicarEfectoSecundario(SistemaCombate.instance.jugador, objetivosSeleccionados);
             }
+            Debug.Log("yesy");
             
             ExecuteEvents.Execute<IMensajesCombate>(SistemaCombate.instance.gameObject, null,
                 (x, y) => { x.FinAccion(); });

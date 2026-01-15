@@ -35,7 +35,7 @@ public class SecuenciaPrologo : MonoBehaviour
 
         if (GLOBAL.instance != null && GLOBAL.instance.Jugador != null)
         {
-            GLOBAL.instance.Jugador.gameObject.SetActive(true);
+            GLOBAL.instance.Jugador.gameObject.SetActive(false);
         }
 
         // Iniciamos la secuencia
@@ -70,7 +70,7 @@ public class SecuenciaPrologo : MonoBehaviour
         if (string.IsNullOrEmpty(inputNombre.text)) return;
 
         // A. Guardamos el nombre
-        if(GLOBAL.instance != null) // Pequeña protección
+        if(GLOBAL.instance != null) // Pequeña protecciónf
         {
              GLOBAL.datosPartida.nombreJugador = inputNombre.text;
              

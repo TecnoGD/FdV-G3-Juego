@@ -14,6 +14,7 @@ namespace Codigo.Scripts.Sistema_Menu
         public bool recordarUltimoSeleccionado;
         public bool bloqueaVolver;
         public bool bloquearAutoSeleccionado;
+        public bool reproduceSonidoMenu;
         public Selectable defaultElementFocus;
         public Selectable lastElementFocus;
         public GameObject[] elementosGraficos; 
@@ -28,6 +29,9 @@ namespace Codigo.Scripts.Sistema_Menu
         {
             PrecargaMenu();
             CambiarEstadoSeleccionables(true);
+            if (reproduceSonidoMenu && !gameObject.activeSelf)
+                GLOBAL.instance.abrirMenuSonido.PlayOneShot(GLOBAL.instance.abrirMenuSonido.clip);
+            
             MostrarMenu();
             if (!bloquearAutoSeleccionado)
             {
@@ -39,10 +43,6 @@ namespace Codigo.Scripts.Sistema_Menu
                     defaultElementFocus?.Select();
             }
 
-            if (NewMenuSystem._pilaMenus.Count == 0&&!NewMenuSystem.DentroDeUnMenu())
-            {
-                GLOBAL.instance.abrirMenuSonido.Play();
-            }
             AccionPorDefecto();
         }
 

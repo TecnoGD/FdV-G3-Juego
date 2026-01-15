@@ -22,12 +22,13 @@ namespace Codigo.Scripts
 
         public virtual void OnSelect(BaseEventData eventData)
         {
-            GLOBAL.instance.hoverMenuSonido.Play();
+            GLOBAL.instance.hoverMenuSonido.PlayOneShot(GLOBAL.instance.hoverMenuSonido.clip);
+            
         }
 
         public virtual void OnSubmit(BaseEventData eventData)
         {
-            GLOBAL.instance.clickMenuSonido.Play();
+            GLOBAL.instance.clickMenuSonido.PlayOneShot(GLOBAL.instance.clickMenuSonido.clip);
         }
     }
 }
